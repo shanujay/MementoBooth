@@ -24,5 +24,5 @@ MementoBooth is a web-based photo booth application that allows users to capture
 4.	Download the final photo strip.
 
 ## 🎥 Demo
-
+Check out the live demo: [MementoBooth](https://shanujay.github.io/MementoBooth/index.html)
 

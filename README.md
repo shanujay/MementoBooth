@@ -13,11 +13,9 @@ MementoBooth is a web-based photo booth application that allows users to capture
 -  *Frontend*: HTML, CSS, JavaScript
 
 ## Setup and Installation
-1.	Clone the repository: 
-2.	git clone https://github.com/your-username/photobooth-app.git
-3.	Navigate to the project folder: 
-4.	cd photobooth-app
-5.	Open index.html in a browser or use Live Server in VS Code.
+1.	Clone the repository
+2.	Navigate to the project folder
+3.	Open index.html in a browser or use Live Server in VS Code.
 
 ## How to Use
 1.	Allow camera permissions when prompted.

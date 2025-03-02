@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Booth</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+    <audio id="hoverSound">
+        <source src="assets/music/bubble-sound.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="clickSound">
+        <source src="assets/music/shine-sound.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="cameraSound">
+        <source src="assets/music/camera-sound.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="topnav">
+        <img src="assets/img/logo.png" id="logo">
+    </div>
+    
+    <!-- Main Container -->
+    <div class="container-main">
+
+        <!-- Frame Selection -->
+        <div id="templateSelection">
+            <div class="frames">
+                <img src="assets/template/frame1.png" class="frame-option" data-frame="frame1.png">
+                <img src="assets/template/frame2.png" class="frame-option" data-frame="frame2.png">
+                <img src="assets/template/frame3.png" class="frame-option" data-frame="frame3.png">
+                <img src="assets/template/frame4.png" class="frame-option" data-frame="frame4.png">
+                <img src="assets/template/frame5.png" class="frame-option" data-frame="frame5.png">
+                <img src="assets/template/frame6.png" class="frame-option" data-frame="frame6.png">
+            </div>
+        </div>
+
+        <!-- Photo Booth -->
+        <div id="photoBooth" class="hidden">
+
+            <!-- Camera -->
+            <video id="video" width="420" height="340" autoplay></video>
+            <!-- Photo Count Display -->
+            <p id="photoCountDisplay"></p>
+
+            <!-- Take a Snap Btn -->
+            <img src="assets/img/snap_btn.png" id="takeSnapBtn" class="hidden">
+        </div>
+
+
+
+        <!-- Second Container -->
+        <div class="container-second hidden" id="stripDownload">
+
+            <!-- Photo Strip Container -->
+            <div id="photoStripContainer" class="hidden">
+                <!-- Canvas -->
+                <canvas id="canvas"></canvas>
+
+            </div>
+
+            <div id="downloadContainer" class="hidden">
+
+                <div id="downloadInfo" class="hidden">
+                    <img src="assets/img/download_info.png">
+                </div>
+                <!-- Download Btn -->
+                <img src="assets/img/download_btn.png" id="download" class="hidden">
+            </div>
+
+        </div>
+
+        <img src="assets/img/girl_1.png" id="girlImg" class="hidden">
+
+
+
+    </div>
+
+
+    <!-- Thanks Section -->
+    <img src="assets/img/thanks_img.png" id="thanksImage" class="hidden">
+    <img src="assets/img/girl_2.png" id="girlImg2" class="hidden">
+
+
+    <!-- JS Link -->
+    <script src="assets/js/script.js"></script>
+
+</body>
+</html>

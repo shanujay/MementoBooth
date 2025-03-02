@@ -1,0 +1,182 @@
+/*      Body Styles     */
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background-image: url('../img/booth_bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    background-attachment: fixed;
+}
+
+
+.container-main {
+    display: flex; /* Enable flexbox */
+    flex-direction: column;
+}
+
+
+/*      Top Nav Styles      */
+.topnav {
+    background-color: rgba(255, 255, 255, 0);
+    overflow: hidden;
+    padding-left: 20px;
+    margin: 0;
+}
+
+#logo {
+    height: 100px;
+    float: left;
+}
+
+
+/*      Hidden Class        */
+.hidden {
+    display: none;
+    position: absolute;
+    visibility: hidden;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+}
+
+
+
+
+/*      Frames Selection Styles     */
+.frames img {
+    width: 120px;
+    margin: 10px;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.frames img:hover {
+    border-color: #333;
+}
+
+
+/*      Video Styles        */
+video {
+    display: block;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.5); /* Transparent white (alpha 0.5) */
+    padding: 50px;
+    margin-top: 20px;
+    border-radius: 20px;
+    border: 1px solid black; /* Black border */
+}
+
+/*      Photo Count Display Styles      */
+#photoCountDisplay {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/*      Canvas  Styles      */
+canvas {
+    border: 5px solid black;
+    margin-top: 10px;
+}
+
+
+
+/*      Canvas Styles       */
+#canvas {
+    transform: scale(0.25); /* Adjust the scale factor as needed */
+    transform-origin: top center; /* Ensures it scales from the top center */
+}
+
+
+/*      Template Selection Styles       */
+#templateSelection {
+    background-color: rgba(255, 255, 255, 0.5); /* Transparent white (alpha 0.5) */
+    margin-bottom: 50px;
+    margin-left: 80px;
+    margin-right: 80px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 20px;
+}
+
+
+/*      Take a Snap Btn Styles      */
+#takeSnapBtn {
+    cursor: pointer; /* Makes it look like a clickable button */
+    padding: 0;
+    margin-top: 5px;
+    border: none;
+    width: 170px; /* Adjust size as needed */
+    height: auto;
+}
+
+#takeSnapBtn:hover {
+    transform: scale(1.1);
+}
+
+
+/*      Download Btn Styles      */
+#download {
+    cursor: pointer; /* Makes it look like a clickable button */
+    padding: 0;
+    margin: 20px;
+    border: none;
+    width: 170px; /* Adjust size as needed */
+    height: auto;
+}
+
+#download:hover {
+    transform: scale(1.1);
+}
+
+
+
+/*      Container Second Styles     */
+/* Container Second: Aligns Strip & Decoration Side by Side */
+
+.container-second {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    margin-top: 20px;
+}
+
+#girlImg {
+    position: absolute;
+    bottom: 20px; /* Distance from the bottom of the page */
+    right: 50px; /* Distance from the right of the page */
+    max-height: 300px; /* Set a max height */
+    width: auto; /* Maintain the aspect ratio */
+    object-fit: contain; /* Ensures the image fits without distortion */
+    position: fixed;
+}
+
+
+#downloadInfo img {
+    width: 300px;
+    height: auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50px;
+}
+
+#downloadContainer {
+    justify-content: center;
+    align-items: center;
+}
+
+
+#thanksImage {
+    width: 500px;
+    height: auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+}
+
+#girlImg2 {
+    width: 250px;
+    height: auto;
+}

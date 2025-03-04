@@ -24,21 +24,17 @@ let photos = [];
 document.querySelectorAll(".frame-option").forEach(frame => {
     frame.addEventListener("click", function () {
         selectedFrame = this.getAttribute("data-frame");
-
         hoverSound.play();
-
-        // Hide template selection and show the camera
         templateSelection.classList.add("hidden");
         photoBooth.classList.remove("hidden");
-
         startCamera();
     });
 });
 
-// Start Camera with Fixed Resolution
+// Start Camera 
 function startCamera() {
     navigator.mediaDevices.getUserMedia({
-        video: { width: 1280, height: 720 } // Request 1280x720 resolution
+        video: { width: 1280, height: 720 }
     })
     .then(stream => {
         video.srcObject = stream;
@@ -65,7 +61,7 @@ takeSnapBtn.addEventListener("click", async () => {
         // Play camera sound
         cameraSound.play();
 
-        await capturePhotoExactSize(400, 550); // Ensure correct capture
+        await capturePhotoExactSize(400, 550);
         console.log(`Captured photo ${photoCount}`);
         photoCount++;
 
@@ -74,6 +70,7 @@ takeSnapBtn.addEventListener("click", async () => {
 
     console.log("All photos captured:", photos);
 
+    // Removing Hidden Class
     video.classList.add("hidden");
     photoCountDisplay.classList.add("hidden");
     photoStripContainer.classList.remove("hidden");
@@ -99,58 +96,47 @@ async function capturePhotoExactSize(width, height) {
     let tempCanvas = document.createElement("canvas");
     let tempCtx = tempCanvas.getContext("2d");
 
-    // Get the video feed dimensions
     let videoWidth = video.videoWidth;
     let videoHeight = video.videoHeight;
 
-    // Determine the cropping area (center-crop the image)
     let aspectRatioVideo = videoWidth / videoHeight;
     let aspectRatioTarget = width / height;
 
     let sx, sy, sWidth, sHeight;
 
     if (aspectRatioVideo > aspectRatioTarget) {
-        // Video is wider than target aspect ratio -> Crop sides
         sHeight = videoHeight;
         sWidth = sHeight * aspectRatioTarget;
         sx = (videoWidth - sWidth) / 2;
         sy = 0;
     } else {
-        // Video is taller than target aspect ratio -> Crop top and bottom
         sWidth = videoWidth;
         sHeight = sWidth / aspectRatioTarget;
         sx = 0;
         sy = (videoHeight - sHeight) / 2;
     }
 
-    // Set canvas to target dimensions
     tempCanvas.width = width;
     tempCanvas.height = height;
 
-    // Draw the cropped video frame onto the canvas
     tempCtx.drawImage(video, sx, sy, sWidth, sHeight, 0, 0, width, height);
 
-    // Convert canvas to image and store it
     let imageDataUrl = tempCanvas.toDataURL("image/png");
     photos.push(imageDataUrl);
 }
 
 // Generate Final Strip
 function generatePhotoStrip() {
-    // Set canvas width and height based on the frame dimensions
-    const canvasWidth = 400 + 100;  // 400px for the photos + 50px space on both sides (left and right)
-    const canvasHeight = 550 * 3 + 50 * 2 + 200; // Total photo height + spacing + bottom space
+    const canvasWidth = 400 + 100;
+    const canvasHeight = 550 * 3 + 50 * 2 + 200;
 
-    // Set the canvas dimensions
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
-    // Set space for the photos
-    let yOffset = 40;  // Space from top (50px)
+    let yOffset = 40;
 
-    // Set photo width and height
-    const photoWidth = 400;  // Each photo width
-    const photoHeight = 550; // Each photo height
+    const photoWidth = 400;
+    const photoHeight = 550;
 
     let loadedPhotos = 0;
 
@@ -159,13 +145,11 @@ function generatePhotoStrip() {
         img.src = photo;
 
         img.onload = () => {
-            // Draw the resized photo on the canvas
             ctx.drawImage(img, 50, yOffset, photoWidth, photoHeight);
-            yOffset += photoHeight + 40;  // Add 50px space between photos
+            yOffset += photoHeight + 40;
 
             loadedPhotos++;
 
-            // Once all photos are loaded, draw the frame on top
             if (loadedPhotos === photos.length) {
                 drawFrameOnTop();
             }
@@ -176,19 +160,18 @@ function generatePhotoStrip() {
 // Function to draw the selected frame on top of the photos
 function drawFrameOnTop() {
     const frameImg = new Image();
-    frameImg.crossOrigin = "anonymous"; // Fix potential CORS issues
+    frameImg.crossOrigin = "anonymous";
     frameImg.src = `assets/template/${selectedFrame}`;
 
     frameImg.onload = () => {
         console.log("Frame loaded successfully");
         ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
-        downloadBtn.classList.remove("hidden"); // Show download button
+        downloadBtn.classList.remove("hidden");
         console.log("Download button should be visible now");
     };
 
     frameImg.onerror = () => {
         console.error("Failed to load frame image. Check the file path.");
-        // If frame fails, still show download button for debugging
         downloadBtn.classList.remove("hidden"); 
     };
 
@@ -198,7 +181,6 @@ function drawFrameOnTop() {
     console.log("Download button should be visible now");
 
 }
-
 
 // Download Photo Strip
 downloadBtn.addEventListener("click", () => {
@@ -217,6 +199,6 @@ downloadBtn.addEventListener("click", () => {
     }, 1000);
 
     setTimeout(() => {
-        window.location.href = "index.html"; // Navigate to booth.html
-    }, 20000); // 10000 milliseconds = 10 seconds
+        window.location.href = "index.html";
+    }, 20000);
 });

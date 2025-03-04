@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photo Booth</title>
+    <!-- Favicon Link -->
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <!-- CSS Link -->
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
+
 <body>
 
+    <!-- Audio Element -->
     <audio id="hoverSound">
         <source src="assets/music/bubble-sound.mp3" type="audio/mpeg">
     </audio>
@@ -21,10 +26,11 @@
         <source src="assets/music/camera-sound.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- Top Nav Bar -->
     <div class="topnav">
         <img src="assets/img/logo.png" id="logo">
     </div>
-    
+
     <!-- Main Container -->
     <div class="container-main">
 
@@ -42,42 +48,35 @@
 
         <!-- Photo Booth -->
         <div id="photoBooth" class="hidden">
-
             <!-- Camera -->
             <video id="video" width="420" height="340" autoplay></video>
             <!-- Photo Count Display -->
             <p id="photoCountDisplay"></p>
-
             <!-- Take a Snap Btn -->
             <img src="assets/img/snap_btn.png" id="takeSnapBtn" class="hidden">
         </div>
 
-
-
         <!-- Second Container -->
         <div class="container-second hidden" id="stripDownload">
-
             <!-- Photo Strip Container -->
             <div id="photoStripContainer" class="hidden">
                 <!-- Canvas -->
                 <canvas id="canvas"></canvas>
-
             </div>
 
+            <!-- Download Container -->
             <div id="downloadContainer" class="hidden">
-
+                <!-- Download Info Img -->
                 <div id="downloadInfo" class="hidden">
                     <img src="assets/img/download_info.png">
                 </div>
                 <!-- Download Btn -->
                 <img src="assets/img/download_btn.png" id="download" class="hidden">
             </div>
-
         </div>
 
+        <!-- Image -->
         <img src="assets/img/girl_1.png" id="girlImg" class="hidden">
-
-
 
     </div>
 
@@ -91,4 +90,5 @@
     <script src="assets/js/script.js"></script>
 
 </body>
+
 </html>

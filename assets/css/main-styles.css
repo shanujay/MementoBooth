@@ -10,17 +10,14 @@ body {
     transition: background 0.8s ease-in-out;
 }
 
-
-
 /*      Main Container Styles       */
 .container-main {
-    display: flex; /* Enable flexbox */
+    display: flex;
     flex-direction: column;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    height: 90vh; /* Full screen height */
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
 }
-
 
 /*      Main Title Styles          */
 .main-title {
@@ -32,38 +29,35 @@ body {
 
 /*      Start Btn Styles        */
 .start-btn {
-    display: inline-block; /* Makes the div behave like an inline element */
-    cursor: pointer; /* Makes it look like a clickable button */
+    display: inline-block;
+    cursor: pointer;
     padding: 0;
-    border: none; /* Remove default border */
+    border: none;
 }
-
-
 .start-btn img {
-    width: 150px; /* Adjust size as needed */
+    width: 150px;
     height: auto;
-    transition: transform 0.3s ease-in-out; /* Smooth scaling effect */
+    transition: transform 0.3s ease-in-out;
 }
-
 .start-btn:hover img {
-    transform: scale(1.1); /* Slightly enlarge the image on hover */
+    transform: scale(1.1);
 }
 
 
-/*      Hidden Class        */
+/*      Hidden Class Styles        */
 .hidden {
-    display: none !important; /* Force it to hide */
+    display: none !important;
 }
 
 
 /*      Intro Girl Styles       */
 #introGirl {
     position: absolute;
-    bottom: 20px; /* Distance from the bottom of the page */
-    left: 50px; /* Distance from the right of the page */
-    max-height: 400px; /* Set a max height */
-    width: auto; /* Maintain the aspect ratio */
-    object-fit: contain; /* Ensures the image fits without distortion */
+    bottom: 20px;
+    left: 50px;
+    max-height: 400px;
+    width: auto;
+    object-fit: contain;
 }
 
 /*      Intro Image Styles      */
@@ -75,21 +69,17 @@ body {
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 20px;
 }
-
-
 .introduction-container {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: 100vh; /* Adjust as needed */
+    height: 100vh;
 }
-
 #introduction {
-    flex: 1; /* Each section takes equal space */
+    flex: 1;
     display: flex;
     margin-top: 70px;
 }
-
 #introImage {
     flex: 1;
     display: flex;

@@ -11,12 +11,11 @@ body {
     background-attachment: fixed;
 }
 
-
+/*      Main Container Styles       */
 .container-main {
-    display: flex; /* Enable flexbox */
+    display: flex;
     flex-direction: column;
 }
-
 
 /*      Top Nav Styles      */
 .topnav {
@@ -25,14 +24,12 @@ body {
     padding-left: 20px;
     margin: 0;
 }
-
 #logo {
     height: 100px;
     float: left;
 }
 
-
-/*      Hidden Class        */
+/*      Hidden Class Styles        */
 .hidden {
     display: none;
     position: absolute;
@@ -41,9 +38,6 @@ body {
     width: 0;
     overflow: hidden;
 }
-
-
-
 
 /*      Frames Selection Styles     */
 .frames img {
@@ -62,11 +56,11 @@ body {
 video {
     display: block;
     margin: auto;
-    background-color: rgba(255, 255, 255, 0.5); /* Transparent white (alpha 0.5) */
+    background-color: rgba(255, 255, 255, 0.5);
     padding: 50px;
     margin-top: 20px;
     border-radius: 20px;
-    border: 1px solid black; /* Black border */
+    border: 1px solid black;
 }
 
 /*      Photo Count Display Styles      */
@@ -81,18 +75,16 @@ canvas {
     margin-top: 10px;
 }
 
-
-
 /*      Canvas Styles       */
 #canvas {
-    transform: scale(0.25); /* Adjust the scale factor as needed */
-    transform-origin: top center; /* Ensures it scales from the top center */
+    transform: scale(0.25);
+    transform-origin: top center;
 }
 
 
 /*      Template Selection Styles       */
 #templateSelection {
-    background-color: rgba(255, 255, 255, 0.5); /* Transparent white (alpha 0.5) */
+    background-color: rgba(255, 255, 255, 0.5);
     margin-bottom: 50px;
     margin-left: 80px;
     margin-right: 80px;
@@ -104,11 +96,11 @@ canvas {
 
 /*      Take a Snap Btn Styles      */
 #takeSnapBtn {
-    cursor: pointer; /* Makes it look like a clickable button */
+    cursor: pointer;
     padding: 0;
     margin-top: 5px;
     border: none;
-    width: 170px; /* Adjust size as needed */
+    width: 170px;
     height: auto;
 }
 
@@ -119,11 +111,11 @@ canvas {
 
 /*      Download Btn Styles      */
 #download {
-    cursor: pointer; /* Makes it look like a clickable button */
+    cursor: pointer;
     padding: 0;
     margin: 20px;
     border: none;
-    width: 170px; /* Adjust size as needed */
+    width: 170px;
     height: auto;
 }
 
@@ -131,29 +123,22 @@ canvas {
     transform: scale(1.1);
 }
 
-
-
 /*      Container Second Styles     */
-/* Container Second: Aligns Strip & Decoration Side by Side */
-
 .container-second {
     display: flex;
     flex-direction: row;
     gap: 50px;
     margin-top: 20px;
 }
-
 #girlImg {
     position: absolute;
-    bottom: 20px; /* Distance from the bottom of the page */
-    right: 50px; /* Distance from the right of the page */
-    max-height: 300px; /* Set a max height */
-    width: auto; /* Maintain the aspect ratio */
-    object-fit: contain; /* Ensures the image fits without distortion */
+    bottom: 20px;
+    right: 50px;
+    max-height: 300px;
+    width: auto;
+    object-fit: contain;
     position: fixed;
 }
-
-
 #downloadInfo img {
     width: 300px;
     height: auto;
@@ -161,13 +146,10 @@ canvas {
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 50px;
 }
-
 #downloadContainer {
     justify-content: center;
     align-items: center;
 }
-
-
 #thanksImage {
     width: 500px;
     height: auto;
@@ -175,7 +157,6 @@ canvas {
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 20px;
 }
-
 #girlImg2 {
     width: 250px;
     height: auto;

@@ -413,3 +413,121 @@ canvas {
         gap: 12px;
     }
 }
+
+
+/* Frame Categories */
+#frameHeader {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    position: relative;
+
+    margin-bottom: 25px;
+
+}
+
+#frameCategories {
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit, minmax(130px, 1fr));
+
+    gap:20px;
+
+    justify-content:center;
+
+    margin-bottom:30px;
+
+}
+
+
+.category-card {
+
+    background:white;
+
+    padding:12px;
+
+    border-radius:20px;
+
+    cursor:pointer;
+
+    transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+
+}
+
+
+.category-card img {
+
+    width:100%;
+
+    aspect-ratio:1 / 1;
+
+    object-fit:cover;
+
+    border-radius:15px;
+
+}
+
+
+.category-card p {
+
+    margin:10px 0 0;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+}
+
+
+.category-card:hover {
+
+    transform:translateY(-8px);
+
+    box-shadow:
+    0 10px 20px rgba(0,0,0,0.15);
+
+}
+
+#backToCategories {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    padding: 4px;
+    border-radius: 8px;
+    cursor: pointer;
+    line-height: 0;
+    color: #000000;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+#backToCategories svg {
+    width: clamp(18px, 5vw, 24px);
+    height: auto;
+    display: block;
+    fill: currentColor;
+    transition: fill 0.2s ease;
+}
+
+#backToCategories:hover {
+    transform: translateY(-50%) scale(1.08);
+    color: #ffc62b;
+}
+
+#frameTitle {
+
+    margin: 0;
+
+    font-size: clamp(20px, 4vw, 28px);
+
+}

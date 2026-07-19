@@ -1,0 +1,77 @@
+{
+  "categories": [
+      {
+          "id": "kpop",
+          "name": "KPOP",
+          "thumbnail": "assets/template/categories/kpop.png",
+
+          "frames": [
+              {
+                  "id": "kpop_01",
+                  "name": "Pink Idol",
+                  "image": "assets/template/kpop/frame4.png"
+              },
+              {
+                  "id": "kpop_02",
+                  "name": "Concert",
+                  "image": "assets/template/kpop/frame5.png"
+              },
+              {
+                  "id": "kpop_03",
+                  "name": "KPOP Blue",
+                  "image": "assets/template/kpop/frame6.png"
+              }
+          ]
+      },
+
+
+      {
+          "id": "cartoon",
+          "name": "Cartoon",
+          "thumbnail": "assets/template/categories/cartoon.png",
+
+          "frames": [
+              {
+                  "id": "cartoon_01",
+                  "name": "Cute Cartoon",
+                  "image": "assets/template/cartoon/frame4.png"
+              },
+              {
+                  "id": "cartoon_02",
+                  "name": "Cartoon",
+                  "image": "assets/template/cartoon/frame5.png"
+              },
+              {
+                  "id": "cartoon_03",
+                  "name": "Cartoon",
+                  "image": "assets/template/cartoon/frame6.png"
+              }
+          ]
+      },
+
+
+      {
+          "id": "aesthetic",
+          "name": "Aesthetic",
+          "thumbnail": "assets/template/categories/aesthetic.png",
+
+          "frames": [
+              {
+                  "id": "aesthetic_01",
+                  "name": "Pastel Dream",
+                  "image": "assets/template/aesthetic/frame1.png"
+              },
+              {
+                  "id": "aesthetic_02",
+                  "name": "Aesthetic",
+                  "image": "assets/template/aesthetic/frame2.png"
+              },
+              {
+                  "id": "aesthetic_03",
+                  "name": "Aesthetic",
+                  "image": "assets/template/aesthetic/frame3.png"
+              }
+          ]
+      }
+  ]
+}

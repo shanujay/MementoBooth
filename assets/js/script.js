@@ -17,8 +17,143 @@ const downloadInfo = document.getElementById("downloadInfo");
 const thanksImage = document.getElementById("thanksImage");
 const girlImg2 = document.getElementById("girlImg2");
 
+// Category Buttons
+const backToCategories = document.getElementById("backToCategories");
+const frameCategories = document.getElementById("frameCategories");
+const framesContainer = document.getElementById("framesContainer");
+const frameTitle = document.getElementById("frameTitle");
+
+let templates = [];
+
 let selectedFrame = "";
 let photos = [];
+
+// Load Frame Templates
+
+fetch("assets/data/templates.json")
+.then(response => response.json())
+.then(data => {
+
+    templates = data.categories;
+
+    displayCategories();
+
+})
+.catch(error => {
+
+    console.error("Error loading templates:", error);
+
+});
+
+function displayCategories(){
+
+    frameTitle.textContent = "Choose Your Theme";
+
+    frameCategories.innerHTML = "";
+
+
+    templates.forEach(category => {
+
+
+        const card = document.createElement("div");
+
+        card.classList.add("category-card");
+
+
+        card.innerHTML = `
+
+            <img src="${category.thumbnail}">
+
+            <p>${category.name}</p>
+
+        `;
+
+
+        card.addEventListener("click",()=>{
+
+            displayFrames(category);
+
+        });
+
+
+        frameCategories.appendChild(card);
+
+
+    });
+
+}
+
+function displayFrames(category){
+
+    frameTitle.textContent = `${category.name} Frames`;
+
+    framesContainer.innerHTML = "";
+
+
+    // Hide categories
+    frameCategories.classList.add("hidden");
+
+
+    // Show frames
+    framesContainer.classList.remove("hidden");
+
+
+    // Show back button
+    backToCategories.classList.remove("hidden");
+
+
+    category.frames.forEach(frame => {
+
+
+        const img = document.createElement("img");
+
+        img.src = frame.image;
+
+        img.classList.add("frame-option");
+
+        img.dataset.frame = frame.image;
+
+
+        img.addEventListener("click",()=>{
+
+
+            selectedFrame = frame.image;
+
+
+            hoverSound.play();
+
+
+            templateSelection.classList.add("hidden");
+
+            photoBooth.classList.remove("hidden");
+
+
+            startCamera();
+
+
+        });
+
+
+        framesContainer.appendChild(img);
+
+
+    });
+
+}
+
+backToCategories.addEventListener("click",()=>{
+
+
+    framesContainer.classList.add("hidden");
+
+    frameCategories.classList.remove("hidden");
+
+    backToCategories.classList.add("hidden");
+
+
+    frameTitle.textContent = "Choose Your Theme";
+
+});
 
 // Frame selection
 document.querySelectorAll(".frame-option").forEach(frame => {
@@ -161,7 +296,7 @@ function generatePhotoStrip() {
 function drawFrameOnTop() {
     const frameImg = new Image();
     frameImg.crossOrigin = "anonymous";
-    frameImg.src = `assets/template/${selectedFrame}`;
+    frameImg.src = selectedFrame;
 
     frameImg.onload = () => {
         console.log("Frame loaded successfully");

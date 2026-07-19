@@ -5,7 +5,6 @@ MementoBooth is a web-based photo booth application that allows users to capture
 ## 🚀 Features
 -  *Photo Capture*: Users can take multiple pictures using their webcam.
 -  *Photo Strip Layout*: Automatically arranges captured images in a strip format.
--  *ustomization*: Users can adjust the number of photos per strip.
 -  *Download Option*: Save the final photo strip as an image file.
 -  *User-Friendly UI*: Simple and intuitive interface.
 

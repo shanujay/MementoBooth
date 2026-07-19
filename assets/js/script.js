@@ -23,6 +23,13 @@ const frameCategories = document.getElementById("frameCategories");
 const framesContainer = document.getElementById("framesContainer");
 const frameTitle = document.getElementById("frameTitle");
 
+// Frame Preview
+const framePreview = document.getElementById("framePreview");
+const previewTitle = document.getElementById("previewTitle");
+const previewFrameImage = document.getElementById("previewFrameImage");
+const cancelFrame = document.getElementById("cancelFrame");
+const confirmFrame = document.getElementById("confirmFrame");
+
 let templates = [];
 
 let selectedFrame = "";
@@ -116,21 +123,10 @@ function displayFrames(category){
 
         img.addEventListener("click",()=>{
 
-
-            selectedFrame = frame.image;
-
-
             hoverSound.play();
-
-
-            templateSelection.classList.add("hidden");
-
-            photoBooth.classList.remove("hidden");
-
-
-            startCamera();
-
-
+        
+            showFramePreview(frame);
+        
         });
 
 
@@ -164,6 +160,58 @@ document.querySelectorAll(".frame-option").forEach(frame => {
         photoBooth.classList.remove("hidden");
         startCamera();
     });
+});
+
+// Show Frame Preview
+function showFramePreview(frame) {
+
+    selectedFrame = frame.image;
+
+
+    // Hide frame selection
+    frameCategories.classList.add("hidden");
+    framesContainer.classList.add("hidden");
+
+
+    // Show preview
+    framePreview.classList.remove("hidden");
+
+
+    // Add frame details
+    previewTitle.textContent = frame.name;
+
+    previewFrameImage.src = frame.image;
+
+}
+
+// Confirm Frame
+confirmFrame.addEventListener("click",()=>{
+
+
+    framePreview.classList.add("hidden");
+
+
+    templateSelection.classList.add("hidden");
+
+
+    photoBooth.classList.remove("hidden");
+
+
+    startCamera();
+
+
+});
+
+// Cancel Frame
+cancelFrame.addEventListener("click",()=>{
+
+
+    framePreview.classList.add("hidden");
+
+
+    framesContainer.classList.remove("hidden");
+
+
 });
 
 // Start Camera 

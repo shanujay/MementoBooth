@@ -531,3 +531,156 @@ canvas {
     font-size: clamp(20px, 4vw, 28px);
 
 }
+
+
+/* Frame Preview Overlay */
+
+#framePreview:not(.hidden) {
+
+    display:flex;
+
+}
+
+
+#framePreview {
+
+    position: fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,0.35);
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:1000;
+
+}
+
+
+/* Popup Box */
+
+.previewModal {
+
+    background:white;
+
+    width:min(90vw,400px);
+
+    padding:30px;
+
+    border-radius:30px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:20px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+
+    animation:popupScale 0.25s ease;
+
+}
+
+
+@keyframes popupScale {
+
+    from {
+
+        transform:scale(0.8);
+
+        opacity:0;
+
+    }
+
+
+    to {
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+
+/* Title */
+
+#previewTitle {
+
+    margin:0;
+
+    font-size:24px;
+
+}
+
+
+
+/* Frame Preview Image */
+
+#previewFrameImage {
+
+    width:min(65vw,250px);
+
+    max-height:45vh;
+
+    object-fit:contain;
+
+}
+
+
+
+/* Buttons */
+
+.previewButtons {
+
+    display:flex;
+
+    gap:15px;
+
+}
+
+
+
+.previewButtons button {
+
+
+    border:none;
+
+    padding:12px 22px;
+
+    border-radius:30px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    transition:transform .2s ease;
+
+}
+
+
+
+.previewButtons button:hover {
+
+    transform:scale(1.05);
+
+}
+
+
+#cancelFrame {
+
+    background:#eeeeee;
+
+}
+
+
+#confirmFrame {
+
+    background:#ffc62b;
+
+}

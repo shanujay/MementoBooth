@@ -1,0 +1,23 @@
+[
+    {
+        "id": "love_01",
+        "name": "Love",
+        "layout": "film3",
+        "photoCount": 3,
+        "image": "assets/template/love/frame1.png"
+    },
+    {
+        "id": "love_02",
+        "name": "Love 2",
+        "layout": "film4",
+        "photoCount": 3,
+        "image": "assets/template/love/frame2.png"
+    },
+    {
+        "id": "love_03",
+        "name": "Love 3",
+        "layout": "film5",
+        "photoCount": 3,
+        "image": "assets/template/love/frame3.png"
+    }
+]

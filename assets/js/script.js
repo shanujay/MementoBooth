@@ -30,28 +30,36 @@ const previewFrameImage = document.getElementById("previewFrameImage");
 const cancelFrame = document.getElementById("cancelFrame");
 const confirmFrame = document.getElementById("confirmFrame");
 
-let templates = [];
 
 let selectedFrame = "";
 let selectedPhotoCount = 3;
 let photos = [];
 
 // Load Frame Templates
+let categories = [];
 
-fetch("assets/data/templates.json")
-.then(response => response.json())
-.then(data => {
+let layouts = {};
+let selectedLayout = {};
 
-    templates = data.categories;
+Promise.all([
+    fetch("assets/data/layouts.json").then(response => response.json()),
+    fetch("assets/data/categories.json").then(response => response.json())
+])
+.then(([layoutData, categoryData]) => {
+
+    layouts = layoutData;
+
+    categories = categoryData;
 
     displayCategories();
 
 })
 .catch(error => {
 
-    console.error("Error loading templates:", error);
+    console.error("Error loading data:", error);
 
 });
+
 
 function displayCategories(){
 
@@ -60,7 +68,7 @@ function displayCategories(){
     frameCategories.innerHTML = "";
 
 
-    templates.forEach(category => {
+    categories.forEach(category => {
 
 
         const card = document.createElement("div");
@@ -79,7 +87,7 @@ function displayCategories(){
 
         card.addEventListener("click",()=>{
 
-            displayFrames(category);
+            loadFrames(category);
 
         });
 
@@ -91,9 +99,26 @@ function displayCategories(){
 
 }
 
-function displayFrames(category){
+function loadFrames(category){
 
-    frameTitle.textContent = `${category.name} Frames`;
+    fetch(`assets/data/frames/${category.frameFile}`)
+    .then(response => response.json())
+    .then(frames => {
+
+        displayFrames(frames, category.name);
+
+    })
+    .catch(error => {
+
+        console.error("Error loading frames:", error);
+
+    });
+
+}
+
+function displayFrames(frames, categoryName){
+
+    frameTitle.textContent = `${categoryName} Frames`;
 
     framesContainer.innerHTML = "";
 
@@ -107,10 +132,10 @@ function displayFrames(category){
 
 
     // Show back button
-    backToCategories.classList.remove("hidden");
+    backToCategories.classList.remove("hidden")
 
 
-    category.frames.forEach(frame => {
+    frames.forEach(frame=>{
 
 
         const img = document.createElement("img");
@@ -127,6 +152,12 @@ function displayFrames(category){
             selectedFrame = frame.image;
         
             selectedPhotoCount = frame.photoCount;
+        
+            selectedLayout = layouts[frame.layout];
+        
+            console.log("Selected Frame:", selectedFrame);
+            console.log("Photo Count:", selectedPhotoCount);
+            console.log("Selected Layout:", selectedLayout);
         
             showFramePreview(frame);
         
@@ -181,7 +212,7 @@ function showFramePreview(frame) {
 
 
     // Add frame details
-    previewTitle.textContent = `${frame.name} (${frame.photoCount} Photos)`;
+    previewTitle.textContent = `${frame.name} (${frame.photoCount} Photos - ${frame.layoutId})`;
 
     previewFrameImage.src = frame.image;
 
@@ -246,7 +277,10 @@ takeSnapBtn.addEventListener("click", async () => {
         // Play camera sound
         cameraSound.play();
 
-        await capturePhotoExactSize(400, 550);
+        await capturePhotoExactSize(
+            selectedLayout.photoWidth,
+            selectedLayout.photoHeight
+        );
         console.log(`Captured photo ${photoCount}`);
         photoCount++;
 
@@ -313,38 +347,72 @@ async function capturePhotoExactSize(width, height) {
 // Generate Final Strip
 function generatePhotoStrip() {
 
-    const canvasWidth = 500;
+    if(!selectedLayout){
+        console.error("No layout selected");
+        return;
+    }
 
-    const photoWidth = 400;
-    const photoHeight = 550;
-    const spacing = 40;
+    const canvasWidth = selectedLayout.canvasWidth;
+
+    const photoWidth = selectedLayout.photoWidth;
+    const photoHeight = selectedLayout.photoHeight;
+
+    const spacing = selectedLayout.spacing;
+
+    const paddingTop = selectedLayout.paddingTop;
+    const paddingLeft = selectedLayout.paddingLeft;
+
 
     const canvasHeight =
+        paddingTop +
         (photoHeight * selectedPhotoCount) +
         (spacing * (selectedPhotoCount - 1)) +
-        80;
+        paddingTop;
+
 
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
-    let yOffset = 40;
+
+    let yOffset = paddingTop;
+
     let loadedPhotos = 0;
 
-    photos.forEach((photo, index) => {
+
+    photos.forEach((photo)=>{
+
         const img = new Image();
+
         img.src = photo;
 
-        img.onload = () => {
-            ctx.drawImage(img, 50, yOffset, photoWidth, photoHeight);
-            yOffset += photoHeight + 40;
+
+        img.onload = ()=>{
+
+            ctx.drawImage(
+                img,
+                paddingLeft,
+                yOffset,
+                photoWidth,
+                photoHeight
+            );
+
+
+            yOffset += photoHeight + spacing;
+
 
             loadedPhotos++;
 
-            if (loadedPhotos === photos.length) {
+
+            if(loadedPhotos === photos.length){
+
                 drawFrameOnTop();
+
             }
+
         };
+
     });
+
 }
 
 // Function to draw the selected frame on top of the photos

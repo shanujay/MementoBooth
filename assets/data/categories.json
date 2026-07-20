@@ -1,0 +1,38 @@
+[
+    {
+        "id": "kpop",
+        "name": "KPOP",
+        "thumbnail": "assets/template/categories/kpop.png",
+        "frameFile": "/kpop.json"
+    },
+    {
+        "id": "cartoon",
+        "name": "Cartoon",
+        "thumbnail": "assets/template/categories/cartoon.png",
+        "frameFile": "/cartoon.json"
+    },
+    {
+        "id": "aesthetic",
+        "name": "Aesthetic",
+        "thumbnail": "assets/template/categories/aesthetic.png",
+        "frameFile": "/aesthetic.json"
+    },
+    {
+        "id": "minimal",
+        "name": "Minimal",
+        "thumbnail": "assets/template/categories/minimal.png",
+        "frameFile": "/minimal.json"
+    },
+    {
+        "id": "friends",
+        "name": "Friends",
+        "thumbnail": "assets/template/categories/friends.png",
+        "frameFile": "/friends.json"
+    },
+    {
+        "id": "love",
+        "name": "Love",
+        "thumbnail": "assets/template/categories/love.png",
+        "frameFile": "/love.json"
+    }
+]

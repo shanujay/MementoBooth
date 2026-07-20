@@ -1,0 +1,19 @@
+{
+    "film3": {
+        "photoWidth": 400,
+        "photoHeight": 550,
+        "spacing": 40,
+        "paddingTop": 40,
+        "paddingLeft": 50,
+        "canvasWidth": 500
+    },
+
+    "film4": {
+        "photoWidth": 400,
+        "photoHeight": 410,
+        "spacing": 35,
+        "paddingTop": 40,
+        "paddingLeft": 50,
+        "canvasWidth": 500
+    }
+}

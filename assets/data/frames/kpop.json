@@ -1,0 +1,23 @@
+[
+    {
+        "id": "kpop_01",
+        "name": "Pink Idol",
+        "layout": "film3",
+        "photoCount": 3,
+        "image": "assets/template/kpop/frame4.png"
+    },
+    {
+        "id": "kpop_02",
+        "name": "Concert",
+        "layout": "film4",
+        "photoCount": 4,
+        "image": "assets/template/kpop/frame5.png"
+    },
+    {
+        "id": "kpop_03",
+        "name": "Idol",
+        "layout": "film5",
+        "photoCount": 5,
+        "image": "assets/template/kpop/frame6.png"
+    }
+]

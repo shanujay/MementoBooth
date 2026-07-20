@@ -94,12 +94,21 @@
 
         <!-- Photo Booth -->
         <div id="photoBooth" class="hidden">
-            <!-- Camera -->
-            <video id="video" autoplay playsinline></video>
-            <!-- Photo Count Display -->
+
+            <div id="cameraContainer">
+
+                <video id="video" autoplay playsinline></video>
+        
+                <div id="countdown" class="hidden">
+                    3
+                </div>
+        
+            </div>
+        
             <p id="photoCountDisplay"></p>
-            <!-- Take a Snap Btn -->
+        
             <img src="assets/img/snap_btn.png" id="takeSnapBtn" class="hidden">
+        
         </div>
 
         <!-- Second Container -->

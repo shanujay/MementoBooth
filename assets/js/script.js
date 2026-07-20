@@ -36,6 +36,9 @@ const retakePopup = document.getElementById("retakePopup");
 const cancelRetake = document.getElementById("cancelRetake");
 const confirmRetake = document.getElementById("confirmRetake");
 
+// Countdown Display
+const countdown = document.getElementById("countdown");
+
 
 let selectedFrame = "";
 let selectedPhotoCount = 3;
@@ -253,6 +256,48 @@ cancelFrame.addEventListener("click",()=>{
 
 });
 
+// Countdown
+function startCountdown(seconds){
+
+    return new Promise(resolve=>{
+
+        let count = seconds;
+
+
+        countdown.classList.remove("hidden");
+
+        countdown.textContent = count;
+
+
+        const timer = setInterval(()=>{
+
+
+            count--;
+
+
+            if(count === 0){
+
+                clearInterval(timer);
+
+                countdown.classList.add("hidden");
+
+                resolve();
+
+            }
+            else{
+
+                countdown.textContent = count;
+
+            }
+
+
+        },1000);
+
+
+    });
+
+}
+
 // Start Camera 
 function startCamera() {
     navigator.mediaDevices.getUserMedia({
@@ -278,7 +323,9 @@ takeSnapBtn.addEventListener("click", async () => {
     photos = [];
 
     while (photoCount <= selectedPhotoCount) {
-        photoCountDisplay.textContent = `Taking Photo ${photoCount} of ${selectedPhotoCount}...`;
+        photoCountDisplay.textContent = `Photo ${photoCount} of ${selectedPhotoCount}`;
+
+        await startCountdown(3);
         
         // Play camera sound
         cameraSound.play();

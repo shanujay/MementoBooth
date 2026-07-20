@@ -33,6 +33,7 @@ const confirmFrame = document.getElementById("confirmFrame");
 let templates = [];
 
 let selectedFrame = "";
+let selectedPhotoCount = 3;
 let photos = [];
 
 // Load Frame Templates
@@ -123,7 +124,9 @@ function displayFrames(category){
 
         img.addEventListener("click",()=>{
 
-            hoverSound.play();
+            selectedFrame = frame.image;
+        
+            selectedPhotoCount = frame.photoCount;
         
             showFramePreview(frame);
         
@@ -178,7 +181,7 @@ function showFramePreview(frame) {
 
 
     // Add frame details
-    previewTitle.textContent = frame.name;
+    previewTitle.textContent = `${frame.name} (${frame.photoCount} Photos)`;
 
     previewFrameImage.src = frame.image;
 
@@ -205,12 +208,11 @@ confirmFrame.addEventListener("click",()=>{
 // Cancel Frame
 cancelFrame.addEventListener("click",()=>{
 
-
     framePreview.classList.add("hidden");
-
 
     framesContainer.classList.remove("hidden");
 
+    backToCategories.classList.remove("hidden");
 
 });
 
@@ -238,8 +240,8 @@ takeSnapBtn.addEventListener("click", async () => {
     let photoCount = 1;
     photos = [];
 
-    while (photoCount <= 3) {
-        photoCountDisplay.textContent = `Taking Photo ${photoCount} of 3...`;
+    while (photoCount <= selectedPhotoCount) {
+        photoCountDisplay.textContent = `Taking Photo ${photoCount} of ${selectedPhotoCount}...`;
         
         // Play camera sound
         cameraSound.play();
@@ -310,17 +312,22 @@ async function capturePhotoExactSize(width, height) {
 
 // Generate Final Strip
 function generatePhotoStrip() {
-    const canvasWidth = 400 + 100;
-    const canvasHeight = 550 * 3 + 50 * 2 + 200;
+
+    const canvasWidth = 500;
+
+    const photoWidth = 400;
+    const photoHeight = 550;
+    const spacing = 40;
+
+    const canvasHeight =
+        (photoHeight * selectedPhotoCount) +
+        (spacing * (selectedPhotoCount - 1)) +
+        80;
 
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
     let yOffset = 40;
-
-    const photoWidth = 400;
-    const photoHeight = 550;
-
     let loadedPhotos = 0;
 
     photos.forEach((photo, index) => {

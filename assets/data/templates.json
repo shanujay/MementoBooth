@@ -9,16 +9,19 @@
               {
                   "id": "kpop_01",
                   "name": "Pink Idol",
+                  "photoCount": 2,
                   "image": "assets/template/kpop/frame4.png"
               },
               {
                   "id": "kpop_02",
                   "name": "Concert",
+                  "photoCount": 3,
                   "image": "assets/template/kpop/frame5.png"
               },
               {
                   "id": "kpop_03",
                   "name": "KPOP Blue",
+                  "photoCount": 3,
                   "image": "assets/template/kpop/frame6.png"
               }
           ]
@@ -34,16 +37,19 @@
               {
                   "id": "cartoon_01",
                   "name": "Cute Cartoon",
+                  "photoCount": 3,
                   "image": "assets/template/cartoon/frame4.png"
               },
               {
                   "id": "cartoon_02",
                   "name": "Cartoon",
+                  "photoCount": 3,
                   "image": "assets/template/cartoon/frame5.png"
               },
               {
                   "id": "cartoon_03",
                   "name": "Cartoon",
+                  "photoCount": 3,
                   "image": "assets/template/cartoon/frame6.png"
               }
           ]
@@ -59,16 +65,19 @@
               {
                   "id": "aesthetic_01",
                   "name": "Pastel Dream",
+                  "photoCount": 3,
                   "image": "assets/template/aesthetic/frame1.png"
               },
               {
                   "id": "aesthetic_02",
                   "name": "Aesthetic",
+                  "photoCount": 3,
                   "image": "assets/template/aesthetic/frame2.png"
               },
               {
                   "id": "aesthetic_03",
                   "name": "Aesthetic",
+                  "photoCount": 3,
                   "image": "assets/template/aesthetic/frame3.png"
               }
           ]

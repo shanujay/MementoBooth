@@ -684,3 +684,89 @@ canvas {
     background:#ffc62b;
 
 }
+
+
+/* Retake Popup */
+#retakePopup:not(.hidden){
+
+    display:flex;
+
+    position:fixed;
+
+    inset:0;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(0,0,0,0.4);
+
+    z-index:999;
+
+}
+
+
+.retake-popup-content{
+
+    background:white;
+
+    width:min(90%,400px);
+
+    padding:30px;
+
+    border-radius:25px;
+
+    text-align:center;
+
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+
+}
+
+
+.retake-popup-content h2{
+
+    margin-top:0;
+
+}
+
+
+.retake-popup-buttons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    margin-top:20px;
+
+}
+
+
+.retake-popup-buttons button{
+
+    padding:10px 25px;
+
+    border:none;
+
+    border-radius:20px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+}
+
+
+#confirmRetake{
+
+    background:#ffc62b;
+
+}
+
+
+#cancelRetake{
+
+    background:#ddd;
+
+}

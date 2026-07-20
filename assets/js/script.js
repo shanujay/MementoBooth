@@ -30,6 +30,12 @@ const previewFrameImage = document.getElementById("previewFrameImage");
 const cancelFrame = document.getElementById("cancelFrame");
 const confirmFrame = document.getElementById("confirmFrame");
 
+// Retake Button
+const retakeBtn = document.getElementById("retakeBtn");
+const retakePopup = document.getElementById("retakePopup");
+const cancelRetake = document.getElementById("cancelRetake");
+const confirmRetake = document.getElementById("confirmRetake");
+
 
 let selectedFrame = "";
 let selectedPhotoCount = 3;
@@ -297,6 +303,7 @@ takeSnapBtn.addEventListener("click", async () => {
     downloadBtn.classList.remove("hidden");
     girlImg.classList.remove("hidden");
     downloadInfo.classList.remove("hidden");
+    retakeBtn.classList.remove("hidden");
 
     generatePhotoStrip();
 });
@@ -306,9 +313,70 @@ takeSnapBtn.addEventListener("click", function () {
     clickSound.play();
 })
 
+// Download Button
 downloadBtn.addEventListener("click", function () {
     clickSound.play();
 })
+
+// Retake Button
+retakeBtn.addEventListener("click",()=>{
+
+    clickSound.play();
+
+    retakePopup.classList.remove("hidden");
+
+});
+
+// confirm retake
+confirmRetake.addEventListener("click",()=>{
+
+
+    retakePopup.classList.add("hidden");
+
+
+    // Clear photos
+    photos = [];
+
+
+    // Hide result section
+    stripDownload.classList.add("hidden");
+    photoStripContainer.classList.add("hidden");
+
+    downloadBtn.classList.add("hidden");
+    retakeBtn.classList.add("hidden");
+    downloadInfo.classList.add("hidden");
+
+    girlImg.classList.add("hidden");
+
+
+    // Clear canvas
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    // Show camera
+    photoBooth.classList.remove("hidden");
+
+    video.classList.remove("hidden");
+
+    photoCountDisplay.classList.remove("hidden");
+
+
+    takeSnapBtn.classList.remove("hidden");
+
+
+});
+
+// cancel retake
+cancelRetake.addEventListener("click",()=>{
+
+    retakePopup.classList.add("hidden");
+
+});
 
 // Function to capture photo with exact size
 async function capturePhotoExactSize(width, height) {

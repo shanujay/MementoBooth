@@ -821,3 +821,70 @@ canvas {
     }
 
 }
+
+/* Photo Review */
+#photoReview {
+
+    background:rgba(255,255,255,0.8);
+
+    padding:20px;
+
+    border-radius:20px;
+
+    margin-top:20px;
+
+}
+
+
+#photoCarousel {
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+}
+
+
+.review-photo {
+
+    width:120px;
+
+    height:160px;
+
+    object-fit:cover;
+
+    border-radius:15px;
+
+    border:2px solid black;
+
+}
+
+
+.reviewButtons {
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    margin-top:20px;
+
+}
+
+
+.reviewButtons button {
+
+    padding:12px 25px;
+
+    border:none;
+
+    border-radius:25px;
+
+    cursor:pointer;
+
+}

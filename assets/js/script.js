@@ -31,18 +31,36 @@ const cancelFrame = document.getElementById("cancelFrame");
 const confirmFrame = document.getElementById("confirmFrame");
 
 // Retake Button
-const retakeBtn = document.getElementById("retakeBtn");
-const retakePopup = document.getElementById("retakePopup");
-const cancelRetake = document.getElementById("cancelRetake");
 const confirmRetake = document.getElementById("confirmRetake");
 
 // Countdown Display
 const countdown = document.getElementById("countdown");
 
+// Photo Review
+const photoReview = document.getElementById("photoReview");
+const photoCarousel = document.getElementById("photoCarousel");
+const confirmReview = document.getElementById("confirmReview");
+const retakeReview = document.getElementById("retakeReview");
+const prevPhoto = document.getElementById("prevPhoto");
+const nextPhoto = document.getElementById("nextPhoto");
+const reviewCounter = document.getElementById("reviewCounter");
+
+// Retake All Photos
+const retakeAll = document.getElementById("retakeAll");
+
 
 let selectedFrame = "";
 let selectedPhotoCount = 3;
 let photos = [];
+
+// Review Index
+let reviewIndex = 0;
+
+// Is Retaking
+let isRetaking = false;
+
+// Is Retaking All Photos
+let isRetakingAll = false;
 
 // Load Frame Templates
 let categories = [];
@@ -69,6 +87,17 @@ Promise.all([
 
 });
 
+// Hide Camera UI
+function hideCameraUI() {
+    video.classList.add("hidden");
+    photoCountDisplay.classList.add("hidden");
+}
+
+// Show Camera UI
+function showCameraUI() {
+    video.classList.remove("hidden");
+    photoCountDisplay.classList.remove("hidden");
+}
 
 function displayCategories(){
 
@@ -316,9 +345,75 @@ function startCamera() {
     takeSnapBtn.classList.remove("hidden");
 }
 
+// Stop Camera
+function stopCamera() {
+    const stream = video.srcObject;
+
+    if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+        video.srcObject = null;
+    }
+}
+
 // Capture Photos
 takeSnapBtn.addEventListener("click", async () => {
     takeSnapBtn.classList.add("hidden"); 
+
+    // If Retaking
+    if (isRetaking) {
+
+        await startCountdown(3);
+
+        cameraSound.play();
+
+        await capturePhotoExactSize(
+            selectedLayout.photoWidth,
+            selectedLayout.photoHeight
+        );
+
+        isRetaking = false;
+
+        hideCameraUI();
+        takeSnapBtn.classList.add("hidden");
+        stopCamera();
+
+        console.log("Before review:", reviewIndex);
+        showPhotoReview();
+
+        return;
+    }
+
+    // If Retaking All Photos
+    if (isRetakingAll) {
+        photos = [];
+    
+        for (let photoCount = 1; photoCount <= selectedPhotoCount; photoCount++) {
+    
+            photoCountDisplay.textContent =
+                `Photo ${photoCount} of ${selectedPhotoCount}`;
+    
+            await startCountdown(3);
+    
+            cameraSound.play();
+    
+            await capturePhotoExactSize(
+                selectedLayout.photoWidth,
+                selectedLayout.photoHeight
+            );
+    
+            await new Promise(resolve => setTimeout(resolve, 5000));
+        }
+    
+        isRetakingAll = false;
+    
+        hideCameraUI();
+        takeSnapBtn.classList.add("hidden");
+        stopCamera();
+        showPhotoReview();
+    
+        return;
+    }
+
     let photoCount = 1;
     photos = [];
 
@@ -342,17 +437,17 @@ takeSnapBtn.addEventListener("click", async () => {
 
     console.log("All photos captured:", photos);
 
-    // Removing Hidden Class
-    video.classList.add("hidden");
-    photoCountDisplay.classList.add("hidden");
-    photoStripContainer.classList.remove("hidden");
-    stripDownload.classList.remove("hidden");
-    downloadBtn.classList.remove("hidden");
-    girlImg.classList.remove("hidden");
-    downloadInfo.classList.remove("hidden");
-    retakeBtn.classList.remove("hidden");
+    reviewIndex = 0;
 
-    generatePhotoStrip();
+    // Hide camera
+    hideCameraUI();
+    takeSnapBtn.classList.add("hidden");
+
+    // Stop Camera
+    stopCamera();
+
+    // Show review
+    showPhotoReview();
 });
 
 
@@ -360,70 +455,140 @@ takeSnapBtn.addEventListener("click", function () {
     clickSound.play();
 })
 
+// Show Photo Review 
+function showPhotoReview(){
+
+    photoReview.classList.remove("hidden");
+    hideCameraUI();
+
+    // Stop Camera
+    stopCamera();
+
+    photoCarousel.innerHTML = "";
+
+    photos.forEach((photo,index)=>{
+
+        const img = document.createElement("img");
+
+        img.src = photo;
+
+        img.classList.add("review-photo");
+
+
+        photoCarousel.appendChild(img);
+
+    });
+
+
+    updateCarousel();
+
+}
+
+// Update Carousel
+function updateCarousel(){
+
+    const images = document.querySelectorAll(".review-photo");
+    
+    images.forEach((img,index)=>{
+
+        img.classList.toggle(
+            "hidden",
+            index !== reviewIndex
+        );
+
+    });
+
+    prevPhoto.disabled = reviewIndex === 0;
+    nextPhoto.disabled = reviewIndex === photos.length - 1;
+
+    reviewCounter.textContent =
+    `Photo ${reviewIndex + 1} / ${photos.length}`;
+
+}
+
+nextPhoto.addEventListener("click",()=>{
+
+    clickSound.play();
+
+    if(reviewIndex < photos.length - 1){
+
+        reviewIndex++;
+
+        updateCarousel();
+
+    }
+
+});
+
+
+prevPhoto.addEventListener("click",()=>{
+
+    clickSound.play();
+
+    if(reviewIndex > 0){
+
+        reviewIndex--;
+
+        updateCarousel();
+
+    }
+
+});
+
+// Confirm Review
+confirmReview.addEventListener("click",()=>{
+
+
+    photoReview.classList.add("hidden");
+
+
+    // Show final result section
+    photoStripContainer.classList.remove("hidden");
+    stripDownload.classList.remove("hidden");
+
+    downloadBtn.classList.remove("hidden");
+    girlImg.classList.remove("hidden");
+    downloadInfo.classList.remove("hidden");
+
+
+    generatePhotoStrip();
+
+
+});
+
+// Retake Review
+retakeReview.addEventListener("click", async () => {
+
+    photoReview.classList.add("hidden");
+
+    isRetaking = true;
+
+    await startCamera();
+
+    showCameraUI();
+    takeSnapBtn.classList.remove("hidden");
+
+});
+
+// Retake All Photos
+retakeAll.addEventListener("click", async () => {
+
+    photoReview.classList.add("hidden");
+
+    isRetakingAll = true;
+
+    await startCamera();
+
+    showCameraUI();
+    takeSnapBtn.classList.remove("hidden");
+
+});
+
 // Download Button
 downloadBtn.addEventListener("click", function () {
     clickSound.play();
 })
 
-// Retake Button
-retakeBtn.addEventListener("click",()=>{
-
-    clickSound.play();
-
-    retakePopup.classList.remove("hidden");
-
-});
-
-// confirm retake
-confirmRetake.addEventListener("click",()=>{
-
-
-    retakePopup.classList.add("hidden");
-
-
-    // Clear photos
-    photos = [];
-
-
-    // Hide result section
-    stripDownload.classList.add("hidden");
-    photoStripContainer.classList.add("hidden");
-
-    downloadBtn.classList.add("hidden");
-    retakeBtn.classList.add("hidden");
-    downloadInfo.classList.add("hidden");
-
-    girlImg.classList.add("hidden");
-
-
-    // Clear canvas
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-
-    // Show camera
-    photoBooth.classList.remove("hidden");
-
-    video.classList.remove("hidden");
-
-    photoCountDisplay.classList.remove("hidden");
-
-
-    takeSnapBtn.classList.remove("hidden");
-
-
-});
-
-// cancel retake
-cancelRetake.addEventListener("click",()=>{
-
-    retakePopup.classList.add("hidden");
-
-});
 
 // Function to capture photo with exact size
 async function capturePhotoExactSize(width, height) {
@@ -453,10 +618,26 @@ async function capturePhotoExactSize(width, height) {
     tempCanvas.width = width;
     tempCanvas.height = height;
 
-    tempCtx.drawImage(video, sx, sy, sWidth, sHeight, 0, 0, width, height);
+    tempCtx.drawImage(
+        video,
+        sx,
+        sy,
+        sWidth,
+        sHeight,
+        0,
+        0,
+        width,
+        height
+    );
 
     let imageDataUrl = tempCanvas.toDataURL("image/png");
-    photos.push(imageDataUrl);
+
+    if (isRetaking && reviewIndex !== null) {
+        photos[reviewIndex] = imageDataUrl;
+        isRetaking = false;
+    } else {
+        photos.push(imageDataUrl);
+    }
 }
 
 // Generate Final Strip

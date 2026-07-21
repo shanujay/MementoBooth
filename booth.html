@@ -108,6 +108,46 @@
             <p id="photoCountDisplay"></p>
         
             <img src="assets/img/snap_btn.png" id="takeSnapBtn" class="hidden">
+
+            <!-- Photo Review -->
+            <div id="photoReview" class="hidden">
+
+                <h2>Review Your Photos</h2>
+
+
+                <div id="photoCarousel">
+
+                </div>
+
+                <!-- Carousel Controls -->
+                <div id="carouselControls">
+
+                    <button id="prevPhoto">←</button>
+                
+                    <button id="nextPhoto">→</button>
+                
+                </div>
+
+
+                <div class="reviewButtons">
+
+                    <!-- Individual Photo Retake Btn -->
+                    <button id="retakeReview">
+                        Retake This Photo
+                    </button>
+
+                    <!-- All Photos Retake Btn -->
+                    <button id="retakeAll">
+                        Retake All Photos
+                    </button>
+
+                    <button id="confirmReview">
+                        Use Photos
+                    </button>
+
+                </div>
+
+            </div>
         
         </div>
 
@@ -134,32 +174,7 @@
                 <!-- Download Btn -->
                 <img src="assets/img/download_btn.png" id="download" class="hidden">
 
-                <!-- Retake Confirmation Popup -->
-                <div id="retakePopup" class="hidden">
-
-                    <div class="retake-popup-content">
-
-                        <h2>Retake Photos?</h2>
-
-                        <p>
-                            Your current photos will be removed.
-                        </p>
-
-                        <div class="retake-popup-buttons">
-
-                            <button id="cancelRetake">
-                                Cancel
-                            </button>
-
-                            <button id="confirmRetake">
-                                Retake
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </div>
+                
             </div>
         </div>
 

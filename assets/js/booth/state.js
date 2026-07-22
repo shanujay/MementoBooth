@@ -62,6 +62,10 @@ const textPanel = document.getElementById("textPanel");
 const textField = document.getElementById("textField");
 const addTextBtn = document.getElementById("addText");
 
+// Editor Canvas
+const editorCanvas = document.getElementById("editorCanvas");
+const editorCtx = editorCanvas.getContext("2d");
+
 let selectedTextPosition = "top";
 
 
@@ -89,3 +93,15 @@ const editorState = {
     filter: "none",
     texts: []
 };
+
+// Text Drag and Drop State
+let selectedText = null;
+
+let isDraggingText = false;
+
+let dragOffsetX = 0;
+
+let dragOffsetY = 0;
+
+// Loaded Frame Image
+let loadedFrameImage = null;

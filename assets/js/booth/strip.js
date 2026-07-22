@@ -6,38 +6,25 @@ downloadBtn.addEventListener("click", function () {
 // Draw Text on Top
 function drawTextOnTop(){
 
-    if(editorState.texts.length === 0){
-        return;
-    }
+    editorCtx.clearRect(
+        0,
+        0,
+        editorCanvas.width,
+        editorCanvas.height
+    );
 
 
-    ctx.font = "40px Arial";
-    ctx.fillStyle = "#000000";
-    ctx.textAlign = "center";
+    editorCtx.font = "40px Arial";
+    editorCtx.fillStyle = "#000000";
+    editorCtx.textAlign = "center";
 
 
-    editorState.texts.forEach(text => {
+    editorState.texts.forEach(text=>{
 
-        let x = canvas.width / 2;
-        let y;
-
-
-        if(text.position === "top"){
-
-            y = 80;
-
-        }
-        else if(text.position === "bottom"){
-
-            y = canvas.height - 50;
-
-        }
-
-
-        ctx.fillText(
+        editorCtx.fillText(
             text.content,
-            x,
-            y
+            text.x,
+            text.y
         );
 
     });
@@ -73,6 +60,8 @@ function generatePhotoStrip() {
 
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
+
+    resizeEditorCanvas();
 
 
     let yOffset = paddingTop;
@@ -121,45 +110,43 @@ function generatePhotoStrip() {
 // Function to draw the selected frame on top of the photos
 function drawFrameOnTop() {
 
-    const frameImg = new Image();
+    if(!loadedFrameImage){
 
-    frameImg.crossOrigin = "anonymous";
+        loadedFrameImage = new Image();
 
-    frameImg.src = selectedFrame;
+        loadedFrameImage.crossOrigin = "anonymous";
+
+        loadedFrameImage.src = selectedFrame;
 
 
-    frameImg.onload = () => {
+        loadedFrameImage.onload = () => {
 
-        console.log("Frame loaded successfully");
+            ctx.drawImage(
+                loadedFrameImage,
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
 
+            drawTextOnTop();
+
+        };
+
+    } 
+    else {
 
         ctx.drawImage(
-            frameImg,
+            loadedFrameImage,
             0,
             0,
             canvas.width,
             canvas.height
         );
 
-
-        // Draw text after frame
         drawTextOnTop();
 
-    };
-
-
-    frameImg.onerror = () => {
-
-        console.error(
-            "Failed to load frame image. Check the file path."
-        );
-
-        drawTextOnTop();
-
-    };
-
-
-    showEditorUI();
+    }
 
 }
 

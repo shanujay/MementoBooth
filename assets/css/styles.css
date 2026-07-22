@@ -150,7 +150,7 @@ canvas {
     margin-top: 0;
 }
 
-#canvas {
+#canvas, #editorCanvas {
     display: block;
     width: min(100%, var(--strip-display-w));
     aspect-ratio: var(--strip-native-w) / var(--strip-native-h);

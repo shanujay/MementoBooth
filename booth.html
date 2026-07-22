@@ -159,22 +159,37 @@
                 <canvas id="canvas"></canvas>
             </div>
 
-            <!-- Download Container -->
-            <div id="downloadContainer" class="hidden">
-                <!-- Download Info Img -->
-                <div id="downloadInfo" class="hidden">
-                    <img src="assets/img/download_info.png">
-                </div>
+            <!-- Editor Container -->
+            <div id="editorContainer" class="hidden">
 
-                <!-- Retake Btn -->
-                <button id="retakeBtn" class="hidden">
-                    Retake
-                </button>
+                <!-- Editor Toolbar -->
+                <div id="editorToolbar">
+            
+                    <button>Filters</button>
+            
+                </div>
+            
+                <div id="editorPanel">
+
+                    <div id="filtersPanel">
+
+                        <button data-filter="none">Original</button>
+                    
+                        <button data-filter="grayscale">B&W</button>
+                    
+                        <button data-filter="sepia">Sepia</button>
+                    
+                        <button data-filter="vintage">Vintage</button>
+                    
+                        <button data-filter="warm">Warm</button>
+                    
+                    </div>
+            
+                </div>
 
                 <!-- Download Btn -->
                 <img src="assets/img/download_btn.png" id="download" class="hidden">
-
-                
+            
             </div>
         </div>
 
@@ -197,6 +212,7 @@
     <script src="assets/js/booth/capture.js"></script>
     <script src="assets/js/booth/review.js"></script>
     <script src="assets/js/booth/strip.js"></script>
+    <script src="assets/js/booth/editor.js"></script>
     <script src="assets/js/booth/data.js"></script>
 
 </body>

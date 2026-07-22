@@ -86,12 +86,7 @@ confirmReview.addEventListener("click",()=>{
 
 
     // Show final result section
-    photoStripContainer.classList.remove("hidden");
-    stripDownload.classList.remove("hidden");
-
-    downloadBtn.classList.remove("hidden");
-    girlImg.classList.remove("hidden");
-    downloadInfo.classList.remove("hidden");
+    showEditorUI();
 
 
     generatePhotoStrip();

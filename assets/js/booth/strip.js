@@ -48,6 +48,8 @@ function generatePhotoStrip() {
 
         img.onload = ()=>{
 
+            ctx.filter = getCanvasFilter();
+
             ctx.drawImage(
                 img,
                 paddingLeft,
@@ -56,6 +58,7 @@ function generatePhotoStrip() {
                 photoHeight
             );
 
+            ctx.filter = "none";
 
             yOffset += photoHeight + spacing;
 
@@ -84,19 +87,14 @@ function drawFrameOnTop() {
     frameImg.onload = () => {
         console.log("Frame loaded successfully");
         ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
-        downloadBtn.classList.remove("hidden");
-        console.log("Download button should be visible now");
+        
     };
 
     frameImg.onerror = () => {
         console.error("Failed to load frame image. Check the file path.");
-        downloadBtn.classList.remove("hidden"); 
     };
 
-    document.getElementById("download").style.display = "block";
-    document.getElementById("download").classList.remove("hidden");
-    document.getElementById("downloadContainer").classList.remove("hidden");
-    console.log("Download button should be visible now");
+    showEditorUI();
 
 }
 
@@ -110,10 +108,10 @@ downloadBtn.addEventListener("click", () => {
     setTimeout(() => {
         stripDownload.classList.add("hidden");
         photoStripContainer.classList.add("hidden");
-        downloadContainer.classList.add("hidden");
         girlImg.classList.add("hidden");
         thanksImage.classList.remove("hidden");
         girlImg2.classList.remove("hidden");
+        hideEditorUI();
     }, 1000);
 
     setTimeout(() => {

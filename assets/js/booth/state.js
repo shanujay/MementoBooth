@@ -13,7 +13,6 @@ const hoverSound = document.getElementById("hoverSound");
 const clickSound = document.getElementById("clickSound");
 const cameraSound = document.getElementById("cameraSound");
 const girlImg = document.getElementById("girlImg");
-const downloadInfo = document.getElementById("downloadInfo");
 const thanksImage = document.getElementById("thanksImage");
 const girlImg2 = document.getElementById("girlImg2");
 
@@ -48,6 +47,10 @@ const reviewCounter = document.getElementById("reviewCounter");
 // Retake All Photos
 const retakeAll = document.getElementById("retakeAll");
 
+// Editor Container
+const editorContainer = document.getElementById("editorContainer");
+
+
 
 let selectedFrame = "";
 let selectedPhotoCount = 3;
@@ -67,3 +70,8 @@ let categories = [];
 
 let layouts = {};
 let selectedLayout = {};
+
+// Editor State
+const editorState = {
+    filter: "none"
+};

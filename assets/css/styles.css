@@ -888,3 +888,9 @@ canvas {
     cursor:pointer;
 
 }
+
+/* Decorations Container */
+#decorationsContainer {
+    display: flex;
+    flex-direction: column;
+}

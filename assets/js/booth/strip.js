@@ -239,27 +239,42 @@ function drawFrameOnTop() {
 
 }
 
-// Download Photo Strip
-downloadBtn.addEventListener("click", () => {
+// Convert a data URL into a Blob (done synchronously to keep the user gesture
+// valid for the Web Share API on mobile)
+function dataURLToBlob(dataUrl){
 
-    // Deselect so the sticker close button isn't drawn into the download
-    activeSticker = null;
-    activeText = null;
-    drawTextOnTop();
+    const parts = dataUrl.split(",");
 
-    // Merge the base canvas (photos + frame) with the editor overlay (text)
-    const mergedCanvas = document.createElement("canvas");
-    mergedCanvas.width = canvas.width;
-    mergedCanvas.height = canvas.height;
+    const mime = parts[0].match(/:(.*?);/)[1];
 
-    const mergedCtx = mergedCanvas.getContext("2d");
-    mergedCtx.drawImage(canvas, 0, 0);
-    mergedCtx.drawImage(editorCanvas, 0, 0);
+    const binary = atob(parts[1]);
+
+    const array = new Uint8Array(binary.length);
+
+    for(let i = 0; i < binary.length; i++){
+        array[i] = binary.charCodeAt(i);
+    }
+
+    return new Blob([array], { type: mime });
+
+}
+
+// Direct file download (used on desktop / when sharing isn't available)
+function downloadBlob(blob){
+
+    const url = URL.createObjectURL(blob);
 
     const link = document.createElement("a");
-    link.href = mergedCanvas.toDataURL("image/png");
+    link.href = url;
     link.download = "photo_strip.png";
     link.click();
+
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+}
+
+// Hide the editor and move on to the thank-you screen
+function finishDownloadFlow(){
 
     setTimeout(() => {
         stripDownload.classList.add("hidden");
@@ -273,4 +288,73 @@ downloadBtn.addEventListener("click", () => {
     setTimeout(() => {
         window.location.href = "index.html";
     }, 20000);
+
+}
+
+// Rough check for touch/mobile devices (incl. iPadOS reporting as Mac)
+function isMobileDevice(){
+
+    return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+}
+
+// Download / Share Photo Strip
+downloadBtn.addEventListener("click", async () => {
+
+    // Deselect so the close buttons aren't drawn into the output
+    activeSticker = null;
+    activeText = null;
+    drawTextOnTop();
+
+    // Merge the base canvas (photos + frame) with the editor overlay (text + stickers)
+    const mergedCanvas = document.createElement("canvas");
+    mergedCanvas.width = canvas.width;
+    mergedCanvas.height = canvas.height;
+
+    const mergedCtx = mergedCanvas.getContext("2d");
+    mergedCtx.drawImage(canvas, 0, 0);
+    mergedCtx.drawImage(editorCanvas, 0, 0);
+
+    // Build the PNG blob / file synchronously
+    const blob = dataURLToBlob(mergedCanvas.toDataURL("image/png"));
+    const file = new File([blob], "photo_strip.png", { type: "image/png" });
+
+    // On mobile with Web Share support, open the native share sheet
+    // (lets the user "Save to Photos", AirDrop, message, etc.)
+    const canShareFile =
+        navigator.canShare && navigator.canShare({ files: [file] });
+
+    if(isMobileDevice() && canShareFile){
+
+        try {
+
+            await navigator.share({
+                files: [file],
+                title: "My Photo Strip",
+                text: "Check out my photo strip!"
+            });
+
+            finishDownloadFlow();
+
+        } catch (err) {
+
+            // User cancelled: stay on the editor so they can retry.
+            // Any other error: fall back to a direct download.
+            if(err && err.name !== "AbortError"){
+                downloadBlob(blob);
+                finishDownloadFlow();
+            }
+
+        }
+
+    }
+    else {
+
+        // Desktop / unsupported: direct file download
+        downloadBlob(blob);
+        finishDownloadFlow();
+
+    }
+
 });

@@ -49,6 +49,75 @@ function drawTextOnTop(){
 
     });
 
+
+    // Draw the close (delete) button for the currently selected text
+    if(activeText){
+
+        drawCloseButton(getTextCloseButton(activeText));
+
+    }
+
+
+    // Draw the close (delete) button for the currently selected sticker
+    if(activeSticker){
+
+        drawCloseButton(getStickerCloseButton(activeSticker));
+
+    }
+
+}
+
+
+// Draws a red circular close button with a white "X"
+function drawCloseButton(btn){
+
+    // Red circle
+    editorCtx.beginPath();
+    editorCtx.arc(btn.cx, btn.cy, btn.r, 0, Math.PI * 2);
+    editorCtx.fillStyle = "#ff4d4d";
+    editorCtx.fill();
+
+    // White "X"
+    editorCtx.strokeStyle = "#ffffff";
+    editorCtx.lineWidth = 3;
+
+    const o = btn.r * 0.45;
+
+    editorCtx.beginPath();
+    editorCtx.moveTo(btn.cx - o, btn.cy - o);
+    editorCtx.lineTo(btn.cx + o, btn.cy + o);
+    editorCtx.moveTo(btn.cx + o, btn.cy - o);
+    editorCtx.lineTo(btn.cx - o, btn.cy + o);
+    editorCtx.stroke();
+
+}
+
+
+// Returns the close button geometry for a sticker (top-right corner)
+function getStickerCloseButton(sticker){
+
+    return {
+        cx: sticker.x + sticker.width,
+        cy: sticker.y,
+        r: stickerCloseRadius
+    };
+
+}
+
+
+// Returns the close button geometry for a text (top-right corner of its box)
+function getTextCloseButton(text){
+
+    editorCtx.font = "40px " + (text.font || defaultTextFont);
+
+    const textWidth = editorCtx.measureText(text.content).width;
+
+    return {
+        cx: text.x + textWidth / 2,
+        cy: text.y - 40,
+        r: textCloseRadius
+    };
+
 }
 
 
@@ -172,6 +241,11 @@ function drawFrameOnTop() {
 
 // Download Photo Strip
 downloadBtn.addEventListener("click", () => {
+
+    // Deselect so the sticker close button isn't drawn into the download
+    activeSticker = null;
+    activeText = null;
+    drawTextOnTop();
 
     // Merge the base canvas (photos + frame) with the editor overlay (text)
     const mergedCanvas = document.createElement("canvas");

@@ -63,8 +63,70 @@ editorCanvas.addEventListener("mousedown", (e)=>{
     const mouseY = (e.clientY - rect.top) * scaleY;
 
 
-    // Clicking empty space deselects any active text
+    // 0a) If a text is selected, check its close (delete) button first
+    if(activeText){
+
+        const btn = getTextCloseButton(activeText);
+
+        const dx = mouseX - btn.cx;
+        const dy = mouseY - btn.cy;
+
+        if(dx * dx + dy * dy <= btn.r * btn.r){
+
+            const idx = editorState.texts.indexOf(activeText);
+
+            if(idx !== -1){
+                editorState.texts.splice(idx, 1);
+            }
+
+            activeText = null;
+
+            drawTextOnTop();
+
+            console.log("Text deleted");
+
+            return;
+
+        }
+
+    }
+
+
+    // 0b) If a sticker is selected, check its close (delete) button first
+    if(activeSticker){
+
+        const btn = getStickerCloseButton(activeSticker);
+
+        const dx = mouseX - btn.cx;
+        const dy = mouseY - btn.cy;
+
+        if(dx * dx + dy * dy <= btn.r * btn.r){
+
+            const idx = editorState.stickers.indexOf(activeSticker);
+
+            if(idx !== -1){
+                editorState.stickers.splice(idx, 1);
+            }
+
+            activeSticker = null;
+
+            drawTextOnTop();
+
+            console.log("Sticker deleted");
+
+            return;
+
+        }
+
+    }
+
+
+    // Clicking deselects any previously active text / sticker
+    const hadActive = activeText || activeSticker;
+
     activeText = null;
+
+    activeSticker = null;
 
 
     // 1) Hit-test text first (text is drawn on top of stickers)
@@ -103,6 +165,9 @@ editorCanvas.addEventListener("mousedown", (e)=>{
 
             console.log("Selected text:", selectedText);
 
+            // Redraw to show this text's close button
+            drawTextOnTop();
+
             return; // stop: don't also grab a sticker underneath
 
         }
@@ -124,6 +189,9 @@ editorCanvas.addEventListener("mousedown", (e)=>{
 
             selectedSticker = sticker;
 
+            // Mark as active so the close button shows
+            activeSticker = sticker;
+
             isDraggingSticker = true;
 
             dragOffsetX = mouseX - sticker.x;
@@ -132,10 +200,19 @@ editorCanvas.addEventListener("mousedown", (e)=>{
 
             console.log("Selected sticker:", selectedSticker);
 
+            // Redraw to show the close button
+            drawTextOnTop();
+
             return;
 
         }
 
+    }
+
+
+    // Nothing was hit: redraw to remove a previously shown close button
+    if(hadActive){
+        drawTextOnTop();
     }
 
 });
@@ -240,6 +317,10 @@ stickerOptions.forEach(option=>{
 
         editorState.stickers.push(sticker);
 
+        // Newly added sticker becomes selected (shows the close button)
+        activeSticker = sticker;
+        activeText = null;
+
 
         // Once loaded, keep aspect ratio and redraw
         img.onload = ()=>{
@@ -278,7 +359,7 @@ addTextBtn.addEventListener("click", () => {
     }
 
 
-    editorState.texts.push({
+    const newText = {
 
         content: text,
     
@@ -290,7 +371,14 @@ addTextBtn.addEventListener("click", () => {
 
         font: selectedFont
 
-    });
+    };
+
+
+    editorState.texts.push(newText);
+
+    // Newly added text becomes selected (shows the close button)
+    activeText = newText;
+    activeSticker = null;
 
 
     console.log(editorState.texts);

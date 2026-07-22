@@ -129,5 +129,14 @@ let selectedSticker = null;
 
 let isDraggingSticker = false;
 
+// Currently selected sticker (shows a close button so it can be deleted)
+let activeSticker = null;
+
+// Close button radius (in canvas native pixels)
+const stickerCloseRadius = 16;
+
+// Close button radius for text (in canvas native pixels)
+const textCloseRadius = 16;
+
 // Loaded Frame Image
 let loadedFrameImage = null;

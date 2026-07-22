@@ -62,14 +62,13 @@ editorCanvas.addEventListener("mousedown", (e)=>{
     const mouseY = (e.clientY - rect.top) * scaleY;
 
 
-    editorCtx.font = "40px Arial"; // add this
-
-
     // Clicking empty space deselects any active text
     activeText = null;
 
 
     editorState.texts.forEach(text=>{
+
+        editorCtx.font = "40px " + (text.font || defaultTextFont);
 
         const textWidth = editorCtx.measureText(text.content).width;
 
@@ -88,6 +87,9 @@ editorCanvas.addEventListener("mousedown", (e)=>{
 
             // Sync the color picker to the selected text's current color
             textColor.value = text.color || defaultTextColor;
+
+            // Sync the font buttons to the selected text's current font
+            setActiveFontButton(text.font || defaultTextFont);
 
             isDraggingText = true;
 
@@ -173,7 +175,9 @@ addTextBtn.addEventListener("click", () => {
     
         y: 80,
 
-        color: textColor.value
+        color: textColor.value,
+
+        font: selectedFont
 
     });
 
@@ -204,6 +208,44 @@ textColor.addEventListener("input", () => {
     }
 
     // Otherwise the chosen color simply applies to the next added text
+
+});
+
+
+// Highlight the font button matching the given font
+function setActiveFontButton(font){
+
+    fontOptions.forEach(btn=>{
+
+        btn.classList.toggle("active", btn.dataset.font === font);
+
+    });
+
+}
+
+
+// Change Font Type
+fontOptions.forEach(btn=>{
+
+    btn.addEventListener("click", () => {
+
+        selectedFont = btn.dataset.font;
+
+        setActiveFontButton(selectedFont);
+
+        console.log("Font selected:", selectedFont);
+
+
+        // If a text is currently selected, change its font live
+        if(activeText){
+
+            activeText.font = selectedFont;
+
+            drawTextOnTop();
+
+        }
+
+    });
 
 });
 

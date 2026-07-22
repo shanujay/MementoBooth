@@ -62,6 +62,7 @@ const textPanel = document.getElementById("textPanel");
 const textField = document.getElementById("textField");
 const addTextBtn = document.getElementById("addText");
 const textColor = document.getElementById("textColor");
+const fontOptions = document.querySelectorAll(".fontOption");
 
 // Editor Canvas
 const editorCanvas = document.getElementById("editorCanvas");
@@ -97,6 +98,10 @@ const editorState = {
 
 // Default Text Color
 const defaultTextColor = "#000000";
+
+// Default / currently selected Font
+const defaultTextFont = "Arial";
+let selectedFont = "Arial";
 
 // Text Drag and Drop State
 let selectedText = null;

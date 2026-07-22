@@ -679,6 +679,60 @@ canvas {
 }
 
 
+/* Text Font Picker */
+
+#textFontContainer {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-top: 12px;
+
+    flex-wrap: wrap;
+
+}
+
+
+.fontOption {
+
+    padding: 8px 14px;
+
+    border: 2px solid #ccc;
+
+    border-radius: 8px;
+
+    background: #fff;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: border-color 0.2s ease, transform 0.2s ease;
+
+}
+
+
+.fontOption:hover {
+
+    transform: scale(1.05);
+
+}
+
+
+.fontOption.active {
+
+    border-color: #ffc62b;
+
+    background: #fff7e0;
+
+}
+
+
 /* Buttons */
 
 .previewButtons {

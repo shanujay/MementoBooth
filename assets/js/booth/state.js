@@ -50,6 +50,19 @@ const retakeAll = document.getElementById("retakeAll");
 // Editor Container
 const editorContainer = document.getElementById("editorContainer");
 
+// Editor Tools
+const filterTool = document.getElementById("filterTool");
+const textTool = document.getElementById("textTool");
+
+// Editor Panels
+const filtersPanel = document.getElementById("filtersPanel");
+const textPanel = document.getElementById("textPanel");
+
+// Text Input
+const textField = document.getElementById("textField");
+const addTextBtn = document.getElementById("addText");
+
+let selectedTextPosition = "top";
 
 
 let selectedFrame = "";
@@ -73,5 +86,6 @@ let selectedLayout = {};
 
 // Editor State
 const editorState = {
-    filter: "none"
+    filter: "none",
+    texts: []
 };

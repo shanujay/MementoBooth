@@ -1,3 +1,7 @@
+console.log(addTextBtn);
+console.log(textField);
+console.log(editorState);
+
 // Hide Editor UI
 function hideEditorUI() {
     stripDownload.classList.add("hidden");
@@ -15,6 +19,82 @@ function showEditorUI() {
     downloadBtn.classList.remove("hidden");
     console.log("Editor UI shown");
 }
+
+// Filter Tool
+filterTool.addEventListener("click",()=>{
+
+    filtersPanel.classList.remove("hidden");
+    textPanel.classList.add("hidden");
+
+});
+
+// Text Tool
+textTool.addEventListener("click",()=>{
+
+    textPanel.classList.remove("hidden");
+    filtersPanel.classList.add("hidden");
+
+});
+
+// Add Text
+addTextBtn.addEventListener("click", () => {
+
+    console.log("Add button clicked");
+
+
+    const text = textField.value.trim();
+
+    console.log("Text:", text);
+
+
+    if(!text){
+        console.log("No text entered");
+        return;
+    }
+
+
+    editorState.texts.push({
+
+        content:text,
+        position:selectedTextPosition
+
+    });
+
+
+    console.log(editorState.texts);
+
+
+    generatePhotoStrip();
+
+
+    textField.value="";
+
+});
+
+textTop.addEventListener("click",()=>{
+
+    if(editorState.texts.length === 0){
+        return;
+    }
+
+    editorState.texts[editorState.texts.length - 1].position = "top";
+
+    generatePhotoStrip();
+
+});
+
+
+textBottom.addEventListener("click",()=>{
+
+    if(editorState.texts.length === 0){
+        return;
+    }
+
+    editorState.texts[editorState.texts.length - 1].position = "bottom";
+
+    generatePhotoStrip();
+
+});
 
 // Get Canvas Filter
 function getCanvasFilter() {

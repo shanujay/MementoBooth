@@ -15,11 +15,12 @@ function drawTextOnTop(){
 
 
     editorCtx.font = "40px Arial";
-    editorCtx.fillStyle = "#000000";
     editorCtx.textAlign = "center";
 
 
     editorState.texts.forEach(text=>{
+
+        editorCtx.fillStyle = text.color || defaultTextColor;
 
         editorCtx.fillText(
             text.content,

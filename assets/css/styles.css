@@ -634,6 +634,51 @@ canvas {
 
 
 
+/* Text Color Picker */
+
+#textColorContainer {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 12px;
+
+}
+
+
+#textColorContainer label {
+
+    font-size: 15px;
+
+    color: #333;
+
+}
+
+
+#textColor {
+
+    width: 44px;
+
+    height: 32px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    background: none;
+
+}
+
+
 /* Buttons */
 
 .previewButtons {

@@ -61,6 +61,7 @@ const textPanel = document.getElementById("textPanel");
 // Text Input
 const textField = document.getElementById("textField");
 const addTextBtn = document.getElementById("addText");
+const textColor = document.getElementById("textColor");
 
 // Editor Canvas
 const editorCanvas = document.getElementById("editorCanvas");
@@ -94,8 +95,14 @@ const editorState = {
     texts: []
 };
 
+// Default Text Color
+const defaultTextColor = "#000000";
+
 // Text Drag and Drop State
 let selectedText = null;
+
+// Currently active/selected text (persists after mouseup for editing e.g. color)
+let activeText = null;
 
 let isDraggingText = false;
 

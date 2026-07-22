@@ -65,6 +65,10 @@ editorCanvas.addEventListener("mousedown", (e)=>{
     editorCtx.font = "40px Arial"; // add this
 
 
+    // Clicking empty space deselects any active text
+    activeText = null;
+
+
     editorState.texts.forEach(text=>{
 
         const textWidth = editorCtx.measureText(text.content).width;
@@ -78,6 +82,12 @@ editorCanvas.addEventListener("mousedown", (e)=>{
         ){
 
             selectedText = text;
+
+            // Keep a persistent reference so the color picker can edit it
+            activeText = text;
+
+            // Sync the color picker to the selected text's current color
+            textColor.value = text.color || defaultTextColor;
 
             isDraggingText = true;
 
@@ -161,8 +171,10 @@ addTextBtn.addEventListener("click", () => {
     
         x: canvas.width / 2,
     
-        y: 80
-    
+        y: 80,
+
+        color: textColor.value
+
     });
 
 
@@ -173,6 +185,25 @@ addTextBtn.addEventListener("click", () => {
 
 
     textField.value="";
+
+});
+
+
+// Change Font Color
+textColor.addEventListener("input", () => {
+
+    // If a text is currently selected, recolor it live
+    if(activeText){
+
+        activeText.color = textColor.value;
+
+        console.log("Text color changed:", activeText);
+
+        drawTextOnTop();
+
+    }
+
+    // Otherwise the chosen color simply applies to the next added text
 
 });
 

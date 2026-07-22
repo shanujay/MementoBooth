@@ -134,9 +134,8 @@ video {
 }
 
 #photoStripContainer:not(.hidden) {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    position: relative;
+    display: block;
     width: min(100%, var(--strip-display-w));
     height: auto;
     max-width: 100%;
@@ -157,6 +156,13 @@ canvas {
     height: auto;
     max-width: 100%;
     transform: none;
+}
+
+/* Overlay the editor canvas exactly on top of the base canvas */
+#editorCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 /*      Take a Snap Btn Styles      */

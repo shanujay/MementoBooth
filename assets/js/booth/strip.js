@@ -154,8 +154,18 @@ function drawFrameOnTop() {
 
 // Download Photo Strip
 downloadBtn.addEventListener("click", () => {
+
+    // Merge the base canvas (photos + frame) with the editor overlay (text)
+    const mergedCanvas = document.createElement("canvas");
+    mergedCanvas.width = canvas.width;
+    mergedCanvas.height = canvas.height;
+
+    const mergedCtx = mergedCanvas.getContext("2d");
+    mergedCtx.drawImage(canvas, 0, 0);
+    mergedCtx.drawImage(editorCanvas, 0, 0);
+
     const link = document.createElement("a");
-    link.href = canvas.toDataURL("image/png");
+    link.href = mergedCanvas.toDataURL("image/png");
     link.download = "photo_strip.png";
     link.click();
 

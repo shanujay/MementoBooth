@@ -53,10 +53,15 @@ const editorContainer = document.getElementById("editorContainer");
 // Editor Tools
 const filterTool = document.getElementById("filterTool");
 const textTool = document.getElementById("textTool");
+const stickerTool = document.getElementById("stickerTool");
 
 // Editor Panels
 const filtersPanel = document.getElementById("filtersPanel");
 const textPanel = document.getElementById("textPanel");
+const stickersPanel = document.getElementById("stickersPanel");
+
+// Sticker Options
+const stickerOptions = document.querySelectorAll(".stickerOption");
 
 // Text Input
 const textField = document.getElementById("textField");
@@ -93,8 +98,12 @@ let selectedLayout = {};
 // Editor State
 const editorState = {
     filter: "none",
-    texts: []
+    texts: [],
+    stickers: []
 };
+
+// Default sticker width (in canvas native pixels) - kept small
+const stickerDefaultWidth = 120;
 
 // Default Text Color
 const defaultTextColor = "#000000";
@@ -114,6 +123,11 @@ let isDraggingText = false;
 let dragOffsetX = 0;
 
 let dragOffsetY = 0;
+
+// Sticker Drag and Drop State
+let selectedSticker = null;
+
+let isDraggingSticker = false;
 
 // Loaded Frame Image
 let loadedFrameImage = null;

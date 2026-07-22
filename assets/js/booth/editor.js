@@ -21,6 +21,7 @@ filterTool.addEventListener("click",()=>{
 
     filtersPanel.classList.remove("hidden");
     textPanel.classList.add("hidden");
+    stickersPanel.classList.add("hidden");
 
 });
 
@@ -66,7 +67,10 @@ editorCanvas.addEventListener("mousedown", (e)=>{
     activeText = null;
 
 
-    editorState.texts.forEach(text=>{
+    // 1) Hit-test text first (text is drawn on top of stickers)
+    for(let i = editorState.texts.length - 1; i >= 0; i--){
+
+        const text = editorState.texts[i];
 
         editorCtx.font = "40px " + (text.font || defaultTextFont);
 
@@ -99,16 +103,47 @@ editorCanvas.addEventListener("mousedown", (e)=>{
 
             console.log("Selected text:", selectedText);
 
+            return; // stop: don't also grab a sticker underneath
+
         }
 
-    });
+    }
+
+
+    // 2) Hit-test stickers (topmost first)
+    for(let i = editorState.stickers.length - 1; i >= 0; i--){
+
+        const sticker = editorState.stickers[i];
+
+        if(
+            mouseX >= sticker.x &&
+            mouseX <= sticker.x + sticker.width &&
+            mouseY >= sticker.y &&
+            mouseY <= sticker.y + sticker.height
+        ){
+
+            selectedSticker = sticker;
+
+            isDraggingSticker = true;
+
+            dragOffsetX = mouseX - sticker.x;
+
+            dragOffsetY = mouseY - sticker.y;
+
+            console.log("Selected sticker:", selectedSticker);
+
+            return;
+
+        }
+
+    }
 
 });
 
 editorCanvas.addEventListener("mousemove",(e)=>{
 
 
-    if(!isDraggingText || !selectedText){
+    if(!isDraggingText && !isDraggingSticker){
         return;
     }
 
@@ -124,9 +159,20 @@ editorCanvas.addEventListener("mousemove",(e)=>{
     const mouseY = (e.clientY - rect.top) * scaleY;
 
 
-    selectedText.x = mouseX - dragOffsetX;
+    if(isDraggingText && selectedText){
 
-    selectedText.y = mouseY - dragOffsetY;
+        selectedText.x = mouseX - dragOffsetX;
+
+        selectedText.y = mouseY - dragOffsetY;
+
+    }
+    else if(isDraggingSticker && selectedSticker){
+
+        selectedSticker.x = mouseX - dragOffsetX;
+
+        selectedSticker.y = mouseY - dragOffsetY;
+
+    }
 
 
     drawTextOnTop();
@@ -140,6 +186,10 @@ editorCanvas.addEventListener("mouseup",()=>{
 
     selectedText = null;
 
+    isDraggingSticker = false;
+
+    selectedSticker = null;
+
 });
 
 // Text Tool
@@ -147,6 +197,67 @@ textTool.addEventListener("click",()=>{
 
     textPanel.classList.remove("hidden");
     filtersPanel.classList.add("hidden");
+    stickersPanel.classList.add("hidden");
+
+});
+
+// Sticker Tool
+stickerTool.addEventListener("click",()=>{
+
+    stickersPanel.classList.remove("hidden");
+    filtersPanel.classList.add("hidden");
+    textPanel.classList.add("hidden");
+
+});
+
+// Add Sticker when an option is clicked
+stickerOptions.forEach(option=>{
+
+    option.addEventListener("click", ()=>{
+
+        const src = option.dataset.src;
+
+
+        const img = new Image();
+
+        img.src = src;
+
+
+        const sticker = {
+
+            img: img,
+
+            x: canvas.width / 2 - stickerDefaultWidth / 2,
+
+            y: canvas.height / 2 - stickerDefaultWidth / 2,
+
+            width: stickerDefaultWidth,
+
+            height: stickerDefaultWidth
+
+        };
+
+
+        editorState.stickers.push(sticker);
+
+
+        // Once loaded, keep aspect ratio and redraw
+        img.onload = ()=>{
+
+            sticker.height = stickerDefaultWidth * (img.naturalHeight / img.naturalWidth);
+
+            sticker.x = canvas.width / 2 - sticker.width / 2;
+
+            sticker.y = canvas.height / 2 - sticker.height / 2;
+
+            drawTextOnTop();
+
+        };
+
+
+        console.log("Sticker added:", src);
+
+    });
 
 });
 

@@ -14,6 +14,24 @@ function drawTextOnTop(){
     );
 
 
+    // Draw stickers first (below the text layer)
+    editorState.stickers.forEach(sticker=>{
+
+        if(sticker.img && sticker.img.complete){
+
+            editorCtx.drawImage(
+                sticker.img,
+                sticker.x,
+                sticker.y,
+                sticker.width,
+                sticker.height
+            );
+
+        }
+
+    });
+
+
     editorCtx.textAlign = "center";
 
 

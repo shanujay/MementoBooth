@@ -7,22 +7,26 @@ document.addEventListener("DOMContentLoaded", function () {
     const goBtn = document.getElementById("goBtn");
     const sound = document.getElementById("clickSound");
 
-    startButton.addEventListener("click", function (event) {
-        event.preventDefault();
+    startButton.addEventListener("click", function () {
         sound.play();
-        document.body.style.backgroundImage = "url('assets/img/booth_bg.png')";
-        // Hide the start button and title
-        startBtnContainer.classList.add("hidden");
-        mainTitle.classList.add("hidden");
-        // Show the new images after a slight delay
-        setTimeout(() => {
-            introGirl.classList.remove("hidden");
-            intro.classList.remove("hidden");
-            goBtn.classList.remove("hidden");
-        }, 800);
-        // After 10 seconds, redirect to booth.html
-        setTimeout(() => {
-            window.location.href = "booth.html";
-        }, 10000);
+        // Navigate directly to booth.html (href handles the redirect)
+    });
+
+    // Nav section switching
+    const navLinks = document.querySelectorAll(".nav-link");
+    const sections = document.querySelectorAll(".page-section");
+
+    navLinks.forEach(link => {
+        link.addEventListener("click", function (event) {
+            event.preventDefault();
+            sound.play();
+
+            const target = link.dataset.section;
+
+            // Hide all sections, then show the target
+            sections.forEach(section => {
+                section.classList.toggle("hidden", section.id !== target);
+            });
+        });
     });
 });

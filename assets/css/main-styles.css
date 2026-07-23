@@ -6,9 +6,9 @@
 }
 
 body {
-    background-image: url('../img/main_bg.png');
+    background: linear-gradient(160deg, #f4e6f4, #efd9f0, #e2c9ee, #cdbfec, #bcb2e8, #b3aae6);
     background-size: cover;
-    background-position: center;
+
     background-repeat: no-repeat;
     min-height: 100vh;
     min-height: 100dvh;
@@ -21,6 +21,56 @@ body {
 /*      Hidden Class Styles        */
 .hidden {
     display: none !important;
+}
+
+/*      Nav Header Styles       */
+.nav-header {
+    position: fixed;
+    top: clamp(12px, 2vw, 24px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(90%, 900px);
+    z-index: 1000;
+
+    /* Glass effect */
+    background: rgba(255, 255, 255, 0.25);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: clamp(16px, 3vw, 28px);
+    box-shadow: 0 8px 32px rgba(115, 143, 189, 0.2);
+}
+
+.nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(10px, 1.5vw, 16px) clamp(16px, 3vw, 28px);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(20px, 4vw, 48px);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #5a4b73;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-weight: 600;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #cc8eb1;
+    transform: translateY(-2px);
 }
 
 /*      Main Container Styles       */

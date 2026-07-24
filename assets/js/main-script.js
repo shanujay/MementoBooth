@@ -15,18 +15,60 @@ document.addEventListener("DOMContentLoaded", function () {
     // Nav section switching
     const navLinks = document.querySelectorAll(".nav-link");
     const sections = document.querySelectorAll(".page-section");
+    const bgDecorationsHome = document.querySelector(".bg-decorations-home");
+    const bgDecorationsAbout = document.querySelector(".bg-decorations-about");
+    const bgDecorationsFeatures = document.querySelector(".bg-decorations-features");
+
+    const sectionDecorations = {
+        home: { container: bgDecorationsHome, cloudSelector: ".bg-deco-home" },
+        about: { container: bgDecorationsAbout, cloudSelector: ".bg-deco-about" },
+        features: { container: bgDecorationsFeatures, cloudSelector: ".bg-deco-features" },
+    };
+
+    function replayCloudAnimations(container, cloudSelector) {
+        if (!container) return;
+
+        const clouds = container.querySelectorAll(cloudSelector);
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        clouds.forEach(cloud => {
+            cloud.style.animation = "none";
+            cloud.style.opacity = prefersReducedMotion ? "1" : "0";
+        });
+
+        void container.offsetWidth;
+
+        clouds.forEach(cloud => {
+            cloud.style.animation = "";
+            if (!prefersReducedMotion) {
+                cloud.style.opacity = "";
+            }
+        });
+    }
+
+    function setActiveSection(target) {
+        sections.forEach(section => {
+            section.classList.toggle("hidden", section.id !== target);
+        });
+
+        Object.entries(sectionDecorations).forEach(([sectionName, { container, cloudSelector }]) => {
+            if (!container) return;
+
+            if (target === sectionName) {
+                container.classList.remove("is-hidden");
+                replayCloudAnimations(container, cloudSelector);
+            } else {
+                container.classList.add("is-hidden");
+            }
+        });
+    }
 
     navLinks.forEach(link => {
         link.addEventListener("click", function (event) {
             event.preventDefault();
             sound.play();
 
-            const target = link.dataset.section;
-
-            // Hide all sections, then show the target
-            sections.forEach(section => {
-                section.classList.toggle("hidden", section.id !== target);
-            });
+            setActiveSection(link.dataset.section);
         });
     });
 });

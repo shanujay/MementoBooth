@@ -18,6 +18,261 @@ body {
     overflow: hidden;
 }
 
+/*      Background Decoration Styles       */
+.bg-decorations-home,
+.bg-decorations-about,
+.bg-decorations-features {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+    opacity: 1;
+    visibility: visible;
+}
+
+.bg-decorations-home.is-hidden,
+.bg-decorations-about.is-hidden,
+.bg-decorations-features.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.45s ease, visibility 0.45s ease;
+}
+
+.bg-deco-home,
+.bg-deco-about,
+.bg-deco-features {
+    display: block;
+    height: auto;
+    object-fit: contain;
+    opacity: 0;
+    animation-duration: 1.4s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-fill-mode: forwards;
+}
+
+.bg-deco-home-1 {
+    position: absolute;
+    bottom: -320px;
+    left: -300px;
+    width: 800px;
+    animation-name: cloud-enter-home-1;
+    animation-delay: 0.1s;
+}
+
+.bg-deco-home-2 {
+    position: absolute;
+    bottom: 80px;
+    right: 180px;
+    width: 300px;
+    animation-name: cloud-enter-home-2;
+    animation-delay: 0.35s;
+}
+
+.bg-deco-home-3 {
+    position: absolute;
+    width: 600px;
+    bottom: -200px;
+    right: -200px;
+    animation-name: cloud-enter-home-3;
+    animation-delay: 0.55s;
+}
+
+.bg-deco-about-1 {
+    position: absolute;
+    bottom: -200px;
+    left: -300px;
+    width: 800px;
+    animation-name: cloud-enter-about-1;
+    animation-delay: 0.1s;
+}
+
+.bg-deco-about-2 {
+    position: absolute;
+    bottom: -300px;
+    left: -80px;
+    width: 800px;
+    rotate: 15deg;
+    animation-name: cloud-enter-about-2;
+    animation-delay: 0.35s;
+}
+
+.bg-deco-about-3 {
+    position: absolute;
+    width: 800px;
+    rotate: -15deg;
+    bottom: -200px;
+    right: -200px;
+    animation-name: cloud-enter-about-3;
+    animation-delay: 0.55s;
+}
+
+.bg-deco-about-4 {
+    position: absolute;
+    width: 800px;
+    bottom: -350px;
+    right: -50px;
+    animation-name: cloud-enter-about-4;
+    animation-delay: 0.55s;
+}
+
+.bg-deco-features-1 {
+    position: absolute;
+    bottom: -320px;
+    left: -300px;
+    width: 800px;
+    animation-name: cloud-enter-features-1;
+    animation-delay: 0.1s;
+}
+
+.bg-deco-features-2 {
+    position: absolute;
+    bottom: 80px;
+    right: 180px;
+    width: 300px;
+    animation-name: cloud-enter-features-2;
+    animation-delay: 0.35s;
+}
+
+.bg-deco-features-3 {
+    position: absolute;
+    width: 600px;
+    bottom: -200px;
+    right: -200px;
+    animation-name: cloud-enter-features-3;
+    animation-delay: 0.55s;
+}
+
+
+@keyframes cloud-enter-home-1 {
+    from {
+        transform: translate(-480px, 480px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes cloud-enter-home-2 {
+    from {
+        transform: translate(560px, 320px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes cloud-enter-home-3 {
+    from {
+        transform: translate(580px, 580px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes cloud-enter-about-1 {
+    from {
+        transform: translate(-480px, 480px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes cloud-enter-about-2 {
+    from {
+        transform: translate(-300px, 300px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes cloud-enter-about-3 {
+    from {
+        transform: translate(580px, 580px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes cloud-enter-about-4 {
+    from {
+        transform: translate(600px, 600px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes cloud-enter-features-1 {
+    from {
+        transform: translate(-480px, 480px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes cloud-enter-features-2 {
+    from {
+        transform: translate(560px, 320px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes cloud-enter-features-3 {
+    from {
+        transform: translate(580px, 580px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bg-deco-home,
+    .bg-deco-about,
+    .bg-deco-features {
+        opacity: 1;
+        animation: none;
+    }
+}
+
 /*      Hidden Class Styles        */
 .hidden {
     display: none !important;
@@ -86,6 +341,7 @@ body {
     margin: 0 auto;
     padding: clamp(16px, 4vw, 32px);
     position: relative;
+    z-index: 1;
 }
 
 /*      Page Section Styles        */
@@ -460,6 +716,24 @@ body {
 @media (max-width: 600px) {
     body {
         background-attachment: scroll;
+    }
+
+    .bg-deco-home-1,
+    .bg-deco-about-1,
+    .bg-deco-features-1 {
+        width: clamp(65px, 20vw, 105px);
+    }
+
+    .bg-deco-home-2,
+    .bg-deco-about-2,
+    .bg-deco-features-2 {
+        width: clamp(58px, 17vw, 92px);
+    }
+
+    .bg-deco-home-3,
+    .bg-deco-about-3,
+    .bg-deco-features-3 {
+        width: clamp(65px, 20vw, 105px);
     }
 
     .container-main {

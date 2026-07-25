@@ -75,7 +75,6 @@ document.addEventListener("DOMContentLoaded", function () {
         link.addEventListener("click", function (event) {
             event.preventDefault();
             setActiveSection(link.dataset.section);
-            sound.play();
         });
     });
 });

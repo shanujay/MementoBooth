@@ -508,19 +508,6 @@ body {
     color: #6a5b83;
 }
 
-/* ---- Features responsive ---- */
-@media (max-width: 900px) {
-    .features-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 520px) {
-    .features-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
 /*      Hero Section Styles        */
 .hero {
     display: flex;
@@ -710,58 +697,9 @@ body {
     pointer-events: none;
 }
 
-#introImage {
-    flex: 1;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-start;
-    min-width: 0;
-    position: relative;
-}
-
-#introduction {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 0;
-    min-width: 0;
-    position: relative;
-}
-
-/*      Intro Girl Styles       */
-#introGirl {
-    position: relative;
-    bottom: auto;
-    left: auto;
-    max-height: min(55vh, 400px);
-    width: auto;
-    max-width: min(45vw, 320px);
-    object-fit: contain;
-}
-
-/*      Intro Image Styles      */
-#intro {
-    position: relative;
-    max-width: min(90vw, 500px);
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: clamp(12px, 3vw, 20px);
-    padding: clamp(4px, 1vw, 8px);
-}
-
 /* ---- Large desktop ---- */
 @media (min-width: 1200px) {
-    #introGirl {
-        max-height: 420px;
-        max-width: 340px;
-    }
-
-    #intro {
-        max-width: 520px;
-    }
+    
 }
 
 /* ---- Tablet ---- */
@@ -778,24 +716,14 @@ body {
         gap: clamp(16px, 4vw, 28px);
     }
 
-    #introImage {
-        justify-content: center;
-        align-items: center;
-        width: 100%;
+    .bg-decorations-home,
+    .bg-decorations-about,
+    .bg-decorations-features {
+        visibility: hidden;
     }
 
-    #introduction {
-        width: 100%;
-        justify-content: center;
-    }
-
-    #introGirl {
-        max-height: min(40vh, 280px);
-        max-width: min(50vw, 240px);
-    }
-
-    #intro {
-        max-width: min(88vw, 420px);
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -804,25 +732,6 @@ body {
     body {
         background-attachment: scroll;
     }
-
-    .bg-deco-home-1,
-    .bg-deco-about-1,
-    .bg-deco-features-1 {
-        width: clamp(65px, 20vw, 105px);
-    }
-
-    .bg-deco-home-2,
-    .bg-deco-about-2,
-    .bg-deco-features-2 {
-        width: clamp(58px, 17vw, 92px);
-    }
-
-    .bg-deco-home-3,
-    .bg-deco-about-3,
-    .bg-deco-features-3 {
-        width: clamp(65px, 20vw, 105px);
-    }
-
     .container-main {
         justify-content: center;
         align-items: center;
@@ -856,15 +765,16 @@ body {
         padding: 16px 12px;
     }
 
-    #introGirl {
-        max-height: min(32vh, 200px);
-        max-width: min(55vw, 180px);
+    .bg-decorations-home,
+    .bg-decorations-about,
+    .bg-decorations-features {
+        visibility: hidden;
     }
 
-    #intro {
-        max-width: min(94vw, 360px);
-        border-radius: 14px;
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
+
 }
 
 /* ---- Small phones ---- */
@@ -877,9 +787,10 @@ body {
         width: 42vw;
     }
 
-    #introGirl {
-        max-height: 28vh;
-        max-width: 50vw;
+    .bg-decorations-home,
+    .bg-decorations-about,
+    .bg-decorations-features {
+        visibility: hidden;
     }
 }
 
@@ -910,12 +821,10 @@ body {
         gap: 16px;
     }
 
-    #introGirl {
-        max-height: 70vh;
-        max-width: 28vw;
-    }
-
-    #intro {
-        max-width: min(55vw, 360px);
+    .bg-decorations-home,
+    .bg-decorations-about,
+    .bg-decorations-features {
+        visibility: hidden;
     }
 }
+

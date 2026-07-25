@@ -375,44 +375,26 @@ body {
     color: #6a5b83;
 }
 
-/*      Features Grid & Flip Cards      */
+/*      Features Grid & Cards      */
 .features-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    align-items: stretch;
     gap: clamp(16px, 2vw, 28px);
     margin-top: clamp(24px, 4vw, 48px);
     width: 100%;
 }
 
 .feature-card {
-    perspective: 1000px;
-    height: clamp(200px, 26vh, 280px);
-}
-
-.feature-card-inner {
     position: relative;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.7s ease;
-    transform-style: preserve-3d;
-}
-
-.feature-card:hover .feature-card-inner {
-    transform: rotateY(180deg);
-}
-
-.feature-card-front,
-.feature-card-back {
-    position: absolute;
-    inset: 0;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    min-height: clamp(300px, 32vh, 380px);
+    height: 100%;
     text-align: center;
-    padding: clamp(16px, 2vw, 24px);
+    padding: clamp(20px, 2vw, 28px) clamp(16px, 2vw, 24px) clamp(52px, 5vw, 60px);
     border-radius: clamp(16px, 2vw, 24px);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 
     /* Glass effect */
     background: rgba(255, 255, 255, 0.3);
@@ -422,26 +404,61 @@ body {
     box-shadow: 0 8px 24px rgba(115, 143, 189, 0.2);
 }
 
-.feature-card-front h3 {
+.feature-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 32px rgba(115, 143, 189, 0.28);
+}
+
+.feature-card-content {
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    justify-items: center;
+    align-items: start;
+    width: 100%;
+    height: 100%;
+    gap: clamp(12px, 1.5vw, 16px);
+}
+
+.feature-card-icon {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+}
+
+.feature-card-deco {
+    position: absolute;
+    bottom: clamp(10px, 1.2vw, 14px);
+    right: clamp(10px, 1.2vw, 14px);
+    width: 40px;
+    height: 40px;
+    pointer-events: none;
+}
+
+.feature-card-deco-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.feature-card h3 {
     margin: 0;
+    width: 100%;
+    min-height: 3.2em;
     font-family: 'Segoe UI', Tahoma, sans-serif;
     font-weight: 700;
     font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+    line-height: 1.3;
     color: #4a3b63;
 }
 
-.feature-card-back {
-    transform: rotateY(180deg);
-    background: linear-gradient(135deg, rgba(219, 136, 164, 0.85), rgba(204, 142, 177, 0.85));
-    border: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-.feature-card-back p {
+.feature-card p {
     margin: 0;
+    width: 100%;
+    min-height: 4.8em;
     font-family: 'Segoe UI', Tahoma, sans-serif;
     font-size: clamp(0.9rem, 1.3vw, 1.05rem);
     line-height: 1.6;
-    color: #fff;
+    color: #6a5b83;
 }
 
 /* ---- Features responsive ---- */
@@ -501,8 +518,9 @@ body {
 }
 
 .hero-btn {
-    display: inline-block;
+    display: flex;
     text-decoration: none;
+    gap: 8px;
     font-family: 'Segoe UI', Tahoma, sans-serif;
     font-weight: 600;
     font-size: clamp(0.95rem, 2vw, 1.1rem);
@@ -510,6 +528,11 @@ body {
     border-radius: 999px;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.hero-btn-icon {
+    width: 20px;
+    height: auto;
 }
 
 .hero-btn-primary {

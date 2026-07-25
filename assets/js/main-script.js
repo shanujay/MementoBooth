@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Nav section switching
     const navLinks = document.querySelectorAll(".nav-link");
+
     const sections = document.querySelectorAll(".page-section");
     const bgDecorationsHome = document.querySelector(".bg-decorations-home");
     const bgDecorationsAbout = document.querySelector(".bg-decorations-about");
@@ -47,13 +48,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function setActiveSection(target) {
+        // Show active section
         sections.forEach(section => {
             section.classList.toggle("hidden", section.id !== target);
         });
-
+    
+        // Active nav link
+        navLinks.forEach(link => {
+            link.classList.toggle("active", link.dataset.section === target);
+        });
+    
+        // Decorations
         Object.entries(sectionDecorations).forEach(([sectionName, { container, cloudSelector }]) => {
             if (!container) return;
-
+    
             if (target === sectionName) {
                 container.classList.remove("is-hidden");
                 replayCloudAnimations(container, cloudSelector);
@@ -66,9 +74,8 @@ document.addEventListener("DOMContentLoaded", function () {
     navLinks.forEach(link => {
         link.addEventListener("click", function (event) {
             event.preventDefault();
-            sound.play();
-
             setActiveSection(link.dataset.section);
+            sound.play();
         });
     });
 });

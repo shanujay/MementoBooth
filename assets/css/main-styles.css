@@ -299,8 +299,37 @@ body {
 .nav-inner {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     padding: clamp(10px, 1.5vw, 16px) clamp(16px, 3vw, 28px);
+}
+
+.nav-logo {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    color: #4a3b63;
+}
+
+.nav-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(10px, 2vw, 16px);
+}
+
+.nav-btn {
+    text-decoration: none;
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-weight: 600;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    background: linear-gradient(135deg, #db88a4, #cc8eb1);
+    padding: 5px 12px;
+    border-radius: 999px;
+}
+
+.nav-btn:hover {
+    background: linear-gradient(135deg, #cc8eb1, #db88a4);
 }
 
 .nav-links {
@@ -326,6 +355,10 @@ body {
 .nav-links a:hover {
     color: #cc8eb1;
     transform: translateY(-2px);
+}
+
+.nav-links a.active {
+    color: #cc8eb1;
 }
 
 /*      Main Container Styles       */
@@ -373,6 +406,20 @@ body {
     font-size: clamp(1rem, 2vw, 1.25rem);
     line-height: 1.7;
     color: #6a5b83;
+}
+
+.section-title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-direction: column;
+}
+
+.section-doodle {
+    width: 200px;
+    height: auto;
+    object-fit: contain;
 }
 
 /*      Features Grid & Cards      */
@@ -490,6 +537,23 @@ body {
     flex-direction: column;
     align-items: flex-start;
     gap: clamp(16px, 2.5vw, 28px);
+}
+
+.hero-title-wrapper {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+}
+
+.hero-title-doodle {
+    position: absolute;
+    top: -5px;
+    left: -15px;
+    width: clamp(42px, 8vw, 66px);
+    height: auto;
+    object-fit: contain;
+    pointer-events: none;
+    transform: translate(-38%, -42%);
 }
 
 .hero-title {

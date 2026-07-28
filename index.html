@@ -48,14 +48,20 @@
             <div class="nav-logo">
                 MementoBooth
             </div>
-            <ul class="nav-links">
-                <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
-                <li><a href="#about" class="nav-link" data-section="about">About</a></li>
-                <li><a href="#features" class="nav-link" data-section="features">Features</a></li>
-            </ul>
-
-            <div class="nav-buttons">
-                <a href="booth.html" id="startButton" class="nav-btn nav-btn-primary">Start Capturing</a>
+            <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+                <span class="nav-toggle-bar" aria-hidden="true"></span>
+                <span class="nav-toggle-bar" aria-hidden="true"></span>
+                <span class="nav-toggle-bar" aria-hidden="true"></span>
+            </button>
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
+                    <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+                    <li><a href="#features" class="nav-link" data-section="features">Features</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <a href="booth.html" id="startButton" class="nav-btn nav-btn-primary">Start Capturing</a>
+                </div>
             </div>
         </nav>
     </header>

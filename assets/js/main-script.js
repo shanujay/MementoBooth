@@ -12,6 +12,25 @@ document.addEventListener("DOMContentLoaded", function () {
         // Navigate directly to booth.html (href handles the redirect)
     });
 
+    // Mobile nav menu
+    const navHeader = document.querySelector(".nav-header");
+    const navToggle = document.querySelector(".nav-toggle");
+
+    function closeNavMenu() {
+        if (!navHeader || !navToggle) return;
+        navHeader.classList.remove("nav-open");
+        navToggle.setAttribute("aria-expanded", "false");
+        navToggle.setAttribute("aria-label", "Open menu");
+    }
+
+    if (navToggle && navHeader) {
+        navToggle.addEventListener("click", function () {
+            const isOpen = navHeader.classList.toggle("nav-open");
+            navToggle.setAttribute("aria-expanded", String(isOpen));
+            navToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+        });
+    }
+
     // Nav section switching
     const navLinks = document.querySelectorAll(".nav-link");
 
@@ -75,6 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
         link.addEventListener("click", function (event) {
             event.preventDefault();
             setActiveSection(link.dataset.section);
+            closeNavMenu();
         });
     });
 });

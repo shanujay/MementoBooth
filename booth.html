@@ -178,26 +178,35 @@
                     <!-- Filter Panel -->
                     <div id="filtersPanel" class="hidden">
 
-                        <button data-filter="none">Original</button>
-                    
-                        <button data-filter="grayscale">B&W</button>
-                    
-                        <button data-filter="sepia">Sepia</button>
-                    
-                        <button data-filter="vintage">Vintage</button>
-                    
-                        <button data-filter="warm">Warm</button>
-                    
+                        <button type="button" class="filter-option active" data-filter="none" aria-label="Original">
+                            <span class="filter-swatch filter-swatch--none"></span>
+                            <span class="filter-label">Original</span>
+                        </button>
+
+                        <button type="button" class="filter-option" data-filter="grayscale" aria-label="Black and white">
+                            <span class="filter-swatch filter-swatch--grayscale"></span>
+                            <span class="filter-label">B&amp;W</span>
+                        </button>
+
+                        <button type="button" class="filter-option" data-filter="sepia" aria-label="Sepia">
+                            <span class="filter-swatch filter-swatch--sepia"></span>
+                            <span class="filter-label">Sepia</span>
+                        </button>
+
+                        <button type="button" class="filter-option" data-filter="vintage" aria-label="Vintage">
+                            <span class="filter-swatch filter-swatch--vintage"></span>
+                            <span class="filter-label">Vintage</span>
+                        </button>
+
+                        <button type="button" class="filter-option" data-filter="warm" aria-label="Warm">
+                            <span class="filter-swatch filter-swatch--warm"></span>
+                            <span class="filter-label">Warm</span>
+                        </button>
+
                     </div>
 
                     <!-- Text Input Panel -->
                     <div id="textPanel" class="hidden">
-
-                        <div id="textPlacement">
-                            <button id="textTop">Top</button>
-                            <button id="textBottom">Bottom</button>
-                        </div>
-
                         <!-- Text Input Container -->
                         <div class="input-container">
                             <input type="text" id="textField" placeholder="Enter text" >

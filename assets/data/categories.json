@@ -2,37 +2,55 @@
     {
         "id": "kpop",
         "name": "KPOP",
-        "thumbnail": "assets/template/categories/kpop.png",
+        "thumbnails": [
+            "assets/category_images/category_test_1.PNG",
+            "assets/category_images/category_test_2.PNG"
+        ],
         "frameFile": "/kpop.json"
     },
     {
         "id": "cartoon",
         "name": "Cartoon",
-        "thumbnail": "assets/template/categories/cartoon.png",
+        "thumbnails": [
+            "assets/category_images/category_test_1.PNG",
+            "assets/category_images/category_test_2.PNG"
+        ],
         "frameFile": "/cartoon.json"
     },
     {
         "id": "aesthetic",
         "name": "Aesthetic",
-        "thumbnail": "assets/template/categories/aesthetic.png",
+        "thumbnails": [
+            "assets/category_images/category_test_1.PNG",
+            "assets/category_images/category_test_2.PNG"
+        ],
         "frameFile": "/aesthetic.json"
     },
     {
         "id": "minimal",
         "name": "Minimal",
-        "thumbnail": "assets/template/categories/minimal.png",
+        "thumbnails": [
+            "assets/category_images/category_test_1.PNG",
+            "assets/category_images/category_test_2.PNG"
+        ],
         "frameFile": "/minimal.json"
     },
     {
         "id": "friends",
         "name": "Friends",
-        "thumbnail": "assets/template/categories/friends.png",
+        "thumbnails": [
+            "assets/category_images/category_test_1.PNG",
+            "assets/category_images/category_test_2.PNG"
+        ],
         "frameFile": "/friends.json"
     },
     {
         "id": "love",
         "name": "Love",
-        "thumbnail": "assets/template/categories/love.png",
+        "thumbnails": [
+            "assets/category_images/category_test_1.PNG",
+            "assets/category_images/category_test_2.PNG"
+        ],
         "frameFile": "/love.json"
     }
 ]

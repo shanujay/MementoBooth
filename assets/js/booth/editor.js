@@ -463,6 +463,9 @@ function getCanvasFilter() {
         case "warm":
             return "brightness(105%) saturate(120%)";
 
+        case "vintage":
+            return "sepia(45%) contrast(92%) brightness(95%) saturate(85%)";
+
         case "cool":
             return "hue-rotate(180deg)";
 
@@ -474,11 +477,17 @@ function getCanvasFilter() {
 }
 
 // Filters Buttons
-document.querySelectorAll("[data-filter]").forEach(button => {
+document.querySelectorAll(".filter-option").forEach(button => {
 
     button.addEventListener("click", () => {
 
         editorState.filter = button.dataset.filter;
+
+        document.querySelectorAll(".filter-option").forEach(option => {
+            option.classList.remove("active");
+        });
+
+        button.classList.add("active");
         console.log("Filter applied: " + editorState.filter);
 
         generatePhotoStrip();

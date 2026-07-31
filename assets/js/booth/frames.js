@@ -13,12 +13,26 @@ function displayCategories(){
         card.classList.add("category-card");
 
 
+        const thumbnails = category.thumbnails?.length
+            ? category.thumbnails
+            : [category.thumbnail];
+
+        const thumbnailsHtml = thumbnails
+            .slice(0, 2)
+            .map((src, index) => `
+                <div class="category-strip-image category-strip-image--${index === 0 ? "left" : "right"}">
+                    <img src="${src}" alt="">
+                </div>
+            `)
+            .join("");
+
         card.innerHTML = `
-
-            <img src="${category.thumbnail}">
-
-            <p>${category.name}</p>
-
+            <div class="category-folder">
+                <div class="category-folder-strips">
+                    ${thumbnailsHtml}
+                </div>
+                    <p class="category-folder-name">${category.name}</p>
+            </div>
         `;
 
 

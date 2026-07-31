@@ -35,14 +35,14 @@ const confirmRetake = document.getElementById("confirmRetake");
 // Countdown Display
 const countdown = document.getElementById("countdown");
 
-// Photo Review
-const photoReview = document.getElementById("photoReview");
-const photoCarousel = document.getElementById("photoCarousel");
+// Live captured photos preview (under camera)
+const capturedPhotosPreview = document.getElementById("capturedPhotosPreview");
+const photoPreview = document.getElementById("photoPreview");
+const captureReviewActions = document.getElementById("captureReviewActions");
+
+// Photo Review actions
 const confirmReview = document.getElementById("confirmReview");
 const retakeReview = document.getElementById("retakeReview");
-const prevPhoto = document.getElementById("prevPhoto");
-const nextPhoto = document.getElementById("nextPhoto");
-const reviewCounter = document.getElementById("reviewCounter");
 
 // Retake All Photos
 const retakeAll = document.getElementById("retakeAll");
@@ -82,6 +82,9 @@ let photos = [];
 
 // Review Index
 let reviewIndex = 0;
+
+// Viewing captured photos after session (camera area shows selected photo)
+let inPhotoReview = false;
 
 // Is Retaking
 let isRetaking = false;

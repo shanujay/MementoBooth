@@ -16,7 +16,6 @@ takeSnapBtn.addEventListener("click", async () => {
 
         isRetaking = false;
 
-        hideCameraUI();
         takeSnapBtn.classList.add("hidden");
         stopCamera();
 
@@ -29,6 +28,7 @@ takeSnapBtn.addEventListener("click", async () => {
     // If Retaking All Photos
     if (isRetakingAll) {
         photos = [];
+        clearCapturedPhotosPreview();
     
         for (let photoCount = 1; photoCount <= selectedPhotoCount; photoCount++) {
     
@@ -49,7 +49,6 @@ takeSnapBtn.addEventListener("click", async () => {
     
         isRetakingAll = false;
     
-        hideCameraUI();
         takeSnapBtn.classList.add("hidden");
         stopCamera();
         showPhotoReview();
@@ -59,6 +58,7 @@ takeSnapBtn.addEventListener("click", async () => {
 
     let photoCount = 1;
     photos = [];
+    clearCapturedPhotosPreview();
 
     while (photoCount <= selectedPhotoCount) {
         photoCountDisplay.textContent = `Photo ${photoCount} of ${selectedPhotoCount}`;
@@ -82,14 +82,10 @@ takeSnapBtn.addEventListener("click", async () => {
 
     reviewIndex = 0;
 
-    // Hide camera
-    hideCameraUI();
     takeSnapBtn.classList.add("hidden");
 
-    // Stop Camera
     stopCamera();
 
-    // Show review
     showPhotoReview();
 });
 
@@ -146,4 +142,6 @@ async function capturePhotoExactSize(width, height) {
     } else {
         photos.push(imageDataUrl);
     }
+
+    renderCapturedPhotosPreview();
 }

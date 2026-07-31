@@ -6,6 +6,7 @@ function hideCameraUI() {
 
 // Show Camera UI
 function showCameraUI() {
+    hidePhotoPreviewViewer();
     video.classList.remove("hidden");
     photoCountDisplay.classList.remove("hidden");
 }

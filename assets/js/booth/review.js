@@ -1,108 +1,122 @@
-// Show Photo Review 
-function showPhotoReview(){
+function clearCapturedPhotosPreview() {
 
-    photoReview.classList.remove("hidden");
-    hideCameraUI();
+    if (!capturedPhotosPreview) return;
 
-    // Stop Camera
-    stopCamera();
+    capturedPhotosPreview.innerHTML = "";
+    capturedPhotosPreview.classList.add("hidden");
 
-    photoCarousel.innerHTML = "";
+}
 
-    photos.forEach((photo,index)=>{
+function hidePhotoPreviewViewer() {
+
+    if (!photoPreview) return;
+
+    photoPreview.classList.add("hidden");
+    photoPreview.removeAttribute("src");
+
+}
+
+function showPhotoPreviewViewer(index) {
+
+    if (!photoPreview || !photos[index]) return;
+
+    reviewIndex = index;
+
+    video.classList.add("hidden");
+    photoPreview.src = photos[index];
+    photoPreview.classList.remove("hidden");
+
+    capturedPhotosPreview.querySelectorAll(".captured-photo-thumb").forEach((thumb, i) => {
+        thumb.classList.toggle("active", i === reviewIndex);
+    });
+
+}
+
+function renderCapturedPhotosPreview() {
+
+    if (!capturedPhotosPreview) return;
+
+    capturedPhotosPreview.innerHTML = "";
+
+    photos.forEach((photo, index) => {
 
         const img = document.createElement("img");
 
         img.src = photo;
+        img.classList.add("captured-photo-thumb");
+        img.alt = `Captured photo ${index + 1}`;
 
-        img.classList.add("review-photo");
+        if (inPhotoReview) {
+            img.classList.add("captured-photo-thumb--selectable");
+            img.classList.toggle("active", index === reviewIndex);
 
+            img.addEventListener("click", () => {
+                clickSound.play();
+                showPhotoPreviewViewer(index);
+            });
+        }
 
-        photoCarousel.appendChild(img);
-
-    });
-
-
-    updateCarousel();
-
-}
-
-// Update Carousel
-function updateCarousel(){
-
-    const images = document.querySelectorAll(".review-photo");
-    
-    images.forEach((img,index)=>{
-
-        img.classList.toggle(
-            "hidden",
-            index !== reviewIndex
-        );
+        capturedPhotosPreview.appendChild(img);
 
     });
 
-    prevPhoto.disabled = reviewIndex === 0;
-    nextPhoto.disabled = reviewIndex === photos.length - 1;
-
-    reviewCounter.textContent =
-    `Photo ${reviewIndex + 1} / ${photos.length}`;
+    if (photos.length > 0) {
+        capturedPhotosPreview.classList.remove("hidden");
+    } else {
+        capturedPhotosPreview.classList.add("hidden");
+    }
 
 }
 
-nextPhoto.addEventListener("click",()=>{
+function showPhotoReview() {
 
-    clickSound.play();
+    inPhotoReview = true;
 
-    if(reviewIndex < photos.length - 1){
+    stopCamera();
+    photoCountDisplay.classList.add("hidden");
+    takeSnapBtn.classList.add("hidden");
 
-        reviewIndex++;
+    renderCapturedPhotosPreview();
+    showPhotoPreviewViewer(reviewIndex);
 
-        updateCarousel();
-
+    if (captureReviewActions) {
+        captureReviewActions.classList.remove("hidden");
     }
 
-});
+}
 
+function exitPhotoReview() {
 
-prevPhoto.addEventListener("click",()=>{
+    inPhotoReview = false;
 
-    clickSound.play();
+    hidePhotoPreviewViewer();
 
-    if(reviewIndex > 0){
-
-        reviewIndex--;
-
-        updateCarousel();
-
+    if (captureReviewActions) {
+        captureReviewActions.classList.add("hidden");
     }
 
-});
+}
 
 // Confirm Review
-confirmReview.addEventListener("click",()=>{
+confirmReview.addEventListener("click", () => {
 
+    exitPhotoReview();
+    photoBooth.classList.add("hidden");
 
-    photoReview.classList.add("hidden");
-
-
-    // Show final result section
     showEditorUI();
-
-
     generatePhotoStrip();
-
 
 });
 
 // Retake Review
 retakeReview.addEventListener("click", async () => {
 
-    photoReview.classList.add("hidden");
-
+    exitPhotoReview();
     isRetaking = true;
 
-    await startCamera();
+    renderCapturedPhotosPreview();
 
+    await startCamera();
     showCameraUI();
     takeSnapBtn.classList.remove("hidden");
 
@@ -111,12 +125,12 @@ retakeReview.addEventListener("click", async () => {
 // Retake All Photos
 retakeAll.addEventListener("click", async () => {
 
-    photoReview.classList.add("hidden");
-
+    exitPhotoReview();
     isRetakingAll = true;
 
-    await startCamera();
+    clearCapturedPhotosPreview();
 
+    await startCamera();
     showCameraUI();
     takeSnapBtn.classList.remove("hidden");
 

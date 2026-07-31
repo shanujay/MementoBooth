@@ -121,6 +121,89 @@ video {
     padding: 0 12px;
 }
 
+#capturedPhotosPreview:not(.hidden) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    gap: clamp(8px, 2vw, 12px);
+    width: min(100%, 420px);
+    margin: clamp(8px, 2vw, 14px) auto 0;
+    padding: 0 clamp(8px, 2vw, 12px);
+}
+
+.captured-photo-thumb {
+    display: block;
+    height: clamp(72px, 16vw, 96px);
+    width: auto;
+    max-width: clamp(54px, 14vw, 72px);
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #333;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.captured-photo-thumb.active {
+    border-color: #ffc62b;
+    box-shadow: 0 0 0 3px #ffc62b;
+}
+
+#capturedPhotosPreview .captured-photo-thumb--selectable {
+    cursor: pointer;
+}
+
+#capturedPhotosPreview .captured-photo-thumb--selectable:hover {
+    transform: translateY(-2px);
+}
+
+#photoPreview {
+    display: block;
+    width: min(100%, 420px);
+    height: auto;
+    aspect-ratio: 420 / 340;
+    object-fit: contain;
+    margin: clamp(12px, 3vw, 20px) auto 0;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: clamp(16px, 4vw, 50px);
+    border-radius: clamp(12px, 3vw, 20px);
+    border: 1px solid black;
+    max-width: 100%;
+}
+
+#captureReviewActions:not(.hidden) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: min(100%, 420px);
+    margin: 14px auto 0;
+    padding: 0 12px;
+}
+
+#captureReviewActions button {
+    border: none;
+    padding: 10px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: transform 0.2s ease;
+}
+
+#captureReviewActions button:hover {
+    transform: scale(1.04);
+}
+
+#retakeReview,
+#retakeAll {
+    background: #eeeeee;
+}
+
+#confirmReview {
+    background: #ffc62b;
+}
+
 /*      Canvas Styles      */
 :root {
     --strip-native-w: 500;

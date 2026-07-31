@@ -98,57 +98,27 @@
             <div id="cameraContainer">
 
                 <video id="video" autoplay playsinline></video>
+
+                <img id="photoPreview" class="hidden" alt="Selected captured photo">
         
                 <div id="countdown" class="hidden">
                     3
                 </div>
         
             </div>
+
+            <div id="capturedPhotosPreview" class="hidden" aria-live="polite"></div>
+
+            <div id="captureReviewActions" class="hidden">
+                <button type="button" id="retakeReview">Retake This Photo</button>
+                <button type="button" id="retakeAll">Retake All Photos</button>
+                <button type="button" id="confirmReview">Use Photos</button>
+            </div>
         
             <p id="photoCountDisplay"></p>
         
             <img src="assets/img/snap_btn.png" id="takeSnapBtn" class="hidden">
 
-            <!-- Photo Review -->
-            <div id="photoReview" class="hidden">
-
-                <h2>Review Your Photos</h2>
-
-
-                <div id="photoCarousel">
-
-                </div>
-
-                <!-- Carousel Controls -->
-                <div id="carouselControls">
-
-                    <button id="prevPhoto">←</button>
-                
-                    <button id="nextPhoto">→</button>
-                
-                </div>
-
-
-                <div class="reviewButtons">
-
-                    <!-- Individual Photo Retake Btn -->
-                    <button id="retakeReview">
-                        Retake This Photo
-                    </button>
-
-                    <!-- All Photos Retake Btn -->
-                    <button id="retakeAll">
-                        Retake All Photos
-                    </button>
-
-                    <button id="confirmReview">
-                        Use Photos
-                    </button>
-
-                </div>
-
-            </div>
-        
         </div>
 
         <!-- Second Container -->

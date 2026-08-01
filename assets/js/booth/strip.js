@@ -122,12 +122,29 @@ function getTextCloseButton(text){
 
 
 // Generate Final Strip
+function updateStripDisplaySize() {
+
+    if (!selectedLayout) return;
+
+    document.documentElement.style.setProperty(
+        "--strip-native-w",
+        String(selectedLayout.canvasWidth)
+    );
+    document.documentElement.style.setProperty(
+        "--strip-native-h",
+        String(selectedLayout.canvasHeight)
+    );
+
+}
+
 function generatePhotoStrip() {
 
     if(!selectedLayout){
         console.error("No layout selected");
         return;
     }
+
+    updateStripDisplaySize();
 
     const canvasWidth = selectedLayout.canvasWidth;
 
@@ -140,11 +157,7 @@ function generatePhotoStrip() {
     const paddingLeft = selectedLayout.paddingLeft;
 
 
-    const canvasHeight =
-        paddingTop +
-        (photoHeight * selectedPhotoCount) +
-        (spacing * (selectedPhotoCount - 1)) +
-        paddingTop;
+    const canvasHeight = selectedLayout.canvasHeight;
 
 
     canvas.width = canvasWidth;
@@ -154,32 +167,46 @@ function generatePhotoStrip() {
 
 
     let yOffset = paddingTop;
+    let xOffset = paddingLeft;
+    const isHorizontalLayout = selectedLayout.orientation === "horizontal";
 
     let loadedPhotos = 0;
 
 
-    photos.forEach((photo)=>{
+    photos.forEach((photo) => {
 
         const img = new Image();
 
         img.src = photo;
 
 
-        img.onload = ()=>{
+        img.onload = () => {
 
             ctx.filter = getCanvasFilter();
 
-            ctx.drawImage(
-                img,
-                paddingLeft,
-                yOffset,
-                photoWidth,
-                photoHeight
-            );
+            if (isHorizontalLayout) {
+                ctx.drawImage(
+                    img,
+                    xOffset,
+                    paddingTop,
+                    photoWidth,
+                    photoHeight
+                );
+
+                xOffset += photoWidth + spacing;
+            } else {
+                ctx.drawImage(
+                    img,
+                    paddingLeft,
+                    yOffset,
+                    photoWidth,
+                    photoHeight
+                );
+
+                yOffset += photoHeight + spacing;
+            }
 
             ctx.filter = "none";
-
-            yOffset += photoHeight + spacing;
 
 
             loadedPhotos++;

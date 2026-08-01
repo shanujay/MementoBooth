@@ -1,0 +1,20 @@
+[
+    {
+        "id": "vertical_3_01_frame_01",
+        "name": "3 Vertical Design 1 - 1",
+        "orientation": "vertical",
+        "design": 1,
+        "layout": "vertical_3_01",
+        "photoCount": 3,
+        "image": "assets/template/vertical/3_Photo/design_1/3_vertical_1.png"
+    },
+    {
+        "id": "horizontal_3_01_frame_01",
+        "name": "3 Horizontal Design 1 - 1",
+        "orientation": "horizontal",
+        "design": 1,
+        "layout": "horizontal_3_01",
+        "photoCount": 3,
+        "image": "assets/template/horizontal/3_Photo/design_1/3_horizontal_1.png"
+    }
+]

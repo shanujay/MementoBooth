@@ -1,56 +1,10 @@
 [
     {
-        "id": "kpop",
-        "name": "KPOP",
-        "thumbnails": [
-            "assets/category_images/category_test_1.PNG",
-            "assets/category_images/category_test_2.PNG"
-        ],
-        "frameFile": "/kpop.json"
+        "id": "vertical",
+        "name": "Vertical"
     },
     {
-        "id": "cartoon",
-        "name": "Cartoon",
-        "thumbnails": [
-            "assets/category_images/category_test_1.PNG",
-            "assets/category_images/category_test_2.PNG"
-        ],
-        "frameFile": "/cartoon.json"
-    },
-    {
-        "id": "aesthetic",
-        "name": "Aesthetic",
-        "thumbnails": [
-            "assets/category_images/category_test_1.PNG",
-            "assets/category_images/category_test_2.PNG"
-        ],
-        "frameFile": "/aesthetic.json"
-    },
-    {
-        "id": "minimal",
-        "name": "Minimal",
-        "thumbnails": [
-            "assets/category_images/category_test_1.PNG",
-            "assets/category_images/category_test_2.PNG"
-        ],
-        "frameFile": "/minimal.json"
-    },
-    {
-        "id": "friends",
-        "name": "Friends",
-        "thumbnails": [
-            "assets/category_images/category_test_1.PNG",
-            "assets/category_images/category_test_2.PNG"
-        ],
-        "frameFile": "/friends.json"
-    },
-    {
-        "id": "love",
-        "name": "Love",
-        "thumbnails": [
-            "assets/category_images/category_test_1.PNG",
-            "assets/category_images/category_test_2.PNG"
-        ],
-        "frameFile": "/love.json"
+        "id": "horizontal",
+        "name": "Horizontal"
     }
 ]

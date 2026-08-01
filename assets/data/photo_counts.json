@@ -1,0 +1,20 @@
+[
+    {
+        "id": "2",
+        "name": "2 Photos",
+        "frameFile": "2_photos.json",
+        "photoCount": 2
+    },
+    {
+        "id": "3",
+        "name": "3 Photos",
+        "frameFile": "3_photos.json",
+        "photoCount": 3
+    },
+    {
+        "id": "4",
+        "name": "4 Photos",
+        "frameFile": "4_photos.json",
+        "photoCount": 4
+    }
+]

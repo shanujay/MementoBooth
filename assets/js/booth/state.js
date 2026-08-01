@@ -94,6 +94,11 @@ let isRetakingAll = false;
 
 // Load Frame Templates
 let categories = [];
+let photoCounts = [];
+
+let selectedOrientation = "";
+let selectedPhotoCountOption = null;
+let selectionStep = "orientation";
 
 let layouts = {};
 let selectedLayout = {};

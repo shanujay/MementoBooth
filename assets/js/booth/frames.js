@@ -1,199 +1,175 @@
-function displayCategories(){
+function createSelectionCard(label, onClick) {
 
-    frameTitle.textContent = "Choose Your Theme";
+    const card = document.createElement("button");
 
+    card.type = "button";
+    card.classList.add("selection-card");
+    card.innerHTML = `<span class="selection-card-label">${label}</span>`;
+    card.addEventListener("click", () => {
+        clickSound.play();
+        onClick();
+    });
+
+    return card;
+
+}
+
+function displayOrientations() {
+
+    selectionStep = "orientation";
+    selectedOrientation = "";
+    selectedPhotoCountOption = null;
+
+    frameTitle.textContent = "Choose Orientation";
     frameCategories.innerHTML = "";
+    frameCategories.classList.remove("hidden");
+    framesContainer.classList.add("hidden");
+    backToCategories.classList.add("hidden");
 
+    categories.forEach((category) => {
+        frameCategories.appendChild(createSelectionCard(category.name, () => {
+            selectedOrientation = category.id;
+            displayPhotoCounts();
+        }));
+    });
 
-    categories.forEach(category => {
+}
 
+function displayPhotoCounts() {
 
-        const card = document.createElement("div");
+    selectionStep = "photoCount";
 
-        card.classList.add("category-card");
+    frameTitle.textContent = "Choose Photo Count";
+    frameCategories.innerHTML = "";
+    frameCategories.classList.remove("hidden");
+    framesContainer.classList.add("hidden");
+    backToCategories.classList.remove("hidden");
 
+    photoCounts.forEach((option) => {
+        frameCategories.appendChild(createSelectionCard(option.name, () => {
+            selectedPhotoCountOption = option;
+            loadFrames(option);
+        }));
+    });
 
-        const thumbnails = category.thumbnails?.length
-            ? category.thumbnails
-            : [category.thumbnail];
+}
 
-        const thumbnailsHtml = thumbnails
-            .slice(0, 2)
-            .map((src, index) => `
-                <div class="category-strip-image category-strip-image--${index === 0 ? "left" : "right"}">
-                    <img src="${src}" alt="">
-                </div>
-            `)
-            .join("");
+function loadFrames(photoCountOption) {
 
-        card.innerHTML = `
-            <div class="category-folder">
-                <div class="category-folder-strips">
-                    ${thumbnailsHtml}
-                </div>
-                    <p class="category-folder-name">${category.name}</p>
-            </div>
-        `;
+    fetch(`assets/data/frames/${photoCountOption.frameFile}`)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Failed to load ${photoCountOption.frameFile}`);
+            }
 
+            return response.json();
+        })
+        .then((frames) => {
+            const filteredFrames = frames.filter(
+                (frame) => frame.orientation === selectedOrientation
+            );
 
-        card.addEventListener("click",()=>{
+            if (filteredFrames.length === 0) {
+                alert(`No ${selectedOrientation} frames found for ${photoCountOption.name}.`);
+                return;
+            }
 
-            loadFrames(category);
-
+            displayFrames(filteredFrames, photoCountOption.name);
+        })
+        .catch((error) => {
+            console.error("Error loading frames:", error);
         });
 
-
-        frameCategories.appendChild(card);
-
-
-    });
-
 }
 
-function loadFrames(category){
+function displayFrames(frames, sectionName) {
 
-    fetch(`assets/data/frames/${category.frameFile}`)
-    .then(response => response.json())
-    .then(frames => {
-
-        displayFrames(frames, category.name);
-
-    })
-    .catch(error => {
-
-        console.error("Error loading frames:", error);
-
-    });
-
-}
-
-function displayFrames(frames, categoryName){
-
-    frameTitle.textContent = `${categoryName} Frames`;
-
+    selectionStep = "frames";
+    frameTitle.textContent = `${sectionName} Frames`;
     framesContainer.innerHTML = "";
 
-
-    // Hide categories
     frameCategories.classList.add("hidden");
-
-
-    // Show frames
     framesContainer.classList.remove("hidden");
+    backToCategories.classList.remove("hidden");
 
-
-    // Show back button
-    backToCategories.classList.remove("hidden")
-
-
-    frames.forEach(frame=>{
-
+    frames.forEach((frame) => {
 
         const img = document.createElement("img");
 
         img.src = frame.image;
-
+        img.alt = frame.name;
         img.classList.add("frame-option");
-
         img.dataset.frame = frame.image;
 
-
-        img.addEventListener("click",()=>{
+        img.addEventListener("click", () => {
 
             selectedFrame = frame.image;
-        
             selectedPhotoCount = frame.photoCount;
-        
             selectedLayout = layouts[frame.layout];
-        
+
+            if (!selectedLayout) {
+                console.error("Missing layout:", frame.layout);
+                alert("This frame layout is not configured yet.");
+                return;
+            }
+
             console.log("Selected Frame:", selectedFrame);
             console.log("Photo Count:", selectedPhotoCount);
             console.log("Selected Layout:", selectedLayout);
-        
+
             showFramePreview(frame);
-        
+
         });
 
-
         framesContainer.appendChild(img);
-
 
     });
 
 }
 
-backToCategories.addEventListener("click",()=>{
+backToCategories.addEventListener("click", () => {
 
+    clickSound.play();
+    framePreview.classList.add("hidden");
 
-    framesContainer.classList.add("hidden");
+    if (selectionStep === "frames") {
+        displayPhotoCounts();
+        return;
+    }
 
-    frameCategories.classList.remove("hidden");
-
-    backToCategories.classList.add("hidden");
-
-
-    frameTitle.textContent = "Choose Your Theme";
+    if (selectionStep === "photoCount") {
+        displayOrientations();
+    }
 
 });
 
-// Frame selection
-document.querySelectorAll(".frame-option").forEach(frame => {
-    frame.addEventListener("click", function () {
-        selectedFrame = this.getAttribute("data-frame");
-        hoverSound.play();
-        templateSelection.classList.add("hidden");
-        photoBooth.classList.remove("hidden");
-        startCamera();
-    });
-});
-
-// Show Frame Preview
 function showFramePreview(frame) {
 
     selectedFrame = frame.image;
 
-
-    // Hide frame selection
     frameCategories.classList.add("hidden");
     framesContainer.classList.add("hidden");
-
-
-    // Show preview
     framePreview.classList.remove("hidden");
 
-
-    // Add frame details
-    previewTitle.textContent = `${frame.name} (${frame.photoCount} Photos - ${frame.layoutId})`;
-
+    previewTitle.textContent = `${frame.name} (${frame.photoCount} Photos)`;
     previewFrameImage.src = frame.image;
 
 }
 
-// Confirm Frame
-confirmFrame.addEventListener("click",()=>{
-
+confirmFrame.addEventListener("click", () => {
 
     framePreview.classList.add("hidden");
-
-
     templateSelection.classList.add("hidden");
-
-
     photoBooth.classList.remove("hidden");
-
 
     startCamera();
 
-
 });
 
-// Cancel Frame
-cancelFrame.addEventListener("click",()=>{
+cancelFrame.addEventListener("click", () => {
 
     framePreview.classList.add("hidden");
-
     framesContainer.classList.remove("hidden");
-
     backToCategories.classList.remove("hidden");
 
 });

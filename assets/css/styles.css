@@ -531,6 +531,50 @@ canvas {
 
 }
 
+.selection-card {
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-height:110px;
+
+    padding:18px 16px;
+
+    border:none;
+
+    border-radius:20px;
+
+    background:rgba(255, 255, 255, 0.85);
+
+    box-shadow:0 6px 16px rgba(0, 0, 0, 0.12);
+
+    cursor:pointer;
+
+    transition:transform 0.25s ease, box-shadow 0.25s ease;
+
+}
+
+.selection-card-label {
+
+    font-size:18px;
+
+    font-weight:700;
+
+    color:#4a3b63;
+
+}
+
+.selection-card:hover {
+
+    transform:translateY(-6px);
+
+    box-shadow:0 10px 22px rgba(0, 0, 0, 0.16);
+
+}
+
 
 .category-card {
 

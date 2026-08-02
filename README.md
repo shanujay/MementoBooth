@@ -38,5 +38,3 @@ MementoBooth is a web-based photo booth application that allows users to capture
 ## 🎥 Demo
 
 Check out the live demo: [MementoBooth](https://shanujay.github.io/MementoBooth/index.html)
-
-python -m http.server 8000

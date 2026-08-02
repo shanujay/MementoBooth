@@ -1,80 +1,62 @@
-function createSelectionCard(label, onClick) {
+function createSelectionCard(category, onClick) {
 
     const card = document.createElement("button");
 
     card.type = "button";
     card.classList.add("selection-card");
-    card.innerHTML = `<span class="selection-card-label">${label}</span>`;
+    card.innerHTML = `
+    <div class="category-card-container">
+        <img src="${category.categoryIcon}" alt="${category.name}" class="category-image">
+        <span class="category-name">${category.name}</span>
+    </div>
+    `;
     card.addEventListener("click", () => {
-        clickSound.play();
-        onClick();
+        onClick(category);
+        console.log("Selected Category:", category.name);
     });
 
     return card;
 
 }
 
-function displayOrientations() {
+function displayLayouts() {
 
-    selectionStep = "orientation";
-    selectedOrientation = "";
-    selectedPhotoCountOption = null;
+    selectionStep = "layout";
+    selectedLayout = "";
+    selectedPhotoCount = null;
 
-    frameTitle.textContent = "Choose Orientation";
+    frameTitle.textContent = "Select A Layout";
+
+    console.log("Categories Loaded");
+
     frameCategories.innerHTML = "";
     frameCategories.classList.remove("hidden");
     framesContainer.classList.add("hidden");
     backToCategories.classList.add("hidden");
 
     categories.forEach((category) => {
-        frameCategories.appendChild(createSelectionCard(category.name, () => {
-            selectedOrientation = category.id;
-            displayPhotoCounts();
+        frameCategories.appendChild(createSelectionCard(category, (category) => {
+            selectedLayout = layouts[category.id];
+            loadFrames(category);
         }));
     });
 
 }
 
-function displayPhotoCounts() {
 
-    selectionStep = "photoCount";
+function loadFrames(category) {
 
-    frameTitle.textContent = "Choose Photo Count";
-    frameCategories.innerHTML = "";
-    frameCategories.classList.remove("hidden");
-    framesContainer.classList.add("hidden");
-    backToCategories.classList.remove("hidden");
-
-    photoCounts.forEach((option) => {
-        frameCategories.appendChild(createSelectionCard(option.name, () => {
-            selectedPhotoCountOption = option;
-            loadFrames(option);
-        }));
-    });
-
-}
-
-function loadFrames(photoCountOption) {
-
-    fetch(`assets/data/frames/${photoCountOption.frameFile}`)
+    fetch(`assets/data/frames/${category.frameFile}.json`)
         .then((response) => {
             if (!response.ok) {
-                throw new Error(`Failed to load ${photoCountOption.frameFile}`);
+                throw new Error(`Failed to load ${category.frameFile}.json`);
             }
 
             return response.json();
         })
         .then((frames) => {
-            const filteredFrames = frames.filter(
-                (frame) => frame.orientation === selectedOrientation
-            );
 
-            if (filteredFrames.length === 0) {
-                alert(`No ${selectedOrientation} frames found for ${photoCountOption.name}.`);
-                return;
-            }
-
-            displayFrames(filteredFrames, photoCountOption.name);
+            displayFrames(frames, category.name);
         })
         .catch((error) => {
             console.error("Error loading frames:", error);
@@ -82,10 +64,10 @@ function loadFrames(photoCountOption) {
 
 }
 
-function displayFrames(frames, sectionName) {
+function displayFrames(frames, name) {
 
     selectionStep = "frames";
-    frameTitle.textContent = `${sectionName} Frames`;
+    frameTitle.textContent = `${name} Frames`;
     framesContainer.innerHTML = "";
 
     frameCategories.classList.add("hidden");
@@ -105,17 +87,6 @@ function displayFrames(frames, sectionName) {
 
             selectedFrame = frame.image;
             selectedPhotoCount = frame.photoCount;
-            selectedLayout = layouts[frame.layout];
-
-            if (!selectedLayout) {
-                console.error("Missing layout:", frame.layout);
-                alert("This frame layout is not configured yet.");
-                return;
-            }
-
-            console.log("Selected Frame:", selectedFrame);
-            console.log("Photo Count:", selectedPhotoCount);
-            console.log("Selected Layout:", selectedLayout);
 
             showFramePreview(frame);
 
@@ -129,16 +100,13 @@ function displayFrames(frames, sectionName) {
 
 backToCategories.addEventListener("click", () => {
 
-    clickSound.play();
     framePreview.classList.add("hidden");
+    
 
     if (selectionStep === "frames") {
-        displayPhotoCounts();
+        displayLayouts();
+        console.log("Back to Categories");
         return;
-    }
-
-    if (selectionStep === "photoCount") {
-        displayOrientations();
     }
 
 });

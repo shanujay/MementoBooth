@@ -1,122 +1,85 @@
 {
-    "vertical_4_01": {
+    "layout_A": {
         "orientation": "vertical",
-        "photoWidth": 525,
-        "photoHeight": 485,
-        "spacing": 30,
-        "paddingTop": 40,
-        "paddingLeft": 40,
-        "canvasWidth": 600,
-        "canvasHeight": 2400
-    },
-
-    "vertical_4_02": {
-        "orientation": "vertical",
-        "photoWidth": 525,
-        "photoHeight": 485,
-        "spacing": 30,
-        "paddingTop": 200,
-        "paddingLeft": 40,
-        "canvasWidth": 600,
-        "canvasHeight": 2400
-    },
-
-    "vertical_4_03": {
-        "orientation": "vertical",
-        "photoWidth": 525,
-        "photoHeight": 485,
-        "spacing": 30,
-        "paddingTop": 320,
-        "paddingLeft": 40,
-        "canvasWidth": 600,
-        "canvasHeight": 2400
-    },
-
-    "vertical_2_01": {
-        "orientation": "vertical",
-        "photoWidth": 525,
-        "photoHeight": 350,
-        "spacing": 30,
-        "paddingTop": 40,
-        "paddingLeft": 40,
-        "canvasWidth": 600,
-        "canvasHeight": 1050
-    },
-
-    "vertical_2_02": {
-        "orientation": "vertical",
-        "photoWidth": 525,
-        "photoHeight": 350,
-        "spacing": 30,
-        "paddingTop": 280,
-        "paddingLeft": 40,
-        "canvasWidth": 600,
-        "canvasHeight": 1050
-    },
-
-    "vertical_3_01": {
-        "orientation": "vertical",
-        "photoWidth": 525,
-        "photoHeight": 405,
-        "spacing": 30,
-        "paddingTop": 40,
-        "paddingLeft": 40,
+        "columns": 1,
+        "photoWidth": 524,
+        "photoHeight": 404,
+        "spacing": 36,
+        "paddingTop": 38,
+        "paddingLeft": 38,
         "canvasWidth": 600,
         "canvasHeight": 1600
     },
 
-    "vertical_3_02": {
+    "layout_B": {
         "orientation": "vertical",
-        "photoWidth": 525,
-        "photoHeight": 405,
-        "spacing": 30,
-        "paddingTop": 160,
-        "paddingLeft": 40,
+        "columns": 1,
+        "photoWidth": 524,
+        "photoHeight": 404,
+        "spacing": 36,
+        "paddingTop": 278,
+        "paddingLeft": 38,
         "canvasWidth": 600,
         "canvasHeight": 1600
     },
 
-    "vertical_3_03": {
+    "layout_C": {
         "orientation": "vertical",
+        "columns": 1,
         "photoWidth": 525,
         "photoHeight": 405,
-        "spacing": 30,
-        "paddingTop": 280,
-        "paddingLeft": 40,
+        "spacing": 36,
+        "paddingTop": 158,
+        "paddingLeft": 38,
         "canvasWidth": 600,
         "canvasHeight": 1600
     },
 
-    "horizontal_2_01": {
-        "orientation": "horizontal",
-        "photoWidth": 350,
-        "photoHeight": 525,
-        "spacing": 30,
-        "paddingTop": 40,
-        "paddingLeft": 40,
-        "canvasWidth": 1050,
-        "canvasHeight": 600
+    "layout_D": {
+        "orientation": "vertical",
+        "columns": 1,
+        "photoWidth": 524,
+        "photoHeight": 484,
+        "spacing": 36,
+        "paddingTop": 38,
+        "paddingLeft": 38,
+        "canvasWidth": 600,
+        "canvasHeight": 2400
     },
 
-    "horizontal_3_01": {
-        "orientation": "horizontal",
-        "photoWidth": 405,
-        "photoHeight": 525,
-        "spacing": 30,
-        "paddingTop": 40,
-        "paddingLeft": 40,
-        "canvasWidth": 1600,
-        "canvasHeight": 600
+    "layout_E": {
+        "orientation": "vertical",
+        "columns": 1,
+        "photoWidth": 524,
+        "photoHeight": 484,
+        "spacing": 36,
+        "paddingTop": 318,
+        "paddingLeft": 38,
+        "canvasWidth": 600,
+        "canvasHeight": 2400
     },
 
-    "horizontal_4_01": {
-        "orientation": "horizontal",
-        "photoWidth": 485,
-        "photoHeight": 525,
-        "spacing": 30,
-        "paddingTop": 40,
-        "paddingLeft": 40,
-        "canvasWidth": 2400,
-        "canvasHeight": 600
+    "layout_F": {
+        "orientation": "vertical",
+        "columns": 1,
+        "photoWidth": 524,
+        "photoHeight": 484,
+        "spacing": 36,
+        "paddingTop": 198,
+        "paddingLeft": 38,
+        "canvasWidth": 600,
+        "canvasHeight": 2400
+    },
+
+    "layout_G": {
+        "orientation": "grid",
+        "columns": 2,
+        "photoWidth": 558,
+        "photoHeight": 524,
+        "spacing": 29,
+        "paddingTop": 31,
+        "paddingLeft": 31,
+        "canvasWidth": 1207,
+        "canvasHeight": 1455
     }
 }

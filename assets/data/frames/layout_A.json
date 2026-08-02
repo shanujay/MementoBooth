@@ -1,0 +1,9 @@
+[
+    {
+        "id": "layout_A_frame_01",
+        "name": "layout A frame 1",
+        "layout": "layout_A",
+        "photoCount": 3,
+        "image": "assets/template/layout_A/layout_A_1.png"
+    }
+]

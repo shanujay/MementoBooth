@@ -146,7 +146,10 @@ function generatePhotoStrip() {
 
     updateStripDisplaySize();
 
+    const orientation = selectedLayout.orientation;
+
     const canvasWidth = selectedLayout.canvasWidth;
+    const canvasHeight = selectedLayout.canvasHeight;
 
     const photoWidth = selectedLayout.photoWidth;
     const photoHeight = selectedLayout.photoHeight;
@@ -156,8 +159,7 @@ function generatePhotoStrip() {
     const paddingTop = selectedLayout.paddingTop;
     const paddingLeft = selectedLayout.paddingLeft;
 
-
-    const canvasHeight = selectedLayout.canvasHeight;
+    const columns = selectedLayout.columns || 1;
 
 
     canvas.width = canvasWidth;
@@ -166,11 +168,15 @@ function generatePhotoStrip() {
     resizeEditorCanvas();
 
 
-    let yOffset = paddingTop;
-    let xOffset = paddingLeft;
-    const isHorizontalLayout = selectedLayout.orientation === "horizontal";
-
     let loadedPhotos = 0;
+
+    let xOffset = paddingLeft;
+    let yOffset = paddingTop;
+
+    let currentColumn = 0;
+
+
+    const isGridLayout = orientation === "grid";
 
 
     photos.forEach((photo) => {
@@ -184,17 +190,40 @@ function generatePhotoStrip() {
 
             ctx.filter = getCanvasFilter();
 
-            if (isHorizontalLayout) {
+
+            if(isGridLayout){
+
                 ctx.drawImage(
                     img,
                     xOffset,
-                    paddingTop,
+                    yOffset,
                     photoWidth,
                     photoHeight
                 );
 
-                xOffset += photoWidth + spacing;
+
+                currentColumn++;
+
+
+                // Move to next row
+                if(currentColumn >= columns){
+
+                    currentColumn = 0;
+
+                    xOffset = paddingLeft;
+
+                    yOffset += photoHeight + spacing;
+
+                } else {
+
+                    xOffset += photoWidth + spacing;
+
+                }
+
+
             } else {
+
+                // Vertical strip
                 ctx.drawImage(
                     img,
                     paddingLeft,
@@ -204,7 +233,9 @@ function generatePhotoStrip() {
                 );
 
                 yOffset += photoHeight + spacing;
+
             }
+
 
             ctx.filter = "none";
 
@@ -215,6 +246,7 @@ function generatePhotoStrip() {
             if(loadedPhotos === photos.length){
 
                 drawFrameOnTop();
+
             }
 
         };

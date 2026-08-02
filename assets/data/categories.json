@@ -1,10 +1,44 @@
 [
     {
-        "id": "vertical",
-        "name": "Vertical"
+        "id": "layout_A",
+        "name": "layout A",
+        "frameFile": "layout_A",
+        "categoryIcon": "assets/category_images/layout_A.png"
     },
     {
-        "id": "horizontal",
-        "name": "Horizontal"
+        "id": "layout_B",
+        "name": "layout B",
+        "frameFile": "layout_B",
+        "categoryIcon": "assets/category_images/layout_B.png"
+    },
+    {
+        "id": "layout_C",
+        "name": "layout C",
+        "frameFile": "layout_C",
+        "categoryIcon": "assets/category_images/layout_C.png"
+    },
+    {
+        "id": "layout_D",
+        "name": "layout D",
+        "frameFile": "layout_D",
+        "categoryIcon": "assets/category_images/layout_D.png"
+    },
+    {
+        "id": "layout_E",
+        "name": "layout E",
+        "frameFile": "layout_E",
+        "categoryIcon": "assets/category_images/layout_E.png"
+    },
+    {
+        "id": "layout_F",
+        "name": "layout F",
+        "frameFile": "layout_F",
+        "categoryIcon": "assets/category_images/layout_F.png"
+    },
+    {
+        "id": "layout_G",
+        "name": "layout G",
+        "frameFile": "layout_G",
+        "categoryIcon": "assets/category_images/layout_G.png"
     }
 ]

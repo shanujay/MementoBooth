@@ -664,22 +664,22 @@ body {
     justify-content: center;
 }
 
-.hero-image-placeholder {
-    width: 100%;
-    max-width: 480px;
-    aspect-ratio: 4 / 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.3);
-    border: 2px dashed rgba(255, 255, 255, 0.7);
-    border-radius: clamp(16px, 3vw, 28px);
-    color: #6a5b83;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    font-weight: 600;
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
+.hero-image {
+    height: 400px;
+    width: auto;
+    object-fit: contain;
+    margin: 0 auto;
+    display: block;
+    animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 /* ---- Hero responsive ---- */
@@ -770,6 +770,22 @@ body {
 
     .features-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+    .feature-card {
+        min-height: 200px;
+    }
+    .feature-card p {
+        padding: 0 30px;
+    }
+
+    /* Hero Section Styles on Tablet */
+    .page-section {
+        margin: 20px;
+        padding: 50px;
+    }
+    .hero-image {
+        display: none;
     }
 }
 
@@ -903,27 +919,27 @@ body {
     }
 
     /* Background Decorations for Home Section on Mobile */
-    .bg-deco-home-1 {
-        bottom: -120px;
-        left: -200px;
-        width: 500px;
+    .bg-decorations-home, .bg-decorations-about, .bg-decorations-features {
+        visibility: hidden;
     }
-    .bg-deco-home-2 {
-        top: 60px;
-        left: -80px;
-        width: 200px;
-    } 
-    .bg-deco-home-3 {
-        width: 600px;
-        bottom: -210px;
-        right: -280px;
-        rotate: -10deg;
-    }
-
-    /* Background Decorations for About Section on Mobile */
 
     .features-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1, 1fr);
+        gap: 10px;
+    }
+    .feature-card {
+        min-height: 150px;
+    }
+    .feature-card p {
+        padding: 0 30px;
+    }
+
+    /* Hero Section Styles on Mobile */
+    .page-section {
+        padding: 20px;
+    }
+    .hero-image {
+        display: none;
     }
 
 }

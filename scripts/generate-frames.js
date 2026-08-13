@@ -1,23 +1,3 @@
-/**
- * Generates assets/data/frames/{2,3,4}_photos.json from template folders.
- *
- * Folder structure:
- *   assets/template/{vertical|horizontal}/{2|3|4}_Photo/design_N/*.png
- *
- * Layout mapping (assets/data/layouts.json):
- *   design_1 -> vertical_4_01
- *   design_2 -> vertical_4_02
- *   design_3 -> vertical_4_03
- *   design_4 -> vertical_4_04   (add layout + folder when ready)
- *
- * To add a new design later:
- *   1. Add slot positions to layouts.json (e.g. "vertical_4_04": { ... })
- *   2. Create assets/template/vertical/4_Photo/design_4/
- *   3. Drop PNG frames into that folder
- *   4. Run: node scripts/generate-frames.js
- *
- * Usage: node scripts/generate-frames.js
- */
 const fs = require("fs");
 const path = require("path");
 
@@ -28,16 +8,20 @@ const layoutsPath = path.join(__dirname, "../assets/data/layouts.json");
 const layouts = JSON.parse(fs.readFileSync(layoutsPath, "utf8"));
 const usedLayouts = new Set();
 
+
+// Sort files by trailing number
 function sortByTrailingNumber(a, b) {
     const numA = parseInt(a.match(/(\d+)\.png$/i)?.[1] || "0", 10);
     const numB = parseInt(b.match(/(\d+)\.png$/i)?.[1] || "0", 10);
     return numA - numB;
 }
 
+// Get layout key
 function getLayoutKey(orientation, photoCount, designNumber) {
     return `${orientation}_${photoCount}_${String(designNumber).padStart(2, "0")}`;
 }
 
+// Build frames for a given count
 function buildFramesForCount(orientation, count) {
     const photoDir = path.join(root, orientation, `${count}_Photo`);
 
@@ -97,6 +81,7 @@ function buildFramesForCount(orientation, count) {
     return frames;
 }
 
+// Build all frames for a given count
 function buildAllFrames(count) {
     return [
         ...buildFramesForCount("vertical", count),
@@ -116,6 +101,7 @@ const unusedLayouts = Object.keys(layouts).filter((key) => !usedLayouts.has(key)
 
 console.log(`Generated frames: 2=${frames2.length}, 3=${frames3.length}, 4=${frames4.length}`);
 
+// Log unused layouts
 if (unusedLayouts.length > 0) {
     console.log(`Layouts ready but no PNGs yet: ${unusedLayouts.join(", ")}`);
 }

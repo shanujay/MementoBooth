@@ -7,15 +7,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const goBtn = document.getElementById("goBtn");
     const sound = document.getElementById("clickSound");
 
+    // Start button click event
     startButton.addEventListener("click", function () {
         sound.play();
-        // Navigate directly to booth.html (href handles the redirect)
     });
 
     // Mobile nav menu
     const navHeader = document.querySelector(".nav-header");
     const navToggle = document.querySelector(".nav-toggle");
 
+    // Close nav menu
     function closeNavMenu() {
         if (!navHeader || !navToggle) return;
         navHeader.classList.remove("nav-open");
@@ -23,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
         navToggle.setAttribute("aria-label", "Open menu");
     }
 
+    // Nav toggle click event
     if (navToggle && navHeader) {
         navToggle.addEventListener("click", function () {
             const isOpen = navHeader.classList.toggle("nav-open");
@@ -31,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Nav section switching
+    // Nav links click event
     const navLinks = document.querySelectorAll(".nav-link");
 
     const sections = document.querySelectorAll(".page-section");
@@ -39,12 +41,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const bgDecorationsAbout = document.querySelector(".bg-decorations-about");
     const bgDecorationsFeatures = document.querySelector(".bg-decorations-features");
 
+    // Section decorations
     const sectionDecorations = {
         home: { container: bgDecorationsHome, cloudSelector: ".bg-deco-home" },
         about: { container: bgDecorationsAbout, cloudSelector: ".bg-deco-about" },
         features: { container: bgDecorationsFeatures, cloudSelector: ".bg-deco-features" },
     };
 
+    // Replay cloud animations
     function replayCloudAnimations(container, cloudSelector) {
         if (!container) return;
 
@@ -66,6 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // Set active section
     function setActiveSection(target) {
         // Show active section
         sections.forEach(section => {
@@ -90,6 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // Nav links click event
     navLinks.forEach(link => {
         link.addEventListener("click", function (event) {
             event.preventDefault();

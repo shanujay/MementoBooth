@@ -1,40 +1,47 @@
 // Countdown
-function startCountdown(seconds){
+function getPhotoOrdinal(number) {
+    const ordinals = [
+        "First", "Second", "Third", "Fourth", "Fifth",
+        "Sixth", "Seventh", "Eighth", "Ninth", "Tenth"
+    ];
 
-    return new Promise(resolve=>{
+    return ordinals[number - 1] || `${number}th`;
+}
 
-        let count = seconds;
+function startCountdown(seconds, photoNumber) {
 
+    return new Promise(resolve => {
 
+        countdown.textContent = `Ready For ${getPhotoOrdinal(photoNumber)} Photo`;
+        countdown.classList.add("countdown-ready");
         countdown.classList.remove("hidden");
 
-        countdown.textContent = count;
+        setTimeout(() => {
 
+            countdown.classList.remove("countdown-ready");
 
-        const timer = setInterval(()=>{
+            let count = seconds;
+            countdown.textContent = count;
 
+            const timer = setInterval(() => {
 
-            count--;
+                count--;
 
+                if (count === 0) {
 
-            if(count === 0){
+                    clearInterval(timer);
+                    countdown.classList.add("hidden");
+                    resolve();
 
-                clearInterval(timer);
+                } else {
 
-                countdown.classList.add("hidden");
+                    countdown.textContent = count;
 
-                resolve();
+                }
 
-            }
-            else{
+            }, 1000);
 
-                countdown.textContent = count;
-
-            }
-
-
-        },1000);
-
+        }, 2000);
 
     });
 

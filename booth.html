@@ -177,23 +177,20 @@
 
                     <!-- Text Input Panel -->
                     <div id="textPanel" class="hidden">
-                        <!-- Text Input Container -->
                         <div class="input-container">
-                            <input type="text" id="textField" placeholder="Enter text" >
-                            <button id="addText">Add</button>
+                            <input type="text" id="textField" placeholder="Enter your text" autocomplete="off">
+                            <button type="button" id="addText">Add</button>
                         </div>
 
-                        <!-- Text Color Picker -->
                         <div id="textColorContainer">
                             <label for="textColor">Font Color</label>
-                            <input type="color" id="textColor" value="#000000">
+                            <input type="color" id="textColor" value="#000000" aria-label="Choose font color">
                         </div>
 
-                        <!-- Text Font Picker -->
                         <div id="textFontContainer">
-                            <button class="fontOption active" data-font="Arial" style="font-family: Arial;">Arial</button>
-                            <button class="fontOption" data-font="Georgia" style="font-family: Georgia;">Georgia</button>
-                            <button class="fontOption" data-font="'Courier New'" style="font-family: 'Courier New';">Courier</button>
+                            <button type="button" class="fontOption active" data-font="Arial" style="font-family: Arial;">Arial</button>
+                            <button type="button" class="fontOption" data-font="Georgia" style="font-family: Georgia;">Georgia</button>
+                            <button type="button" class="fontOption" data-font="'Courier New'" style="font-family: 'Courier New';">Courier</button>
                         </div>
                     </div>
 

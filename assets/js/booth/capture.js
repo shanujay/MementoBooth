@@ -5,7 +5,7 @@ takeSnapBtn.addEventListener("click", async () => {
     // If Retaking
     if (isRetaking) {
 
-        await startCountdown(3);
+        await startCountdown(3, reviewIndex + 1);
 
         cameraSound.play();
 
@@ -35,7 +35,7 @@ takeSnapBtn.addEventListener("click", async () => {
             photoCountDisplay.textContent =
                 `Photo ${photoCount} of ${selectedPhotoCount}`;
     
-            await startCountdown(3);
+            await startCountdown(3, photoCount);
     
             cameraSound.play();
     
@@ -60,10 +60,11 @@ takeSnapBtn.addEventListener("click", async () => {
     photos = [];
     clearCapturedPhotosPreview();
 
+    // Capture photos
     while (photoCount <= selectedPhotoCount) {
         photoCountDisplay.textContent = `Photo ${photoCount} of ${selectedPhotoCount}`;
 
-        await startCountdown(3);
+        await startCountdown(3, photoCount);
         
         // Play camera sound
         cameraSound.play();
@@ -90,11 +91,12 @@ takeSnapBtn.addEventListener("click", async () => {
 });
 
 
+// Take snap button click event
 takeSnapBtn.addEventListener("click", function () {
     clickSound.play();
 })
 
-// Function to capture photo with exact size
+// Capture photo with exact size
 async function capturePhotoExactSize(width, height) {
     let tempCanvas = document.createElement("canvas");
     let tempCtx = tempCanvas.getContext("2d");

@@ -1,0 +1,44 @@
+[
+    {
+        "id": "layout_B_frame_01",
+        "name": "layout B frame 1",
+        "layout": "layout_B",
+        "photoCount": 3,
+        "image": "assets/template/layout_B/layout_B_1.png"
+    },
+    {
+        "id": "layout_B_frame_02",
+        "name": "layout B frame 2",
+        "layout": "layout_B",
+        "photoCount": 3,
+        "image": "assets/template/layout_B/layout_B_2.png"
+    },
+    {
+        "id": "layout_B_frame_03",
+        "name": "layout B frame 3",
+        "layout": "layout_B",
+        "photoCount": 3,
+        "image": "assets/template/layout_B/layout_B_3.png"
+    },
+    {
+        "id": "layout_B_frame_04",
+        "name": "layout B frame 4",
+        "layout": "layout_B",
+        "photoCount": 3,
+        "image": "assets/template/layout_B/layout_B_4.png"
+    },
+    {
+        "id": "layout_B_frame_05",
+        "name": "layout B frame 5",
+        "layout": "layout_B",
+        "photoCount": 3,
+        "image": "assets/template/layout_B/layout_B_5.png"
+    },
+    {
+        "id": "layout_B_frame_06",
+        "name": "layout B frame 6",
+        "layout": "layout_B",
+        "photoCount": 3,
+        "image": "assets/template/layout_B/layout_B_6.png"
+    }
+]

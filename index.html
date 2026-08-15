@@ -15,34 +15,172 @@
 
 <body>
 
+    <!-- Background Decorations for Home Section -->
+    <div class="bg-decorations-home" aria-hidden="true">
+        <img src="assets/img/v2-images/cloud_3.png" class="bg-deco-home bg-deco-home-1" alt="">
+        <img src="assets/img/v2-images/cloud_3.png" class="bg-deco-home bg-deco-home-2" alt="">
+        <img src="assets/img/v2-images/cloud_1.png" class="bg-deco-home bg-deco-home-3" alt="">
+    </div>
+
+    <!-- Background Decorations for About Section -->
+    <div class="bg-decorations-about is-hidden" aria-hidden="true">
+        <img src="assets/img/v2-images/cloud_4.png" class="bg-deco-about bg-deco-about-1" alt="">
+        <img src="assets/img/v2-images/cloud_3.png" class="bg-deco-about bg-deco-about-2" alt="">
+        <img src="assets/img/v2-images/cloud_1.png" class="bg-deco-about bg-deco-about-3" alt="">
+        <img src="assets/img/v2-images/cloud_3.png" class="bg-deco-about bg-deco-about-4" alt="">
+    </div>
+
+    <!-- Background Decorations for Features Section -->
+    <div class="bg-decorations-features is-hidden" aria-hidden="true">
+        <img src="assets/img/v2-images/cloud_3.png" class="bg-deco-features bg-deco-features-1" alt="">
+        <img src="assets/img/v2-images/cloud_3.png" class="bg-deco-features bg-deco-features-2" alt="">
+        <img src="assets/img/v2-images/cloud_1.png" class="bg-deco-features bg-deco-features-3" alt="">
+    </div>
+
     <!-- Audio Element -->
     <audio id="clickSound">
         <source src="assets/music/shine-sound.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- Nav Header -->
+    <header class="nav-header">
+        <nav class="nav-inner">
+            <div class="nav-logo">
+                MementoBooth
+            </div>
+            <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+                <span class="nav-toggle-bar" aria-hidden="true"></span>
+                <span class="nav-toggle-bar" aria-hidden="true"></span>
+                <span class="nav-toggle-bar" aria-hidden="true"></span>
+            </button>
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
+                    <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+                    <li><a href="#features" class="nav-link" data-section="features">Features</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <a href="booth.html" id="startButton" class="nav-btn nav-btn-primary">Start Capturing</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
     <!-- Main Container -->
     <div class="container-main">
-        <!-- Main Title -->
-        <img src="assets/img/logo.png" class="main-title" id="mainTitle">
-        <!-- Start Btn -->
-        <div class="start-btn" id="startBtn">
-            <a href="#" id="startButton">
-                <img src="assets/img/start_btn_1.png" id="startButtonImg">
-            </a>
-        </div>
 
-        <!-- Introduction Container -->
-        <div class="introduction-container">
-            <!-- Intro Girl Image -->
-            <div id="introImage">
-                <img id="introGirl" src="assets/img/girl_img.png" class="hidden">
+        <!-- Home Section -->
+        <section class="hero page-section" id="home">
+
+            <!-- Left Side -->
+            <div class="hero-left">
+                <div class="hero-title-wrapper">
+                    <img src="assets/img/doodles/doodle_1.png" alt="" class="hero-title-doodle" aria-hidden="true">
+                    <h1 class="hero-title">Create Memories That Last Forever</h1>
+                </div>
+                <p class="hero-subtitle">
+                    Capture every smile, laugh, and celebration with a beautiful
+                    digital photo booth experience.
+                </p>
+                <div class="hero-buttons">
+                    <a href="booth.html" id="startButton" class="hero-btn hero-btn-primary">
+                        <img src="assets/img/icons/star_icon.png" alt="Star Icon" class="hero-btn-icon">
+                        Start Capturing
+                    </a>
+                </div>
             </div>
 
-            <!-- Introduction -->
-            <div id="introduction">
-                <img id="intro" src="assets/img/intro_img.png" class="hidden">
+            <!-- Right Side -->
+            <div class="hero-right">
+                <img src="assets/img/v2-images/hero_image.png" alt="Hero Image" class="hero-image">
             </div>
-        </div>
+
+        </section>
+
+        <!-- About Section -->
+        <section class="page-section hidden" id="about">
+            <div class="about-content">
+                <div class="section-title-wrapper">
+                    <h1 class="section-title">Every Photo Tells a Story</h1>
+                    <img src="assets/img/doodles/doodle_2.png" alt="Doodle 2" class="section-doodle">
+                </div>
+                <p class="section-text">
+                    At MementoBooth, we believe the best memories deserve more than a
+                    quick snapshot.
+                    <br />
+                    Our web-based photo booth lets you capture,
+                    personalize, and preserve 
+                    <br />
+                    life's special moments with ease.
+                </p>
+                <p class="section-text">
+                    Whether you're celebrating a birthday, wedding, graduation, or
+                    simply having 
+                    <br />
+                    fun with friends, MementoBooth helps turn every smile
+                    into a keepsake 
+                    <br />
+                    you'll treasure for years to come.
+                </p>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="page-section hidden" id="features">
+            <div class="section-title-wrapper">
+                <h1 class="section-title">Everything You Need for the Perfect Photo Booth</h1>
+                <img src="assets/img/doodles/doodle_2.png" alt="Doodle 2" class="section-doodle">
+            </div>
+
+            <div class="features-grid">
+
+                <div class="feature-card">
+                    <div class="feature-card-content">
+                        <img src="assets/img/icons/camera_icon.png" alt="Camera Icon" class="feature-card-icon">
+                        <h3>Capture Beautiful Moments</h3>
+                        <p>Take multiple photos with an intuitive camera experience, complete with countdowns and instant previews.</p>
+                    </div>
+                    <div class="feature-card-deco">
+                        <img src="assets/img/icons/star_icon_purple.png" alt="" class="feature-card-deco-icon">
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-content">
+                        <img src="assets/img/icons/wand_icon.png" alt="Wand Icon" class="feature-card-icon">
+                        <h3>Personalize Every Photo Strip</h3>
+                        <p>Customize your memories with editable text, different fonts, font colors, and creative layouts to match your style.</p>
+                    </div>
+                    <div class="feature-card-deco">
+                        <img src="assets/img/icons/heart_icon_purple.png" alt="" class="feature-card-deco-icon">
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-content">
+                        <img src="assets/img/icons/image_icon.png" alt="Image Icon" class="feature-card-icon">
+                        <h3>Retake Anytime</h3>
+                        <p>Didn't love a shot? Retake individual photos or start the entire session over until every picture feels just right.</p>
+                    </div>
+                    <div class="feature-card-deco">
+                        <img src="assets/img/icons/star_icon_purple.png" alt="" class="feature-card-deco-icon">
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-content">
+                        <img src="assets/img/icons/download_icon.png" alt="Download Icon" class="feature-card-icon">
+                        <h3>Instant Downloads for Your Memories</h3>
+                        <p>Download your completed photo strip in high quality, ready to print, save, or share with family and friends.</p>
+                    </div>
+                    <div class="feature-card-deco">
+                        <img src="assets/img/icons/heart_icon_purple.png" alt="" class="feature-card-deco-icon">
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
     </div>
 
 

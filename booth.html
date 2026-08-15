@@ -36,24 +36,89 @@
 
         <!-- Frame Selection -->
         <div id="templateSelection">
-            <div class="frames">
-                <img src="assets/template/frame1.png" class="frame-option" data-frame="frame1.png">
-                <img src="assets/template/frame2.png" class="frame-option" data-frame="frame2.png">
-                <img src="assets/template/frame3.png" class="frame-option" data-frame="frame3.png">
-                <img src="assets/template/frame4.png" class="frame-option" data-frame="frame4.png">
-                <img src="assets/template/frame5.png" class="frame-option" data-frame="frame5.png">
-                <img src="assets/template/frame6.png" class="frame-option" data-frame="frame6.png">
+
+            <!-- Frame Header -->
+            <div id="frameHeader">
+
+                <!-- Back Button -->
+                <button id="backToCategories" class="hidden" aria-label="Back to categories">
+                    <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M38,52a2,2,0,0,1-1.41-.59l-24-24a2,2,0,0,1,0-2.82l24-24a2,2,0,0,1,2.82,0,2,2,0,0,1,0,2.82L16.83,26,39.41,48.59A2,2,0,0,1,38,52Z"/>
+                    </svg>
+                </button>
+
+
+                <!-- Title -->
+                <h2 id="frameTitle">
+                    Choose A Layout
+                </h2>
+
             </div>
+
+
+            <!-- Selection options load here (orientation, then photo count) -->
+            <div id="frameCategories"></div>
+
+
+            <!-- Frames will load here -->
+            <div class="frames hidden" id="framesContainer"></div>
+
+            <!-- Frame Preview -->
+            <div id="framePreview" class="hidden">
+
+                <div class="previewModal">
+            
+                    <h2 id="previewTitle"></h2>
+            
+                    <img id="previewFrameImage" alt="Selected frame preview">
+            
+            
+                    <div class="previewButtons">
+            
+                        <button id="cancelFrame">
+                            Cancel
+                        </button>
+            
+                        <button id="confirmFrame">
+                            Use This Frame
+                        </button>
+            
+                    </div>
+            
+                </div>
+            
+            </div>
+
+
         </div>
 
         <!-- Photo Booth -->
         <div id="photoBooth" class="hidden">
-            <!-- Camera -->
-            <video id="video" width="420" height="340" autoplay></video>
-            <!-- Photo Count Display -->
+
+            <div id="cameraContainer">
+
+                <video id="video" autoplay playsinline></video>
+
+                <img id="photoPreview" class="hidden" alt="Selected captured photo">
+        
+                <div id="countdown" class="hidden">
+                    3
+                </div>
+        
+            </div>
+
+            <div id="capturedPhotosPreview" class="hidden" aria-live="polite"></div>
+
+            <div id="captureReviewActions" class="hidden">
+                <button type="button" id="retakeReview">Retake This Photo</button>
+                <button type="button" id="retakeAll">Retake All Photos</button>
+                <button type="button" id="confirmReview">Use Photos</button>
+            </div>
+        
             <p id="photoCountDisplay"></p>
-            <!-- Take a Snap Btn -->
+        
             <img src="assets/img/snap_btn.png" id="takeSnapBtn" class="hidden">
+
         </div>
 
         <!-- Second Container -->
@@ -62,16 +127,83 @@
             <div id="photoStripContainer" class="hidden">
                 <!-- Canvas -->
                 <canvas id="canvas"></canvas>
+                <canvas id="editorCanvas"></canvas>
             </div>
 
-            <!-- Download Container -->
-            <div id="downloadContainer" class="hidden">
-                <!-- Download Info Img -->
-                <div id="downloadInfo" class="hidden">
-                    <img src="assets/img/download_info.png">
+            <!-- Editor Container -->
+            <div id="editorContainer" class="hidden">
+
+                <!-- Editor Toolbar -->
+                <div id="editorToolbar">
+            
+                    <button id="filterTool">Filters</button>
+                    <button id="textTool">Text</button>
+                    <button id="stickerTool">Stickers</button>
+            
                 </div>
+            
+                <!-- Editor Panel -->
+                <div id="editorPanel">
+
+                    <!-- Filter Panel -->
+                    <div id="filtersPanel" class="hidden">
+
+                        <button type="button" class="filter-option active" data-filter="none" aria-label="Original">
+                            <span class="filter-swatch filter-swatch--none"></span>
+                            <span class="filter-label">Original</span>
+                        </button>
+
+                        <button type="button" class="filter-option" data-filter="grayscale" aria-label="Black and white">
+                            <span class="filter-swatch filter-swatch--grayscale"></span>
+                            <span class="filter-label">B&amp;W</span>
+                        </button>
+
+                        <button type="button" class="filter-option" data-filter="sepia" aria-label="Sepia">
+                            <span class="filter-swatch filter-swatch--sepia"></span>
+                            <span class="filter-label">Sepia</span>
+                        </button>
+
+                        <button type="button" class="filter-option" data-filter="vintage" aria-label="Vintage">
+                            <span class="filter-swatch filter-swatch--vintage"></span>
+                            <span class="filter-label">Vintage</span>
+                        </button>
+
+                        <button type="button" class="filter-option" data-filter="warm" aria-label="Warm">
+                            <span class="filter-swatch filter-swatch--warm"></span>
+                            <span class="filter-label">Warm</span>
+                        </button>
+
+                    </div>
+
+                    <!-- Text Input Panel -->
+                    <div id="textPanel" class="hidden">
+                        <div class="input-container">
+                            <input type="text" id="textField" placeholder="Enter your text" autocomplete="off">
+                            <button type="button" id="addText">Add</button>
+                        </div>
+
+                        <div id="textColorContainer">
+                            <label for="textColor">Font Color</label>
+                            <input type="color" id="textColor" value="#000000" aria-label="Choose font color">
+                        </div>
+
+                        <div id="textFontContainer">
+                            <button type="button" class="fontOption active" data-font="Arial" style="font-family: Arial;">Arial</button>
+                            <button type="button" class="fontOption" data-font="Georgia" style="font-family: Georgia;">Georgia</button>
+                            <button type="button" class="fontOption" data-font="'Courier New'" style="font-family: 'Courier New';">Courier</button>
+                        </div>
+                    </div>
+
+                    <!-- Stickers Panel -->
+                    <div id="stickersPanel" class="hidden">
+                        <img src="assets/stickers/Moon_Img.PNG" class="stickerOption" data-src="assets/stickers/Moon_Img.PNG" alt="Moon sticker">
+                    </div>
+            
+                </div>
+
                 <!-- Download Btn -->
                 <img src="assets/img/download_btn.png" id="download" class="hidden">
+            
             </div>
         </div>
 
@@ -86,8 +218,16 @@
     <img src="assets/img/girl_2.png" id="girlImg2" class="hidden">
 
 
-    <!-- JS Link -->
-    <script src="assets/js/script.js"></script>
+    <!-- JS Links (order matters: shared state first, data bootstrap last) -->
+    <script src="assets/js/booth/state.js"></script>
+    <script src="assets/js/booth/camera.js"></script>
+    <script src="assets/js/booth/countdown.js"></script>
+    <script src="assets/js/booth/frames.js"></script>
+    <script src="assets/js/booth/capture.js"></script>
+    <script src="assets/js/booth/review.js"></script>
+    <script src="assets/js/booth/strip.js"></script>
+    <script src="assets/js/booth/editor.js"></script>
+    <script src="assets/js/booth/data.js"></script>
 
 </body>
 

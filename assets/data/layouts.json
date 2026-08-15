@@ -1,0 +1,85 @@
+{
+    "layout_A": {
+        "orientation": "vertical",
+        "columns": 1,
+        "photoWidth": 524,
+        "photoHeight": 404,
+        "spacing": 36,
+        "paddingTop": 38,
+        "paddingLeft": 38,
+        "canvasWidth": 600,
+        "canvasHeight": 1600
+    },
+
+    "layout_B": {
+        "orientation": "vertical",
+        "columns": 1,
+        "photoWidth": 524,
+        "photoHeight": 404,
+        "spacing": 36,
+        "paddingTop": 278,
+        "paddingLeft": 38,
+        "canvasWidth": 600,
+        "canvasHeight": 1600
+    },
+
+    "layout_C": {
+        "orientation": "vertical",
+        "columns": 1,
+        "photoWidth": 525,
+        "photoHeight": 405,
+        "spacing": 36,
+        "paddingTop": 158,
+        "paddingLeft": 38,
+        "canvasWidth": 600,
+        "canvasHeight": 1600
+    },
+
+    "layout_D": {
+        "orientation": "vertical",
+        "columns": 1,
+        "photoWidth": 524,
+        "photoHeight": 484,
+        "spacing": 36,
+        "paddingTop": 38,
+        "paddingLeft": 38,
+        "canvasWidth": 600,
+        "canvasHeight": 2400
+    },
+
+    "layout_E": {
+        "orientation": "vertical",
+        "columns": 1,
+        "photoWidth": 524,
+        "photoHeight": 484,
+        "spacing": 36,
+        "paddingTop": 318,
+        "paddingLeft": 38,
+        "canvasWidth": 600,
+        "canvasHeight": 2400
+    },
+
+    "layout_F": {
+        "orientation": "vertical",
+        "columns": 1,
+        "photoWidth": 524,
+        "photoHeight": 484,
+        "spacing": 36,
+        "paddingTop": 198,
+        "paddingLeft": 38,
+        "canvasWidth": 600,
+        "canvasHeight": 2400
+    },
+
+    "layout_G": {
+        "orientation": "grid",
+        "columns": 2,
+        "photoWidth": 558,
+        "photoHeight": 524,
+        "spacing": 29,
+        "paddingTop": 31,
+        "paddingLeft": 31,
+        "canvasWidth": 1207,
+        "canvasHeight": 1455
+    }
+}

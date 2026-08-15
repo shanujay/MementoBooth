@@ -5,5 +5,26 @@
         "layout": "layout_G",
         "photoCount": 4,
         "image": "assets/template/layout_G/layout_G_1.png"
+    },
+    {
+        "id": "layout_G_frame_02",
+        "name": "layout G frame 2",
+        "layout": "layout_G",
+        "photoCount": 4,
+        "image": "assets/template/layout_G/layout_G_2.png"
+    },
+    {
+        "id": "layout_G_frame_03",
+        "name": "layout G frame 3",
+        "layout": "layout_G",
+        "photoCount": 4,
+        "image": "assets/template/layout_G/layout_G_3.png"
+    },
+    {
+        "id": "layout_G_frame_04",
+        "name": "layout G frame 4",
+        "layout": "layout_G",
+        "photoCount": 4,
+        "image": "assets/template/layout_G/layout_G_4.png"
     }
 ]

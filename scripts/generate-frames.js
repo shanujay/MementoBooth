@@ -5,103 +5,141 @@ const root = path.join(__dirname, "../assets/template");
 const outDir = path.join(__dirname, "../assets/data/frames");
 const layoutsPath = path.join(__dirname, "../assets/data/layouts.json");
 
-const layouts = JSON.parse(fs.readFileSync(layoutsPath, "utf8"));
-const usedLayouts = new Set();
+const layouts = JSON.parse(
+    fs.readFileSync(layoutsPath, "utf8")
+);
+
+// Photo count for each layout
+const photoCounts = {
+    layout_A: 3,
+    layout_B: 3,
+    layout_C: 3,
+    layout_D: 4,
+    layout_E: 4,
+    layout_F: 4,
+    layout_G: 4
+};
 
 
-// Sort files by trailing number
+// Sort PNG files by trailing number
 function sortByTrailingNumber(a, b) {
-    const numA = parseInt(a.match(/(\d+)\.png$/i)?.[1] || "0", 10);
-    const numB = parseInt(b.match(/(\d+)\.png$/i)?.[1] || "0", 10);
+    const numA = parseInt(
+        a.match(/(\d+)\.png$/i)?.[1] || "0",
+        10
+    );
+
+    const numB = parseInt(
+        b.match(/(\d+)\.png$/i)?.[1] || "0",
+        10
+    );
+
     return numA - numB;
 }
 
-// Get layout key
-function getLayoutKey(orientation, photoCount, designNumber) {
-    return `${orientation}_${photoCount}_${String(designNumber).padStart(2, "0")}`;
-}
 
-// Build frames for a given count
-function buildFramesForCount(orientation, count) {
-    const photoDir = path.join(root, orientation, `${count}_Photo`);
+// Build frames for one layout
+function buildFrames(layoutKey) {
 
-    if (!fs.existsSync(photoDir)) {
+    const layoutDir = path.join(root, layoutKey);
+
+    // Check layout exists in layouts.json
+    if (!layouts[layoutKey]) {
+        console.warn(
+            `Skipped ${layoutKey}: not found in layouts.json`
+        );
+
         return [];
     }
 
-    const photoCount = parseInt(count, 10);
-    const frames = [];
+    // Check template folder exists
+    if (!fs.existsSync(layoutDir)) {
+        console.warn(
+            `Skipped ${layoutKey}: template folder does not exist`
+        );
 
-    const designDirs = fs.readdirSync(photoDir, { withFileTypes: true })
-        .filter((entry) => entry.isDirectory() && /^design_\d+$/i.test(entry.name))
-        .sort((a, b) => {
-            const numA = parseInt(a.name.match(/\d+/)?.[0] || "0", 10);
-            const numB = parseInt(b.name.match(/\d+/)?.[0] || "0", 10);
-            return numA - numB;
-        });
+        return [];
+    }
 
-    designDirs.forEach((designDir) => {
-        const designNumber = parseInt(designDir.name.match(/\d+/)?.[0] || "0", 10);
-        const layoutKey = getLayoutKey(orientation, photoCount, designNumber);
-        const designPath = path.join(photoDir, designDir.name);
+    const photoCount = photoCounts[layoutKey];
 
-        const files = fs.readdirSync(designPath)
-            .filter((file) => file.toLowerCase().endsWith(".png"))
-            .sort(sortByTrailingNumber);
+    if (!photoCount) {
+        console.warn(
+            `Skipped ${layoutKey}: photo count is not defined`
+        );
 
-        if (files.length === 0) {
-            return;
-        }
+        return [];
+    }
 
-        if (!layouts[layoutKey]) {
-            console.warn(
-                `Skipped ${files.length} frame(s): add "${layoutKey}" to layouts.json for ${designPath}`
-            );
-            return;
-        }
+    // Get PNG files
+    const files = fs.readdirSync(layoutDir)
+        .filter(file =>
+            file.toLowerCase().endsWith(".png")
+        )
+        .sort(sortByTrailingNumber);
 
-        usedLayouts.add(layoutKey);
 
-        files.forEach((file, index) => {
-            const frameNumber = file.match(/(\d+)\.png$/i)?.[1] || String(index + 1);
-            const id = `${layoutKey}_frame_${String(frameNumber).padStart(2, "0")}`;
+    if (files.length === 0) {
+        console.warn(
+            `Skipped ${layoutKey}: no PNG files found`
+        );
 
-            frames.push({
-                id,
-                name: `${photoCount} ${orientation[0].toUpperCase()}${orientation.slice(1)} Design ${designNumber} - ${frameNumber}`,
-                orientation,
-                design: designNumber,
-                layout: layoutKey,
-                photoCount,
-                image: `assets/template/${orientation}/${count}_Photo/${designDir.name}/${file}`.replace(/\\/g, "/"),
-            });
-        });
+        return [];
+    }
+
+
+    const frames = files.map((file, index) => {
+
+        const frameNumber =
+            file.match(/(\d+)\.png$/i)?.[1]
+            || String(index + 1);
+
+        const paddedNumber =
+            String(frameNumber).padStart(2, "0");
+
+
+        return {
+            id: `${layoutKey}_frame_${paddedNumber}`,
+
+            name: `${layoutKey.replace("_", " ")} frame ${frameNumber}`,
+
+            layout: layoutKey,
+
+            photoCount,
+
+            image:
+                `assets/template/${layoutKey}/${file}`
+                    .replace(/\\/g, "/")
+        };
     });
+
 
     return frames;
 }
 
-// Build all frames for a given count
-function buildAllFrames(count) {
-    return [
-        ...buildFramesForCount("vertical", count),
-        ...buildFramesForCount("horizontal", count),
-    ];
+
+// Make sure output directory exists
+if (!fs.existsSync(outDir)) {
+    fs.mkdirSync(outDir, { recursive: true });
 }
 
-const frames2 = buildAllFrames("2");
-const frames3 = buildAllFrames("3");
-const frames4 = buildAllFrames("4");
 
-fs.writeFileSync(path.join(outDir, "2_photos.json"), `${JSON.stringify(frames2, null, 4)}\n`);
-fs.writeFileSync(path.join(outDir, "3_photos.json"), `${JSON.stringify(frames3, null, 4)}\n`);
-fs.writeFileSync(path.join(outDir, "4_photos.json"), `${JSON.stringify(frames4, null, 4)}\n`);
+// Generate JSON for every layout
+Object.keys(layouts).forEach(layoutKey => {
 
-const unusedLayouts = Object.keys(layouts).filter((key) => !usedLayouts.has(key));
+    const frames = buildFrames(layoutKey);
 
-console.log(`Generated frames: 2=${frames2.length}, 3=${frames3.length}, 4=${frames4.length}`);
+    const outputPath =
+        path.join(outDir, `${layoutKey}.json`);
 
-// Log unused layouts
-if (unusedLayouts.length > 0) {
-    console.log(`Layouts ready but no PNGs yet: ${unusedLayouts.join(", ")}`);
-}
+    fs.writeFileSync(
+        outputPath,
+        `${JSON.stringify(frames, null, 4)}\n`
+    );
+
+    console.log(
+        `Generated ${layoutKey}.json: ${frames.length} frame(s)`
+    );
+});
+
+
+console.log("\nFrame generation complete.");

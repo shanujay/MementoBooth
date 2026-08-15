@@ -5,5 +5,40 @@
         "layout": "layout_C",
         "photoCount": 3,
         "image": "assets/template/layout_C/layout_C_1.png"
+    },
+    {
+        "id": "layout_C_frame_02",
+        "name": "layout C frame 2",
+        "layout": "layout_C",
+        "photoCount": 3,
+        "image": "assets/template/layout_C/layout_C_2.png"
+    },
+    {
+        "id": "layout_C_frame_03",
+        "name": "layout C frame 3",
+        "layout": "layout_C",
+        "photoCount": 3,
+        "image": "assets/template/layout_C/layout_C_3.png"
+    },
+    {
+        "id": "layout_C_frame_04",
+        "name": "layout C frame 4",
+        "layout": "layout_C",
+        "photoCount": 3,
+        "image": "assets/template/layout_C/layout_C_4.png"
+    },
+    {
+        "id": "layout_C_frame_05",
+        "name": "layout C frame 5",
+        "layout": "layout_C",
+        "photoCount": 3,
+        "image": "assets/template/layout_C/layout_C_5.png"
+    },
+    {
+        "id": "layout_C_frame_06",
+        "name": "layout C frame 6",
+        "layout": "layout_C",
+        "photoCount": 3,
+        "image": "assets/template/layout_C/layout_C_6.png"
     }
 ]

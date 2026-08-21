@@ -318,7 +318,7 @@ function dataURLToBlob(dataUrl){
 
 }
 
-// Direct file download (used on desktop / when sharing isn't available)
+// Direct file download (used on Android, desktop, and as iOS fallback)
 function downloadBlob(blob){
 
     const url = URL.createObjectURL(blob);
@@ -326,7 +326,10 @@ function downloadBlob(blob){
     const link = document.createElement("a");
     link.href = url;
     link.download = "photo_strip.png";
+    link.style.display = "none";
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
 
     setTimeout(() => URL.revokeObjectURL(url), 1000);
 
@@ -350,10 +353,10 @@ function finishDownloadFlow(){
 
 }
 
-// Rough check for touch/mobile devices (incl. iPadOS reporting as Mac)
-function isMobileDevice(){
+// iOS / iPadOS (incl. iPadOS reporting as Mac)
+function isIOSDevice(){
 
-    return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+    return /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
         (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
 }
@@ -379,12 +382,11 @@ downloadBtn.addEventListener("click", async () => {
     const blob = dataURLToBlob(mergedCanvas.toDataURL("image/png"));
     const file = new File([blob], "photo_strip.png", { type: "image/png" });
 
-    // On mobile with Web Share support, open the native share sheet
-    // (lets the user "Save to Photos", AirDrop, message, etc.)
+    // iOS Safari ignores <a download>, so use the share sheet ("Save to Photos", etc.)
     const canShareFile =
         navigator.canShare && navigator.canShare({ files: [file] });
 
-    if(isMobileDevice() && canShareFile){
+    if(isIOSDevice() && canShareFile){
 
         try {
 
@@ -410,7 +412,7 @@ downloadBtn.addEventListener("click", async () => {
     }
     else {
 
-        // Desktop / unsupported: direct file download
+        // Android, desktop, and other platforms: direct file download
         downloadBlob(blob);
         finishDownloadFlow();
 

@@ -51,16 +51,65 @@ function redrawCanvas(){
 
 }
 
-editorCanvas.addEventListener("mousedown", (e)=>{
+function getCanvasPoint(e){
 
     const rect = editorCanvas.getBoundingClientRect();
 
     const scaleX = editorCanvas.width / rect.width;
     const scaleY = editorCanvas.height / rect.height;
 
+    return {
+        x: (e.clientX - rect.left) * scaleX,
+        y: (e.clientY - rect.top) * scaleY
+    };
 
-    const mouseX = (e.clientX - rect.left) * scaleX;
-    const mouseY = (e.clientY - rect.top) * scaleY;
+}
+
+function stopDragging(){
+
+    isDraggingText = false;
+
+    selectedText = null;
+
+    isDraggingSticker = false;
+
+    selectedSticker = null;
+
+}
+
+function getHitPadding(){
+
+    const rect = editorCanvas.getBoundingClientRect();
+
+    if(!rect.width){
+        return 0;
+    }
+
+    // ~22 CSS pixels of extra grab area, converted into canvas pixels
+    return 22 * (editorCanvas.width / rect.width);
+
+}
+
+editorCanvas.addEventListener("pointerdown", (e)=>{
+
+    // Ignore extra fingers / non-primary pointers
+    if(!e.isPrimary){
+        return;
+    }
+
+    e.preventDefault();
+
+    const point = getCanvasPoint(e);
+
+    const mouseX = point.x;
+    const mouseY = point.y;
+    const pad = getHitPadding();
+
+    try {
+        editorCanvas.setPointerCapture(e.pointerId);
+    } catch (err) {
+        // Some browsers throw if the pointer is already released
+    }
 
 
     // 0a) If a text is selected, check its close (delete) button first
@@ -71,7 +120,7 @@ editorCanvas.addEventListener("mousedown", (e)=>{
         const dx = mouseX - btn.cx;
         const dy = mouseY - btn.cy;
 
-        if(dx * dx + dy * dy <= btn.r * btn.r){
+        if(dx * dx + dy * dy <= (btn.r + pad) * (btn.r + pad)){
 
             const idx = editorState.texts.indexOf(activeText);
 
@@ -100,7 +149,7 @@ editorCanvas.addEventListener("mousedown", (e)=>{
         const dx = mouseX - btn.cx;
         const dy = mouseY - btn.cy;
 
-        if(dx * dx + dy * dy <= btn.r * btn.r){
+        if(dx * dx + dy * dy <= (btn.r + pad) * (btn.r + pad)){
 
             const idx = editorState.stickers.indexOf(activeSticker);
 
@@ -140,10 +189,10 @@ editorCanvas.addEventListener("mousedown", (e)=>{
 
 
         if(
-            mouseX >= text.x - textWidth / 2 &&
-            mouseX <= text.x + textWidth / 2 &&
-            mouseY >= text.y - 40 &&
-            mouseY <= text.y
+            mouseX >= text.x - textWidth / 2 - pad &&
+            mouseX <= text.x + textWidth / 2 + pad &&
+            mouseY >= text.y - 40 - pad &&
+            mouseY <= text.y + pad
         ){
 
             selectedText = text;
@@ -181,10 +230,10 @@ editorCanvas.addEventListener("mousedown", (e)=>{
         const sticker = editorState.stickers[i];
 
         if(
-            mouseX >= sticker.x &&
-            mouseX <= sticker.x + sticker.width &&
-            mouseY >= sticker.y &&
-            mouseY <= sticker.y + sticker.height
+            mouseX >= sticker.x - pad &&
+            mouseX <= sticker.x + sticker.width + pad &&
+            mouseY >= sticker.y - pad &&
+            mouseY <= sticker.y + sticker.height + pad
         ){
 
             selectedSticker = sticker;
@@ -215,25 +264,20 @@ editorCanvas.addEventListener("mousedown", (e)=>{
         drawTextOnTop();
     }
 
-});
+}, { passive: false });
 
-editorCanvas.addEventListener("mousemove",(e)=>{
+editorCanvas.addEventListener("pointermove",(e)=>{
 
-
-    if(!isDraggingText && !isDraggingSticker){
+    if(!e.isPrimary || (!isDraggingText && !isDraggingSticker)){
         return;
     }
 
+    e.preventDefault();
 
-    const rect = editorCanvas.getBoundingClientRect();
+    const point = getCanvasPoint(e);
 
-
-    const scaleX = editorCanvas.width / rect.width;
-    const scaleY = editorCanvas.height / rect.height;
-
-
-    const mouseX = (e.clientX - rect.left) * scaleX;
-    const mouseY = (e.clientY - rect.top) * scaleY;
+    const mouseX = point.x;
+    const mouseY = point.y;
 
 
     if(isDraggingText && selectedText){
@@ -255,17 +299,25 @@ editorCanvas.addEventListener("mousemove",(e)=>{
     drawTextOnTop();
 
 
+}, { passive: false });
+
+editorCanvas.addEventListener("pointerup", (e)=>{
+
+    if(!e.isPrimary){
+        return;
+    }
+
+    stopDragging();
+
 });
 
-editorCanvas.addEventListener("mouseup",()=>{
+editorCanvas.addEventListener("pointercancel", (e)=>{
 
-    isDraggingText = false;
+    if(!e.isPrimary){
+        return;
+    }
 
-    selectedText = null;
-
-    isDraggingSticker = false;
-
-    selectedSticker = null;
+    stopDragging();
 
 });
 

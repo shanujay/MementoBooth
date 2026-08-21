@@ -5,7 +5,16 @@
     box-sizing: border-box;
 }
 
+html {
+    color-scheme: light only;
+}
+
+img {
+    color-scheme: light only;
+}
+
 body {
+    color: #4a3b63;
     background: linear-gradient(160deg, #f4e6f4, #efd9f0, #e2c9ee, #cdbfec, #bcb2e8, #b3aae6);
     background-size: cover;
 

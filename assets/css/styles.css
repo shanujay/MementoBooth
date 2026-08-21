@@ -5,9 +5,24 @@
     box-sizing: border-box;
 }
 
+html {
+    color-scheme: light only;
+}
+
+input,
+textarea,
+select,
+button,
+img,
+video,
+canvas {
+    color-scheme: light only;
+}
+
 body {
     text-align: center;
     font-family: Arial, sans-serif;
+    color: #333;
     background: linear-gradient(160deg, #f4e6f4, #efd9f0, #e2c9ee, #cdbfec, #bcb2e8, #b3aae6);
     min-height: 100vh;
     min-height: 100dvh;

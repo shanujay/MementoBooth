@@ -140,11 +140,31 @@ let isDraggingSticker = false;
 // Currently selected sticker (shows a close button so it can be deleted)
 let activeSticker = null;
 
+// Sticker currently armed for delete (shows delete icon after long-press)
+let stickerArmedForDelete = null;
+
+// Long-press state (for arming sticker delete)
+let longPressTimer = null;
+let longPressCandidate = null;
+let longPressStartPoint = null;
+
+const LONG_PRESS_DURATION = 500;        // ms to hold before arming delete
+const LONG_PRESS_MOVE_THRESHOLD = 10;   // canvas px — moving past this cancels the hold
+
+
 // Close button radius (in canvas native pixels)
 const stickerCloseRadius = 16;
 
 // Close button radius for text (in canvas native pixels)
 const textCloseRadius = 16;
+
+// Text currently armed for delete (shows delete icon after long-press)
+let textArmedForDelete = null;
+
+// Long-press state for text (separate from sticker's, since both could theoretically be mid-press)
+let textLongPressTimer = null;
+let textLongPressCandidate = null;
+let textLongPressStartPoint = null;
 
 // Loaded Frame Image
 let loadedFrameImage = null;

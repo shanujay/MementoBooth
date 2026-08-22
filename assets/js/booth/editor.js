@@ -94,6 +94,27 @@ function getCanvasPoint(e){
 
 }
 
+// Cancel Long Press
+function cancelLongPress(){
+    if(longPressTimer){
+        clearTimeout(longPressTimer);
+        longPressTimer = null;
+    }
+    longPressCandidate = null;
+    longPressStartPoint = null;
+}
+
+// Cancel Text Long Press
+function cancelTextLongPress(){
+    if(textLongPressTimer){
+        clearTimeout(textLongPressTimer);
+        textLongPressTimer = null;
+    }
+    textLongPressCandidate = null;
+    textLongPressStartPoint = null;
+}
+
+// Stop Dragging
 function stopDragging(){
 
     isDraggingText = false;
@@ -141,23 +162,23 @@ editorCanvas.addEventListener("pointerdown", (e)=>{
     }
 
 
-    // 0a) If a text is selected, check its close (delete) button first
-    if(activeText){
+    // 0a) If a text is armed for delete, check its delete icon first
+    if(textArmedForDelete){
 
-        const btn = getTextCloseButton(activeText);
+        const btn = getTextCloseButton(textArmedForDelete);
 
         const dx = mouseX - btn.cx;
         const dy = mouseY - btn.cy;
 
         if(dx * dx + dy * dy <= (btn.r + pad) * (btn.r + pad)){
 
-            const idx = editorState.texts.indexOf(activeText);
+            const idx = editorState.texts.indexOf(textArmedForDelete);
 
             if(idx !== -1){
                 editorState.texts.splice(idx, 1);
             }
 
-            activeText = null;
+            textArmedForDelete = null;
 
             drawTextOnTop();
 
@@ -167,26 +188,31 @@ editorCanvas.addEventListener("pointerdown", (e)=>{
 
         }
 
+        // Tapped somewhere else: dismiss the armed state
+        textArmedForDelete = null;
+
+        drawTextOnTop();
+
     }
 
 
     // 0b) If a sticker is selected, check its close (delete) button first
-    if(activeSticker){
+    if(stickerArmedForDelete){
 
-        const btn = getStickerCloseButton(activeSticker);
+        const btn = getStickerCloseButton(stickerArmedForDelete);
 
         const dx = mouseX - btn.cx;
         const dy = mouseY - btn.cy;
 
         if(dx * dx + dy * dy <= (btn.r + pad) * (btn.r + pad)){
 
-            const idx = editorState.stickers.indexOf(activeSticker);
+            const idx = editorState.stickers.indexOf(stickerArmedForDelete);
 
             if(idx !== -1){
                 editorState.stickers.splice(idx, 1);
             }
 
-            activeSticker = null;
+            stickerArmedForDelete = null;
 
             drawTextOnTop();
 
@@ -195,6 +221,11 @@ editorCanvas.addEventListener("pointerdown", (e)=>{
             return;
 
         }
+
+        // Tapped somewhere else on the canvas: dismiss the armed state
+        stickerArmedForDelete = null;
+
+        drawTextOnTop();
 
     }
 
@@ -216,7 +247,6 @@ editorCanvas.addEventListener("pointerdown", (e)=>{
 
         const textWidth = editorCtx.measureText(text.content).width;
 
-
         if(
             mouseX >= text.x - textWidth / 2 - pad &&
             mouseX <= text.x + textWidth / 2 + pad &&
@@ -226,27 +256,39 @@ editorCanvas.addEventListener("pointerdown", (e)=>{
 
             selectedText = text;
 
-            // Keep a persistent reference so the color picker can edit it
-            activeText = text;
-
-            // Sync the color picker to the selected text's current color
+            // Sync the color picker / font buttons to this text
             textColor.value = text.color || defaultTextColor;
-
-            // Sync the font buttons to the selected text's current font
             setActiveFontButton(text.font || defaultTextFont);
 
             isDraggingText = true;
 
             dragOffsetX = mouseX - text.x;
-
             dragOffsetY = mouseY - text.y;
+
+            // Start long-press timer — if held without much movement, arm delete
+            textLongPressCandidate = text;
+            textLongPressStartPoint = { x: mouseX, y: mouseY };
+
+            textLongPressTimer = setTimeout(() => {
+
+                if(textLongPressCandidate === text){
+
+                    textArmedForDelete = text;
+
+                    isDraggingText = false;
+                    selectedText = null;
+
+                    drawTextOnTop();
+
+                    console.log("Text armed for delete:", text);
+
+                }
+
+            }, LONG_PRESS_DURATION);
 
             console.log("Selected text:", selectedText);
 
-            // Redraw to show this text's close button
-            drawTextOnTop();
-
-            return; // stop: don't also grab a sticker underneath
+            return;
 
         }
 
@@ -267,19 +309,34 @@ editorCanvas.addEventListener("pointerdown", (e)=>{
 
             selectedSticker = sticker;
 
-            // Mark as active so the close button shows
-            activeSticker = sticker;
-
             isDraggingSticker = true;
 
             dragOffsetX = mouseX - sticker.x;
 
             dragOffsetY = mouseY - sticker.y;
 
-            console.log("Selected sticker:", selectedSticker);
+            // Start long-press timer — if held without much movement, arm delete
+            longPressCandidate = sticker;
+            longPressStartPoint = { x: mouseX, y: mouseY };
 
-            // Redraw to show the close button
-            drawTextOnTop();
+            longPressTimer = setTimeout(() => {
+
+                if(longPressCandidate === sticker){
+
+                    stickerArmedForDelete = sticker;
+
+                    isDraggingSticker = false;
+                    selectedSticker = null;
+
+                    drawTextOnTop();
+
+                    console.log("Sticker armed for delete:", sticker);
+
+                }
+
+            }, LONG_PRESS_DURATION);
+
+            console.log("Selected sticker:", selectedSticker);
 
             return;
 
@@ -296,6 +353,30 @@ editorCanvas.addEventListener("pointerdown", (e)=>{
 }, { passive: false });
 
 editorCanvas.addEventListener("pointermove",(e)=>{
+
+    // Cancel long-press if the pointer moved too far before the timer fired
+    if(longPressCandidate && longPressStartPoint){
+
+        const point = getCanvasPoint(e);
+
+        const dx = point.x - longPressStartPoint.x;
+        const dy = point.y - longPressStartPoint.y;
+
+        if(dx * dx + dy * dy > LONG_PRESS_MOVE_THRESHOLD * LONG_PRESS_MOVE_THRESHOLD){
+            cancelLongPress();
+        }
+
+    }
+
+    // Cancel text long-press if moved too far
+    if(textLongPressCandidate && textLongPressStartPoint){
+        const p = getCanvasPoint(e);
+        const dx = p.x - textLongPressStartPoint.x;
+        const dy = p.y - textLongPressStartPoint.y;
+        if(dx * dx + dy * dy > LONG_PRESS_MOVE_THRESHOLD * LONG_PRESS_MOVE_THRESHOLD){
+            cancelTextLongPress();
+        }
+    }
 
     if(!e.isPrimary || (!isDraggingText && !isDraggingSticker)){
         return;
@@ -331,23 +412,17 @@ editorCanvas.addEventListener("pointermove",(e)=>{
 }, { passive: false });
 
 editorCanvas.addEventListener("pointerup", (e)=>{
-
-    if(!e.isPrimary){
-        return;
-    }
-
+    if(!e.isPrimary){ return; }
+    cancelLongPress();
+    cancelTextLongPress();
     stopDragging();
-
 });
 
 editorCanvas.addEventListener("pointercancel", (e)=>{
-
-    if(!e.isPrimary){
-        return;
-    }
-
+    if(!e.isPrimary){ return; }
+    cancelLongPress();
+    cancelTextLongPress();
     stopDragging();
-
 });
 
 // Text Tool
@@ -368,7 +443,6 @@ stickerTool.addEventListener("click",()=>{
 
 });
 
-// Add Sticker when an option is clicked
 // Add Sticker when an option is clicked (event delegation — works for dynamically added stickers)
 stickersPanel.addEventListener("click", (e) => {
 

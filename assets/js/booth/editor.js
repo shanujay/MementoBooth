@@ -25,6 +25,35 @@ filterTool.addEventListener("click",()=>{
 
 });
 
+// Load Stickers
+async function loadStickers() {
+    const panel = document.getElementById('stickersPanel');
+    const dataPath = 'assets/data/stickers.json';
+    const imgFolder = 'assets/stickers/';
+
+    try {
+        const response = await fetch(dataPath);
+        if (!response.ok) throw new Error('Could not load stickers.json');
+
+        const stickerFiles = await response.json();
+
+        stickerFiles.forEach((filename, i) => {
+            const img = document.createElement('img');
+            img.src = imgFolder + filename;
+            img.className = 'stickerOption';
+            img.dataset.src = imgFolder + filename;
+            img.alt = `Sticker ${i + 1}`;
+            panel.appendChild(img);
+        });
+    } catch (err) {
+        console.error('Error loading stickers:', err);
+    }
+}
+
+// Run once on page load
+loadStickers();
+
+
 function resizeEditorCanvas(){
 
     editorCanvas.width = canvas.width;
@@ -340,57 +369,39 @@ stickerTool.addEventListener("click",()=>{
 });
 
 // Add Sticker when an option is clicked
-stickerOptions.forEach(option=>{
+// Add Sticker when an option is clicked (event delegation — works for dynamically added stickers)
+stickersPanel.addEventListener("click", (e) => {
 
-    option.addEventListener("click", ()=>{
+    const option = e.target.closest('.stickerOption');
 
-        const src = option.dataset.src;
+    if(!option) return; // click wasn't on a sticker
 
+    const src = option.dataset.src;
 
-        const img = new Image();
+    const img = new Image();
+    img.src = src;
 
-        img.src = src;
+    const sticker = {
+        img: img,
+        x: canvas.width / 2 - stickerDefaultWidth / 2,
+        y: canvas.height / 2 - stickerDefaultWidth / 2,
+        width: stickerDefaultWidth,
+        height: stickerDefaultWidth
+    };
 
+    editorState.stickers.push(sticker);
 
-        const sticker = {
+    activeSticker = sticker;
+    activeText = null;
 
-            img: img,
+    img.onload = () => {
+        sticker.height = stickerDefaultWidth * (img.naturalHeight / img.naturalWidth);
+        sticker.x = canvas.width / 2 - sticker.width / 2;
+        sticker.y = canvas.height / 2 - sticker.height / 2;
+        drawTextOnTop();
+    };
 
-            x: canvas.width / 2 - stickerDefaultWidth / 2,
-
-            y: canvas.height / 2 - stickerDefaultWidth / 2,
-
-            width: stickerDefaultWidth,
-
-            height: stickerDefaultWidth
-
-        };
-
-
-        editorState.stickers.push(sticker);
-
-        // Newly added sticker becomes selected (shows the close button)
-        activeSticker = sticker;
-        activeText = null;
-
-
-        // Once loaded, keep aspect ratio and redraw
-        img.onload = ()=>{
-
-            sticker.height = stickerDefaultWidth * (img.naturalHeight / img.naturalWidth);
-
-            sticker.x = canvas.width / 2 - sticker.width / 2;
-
-            sticker.y = canvas.height / 2 - sticker.height / 2;
-
-            drawTextOnTop();
-
-        };
-
-
-        console.log("Sticker added:", src);
-
-    });
+    console.log("Sticker added:", src);
 
 });
 

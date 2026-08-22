@@ -59,9 +59,10 @@ function drawTextOnTop(){
 
 
     // Draw the close (delete) button for the currently selected sticker
-    if(activeSticker){
+    // Draw the close (delete) button for the currently selected sticker
+    if(stickerArmedForDelete){
 
-        drawCloseButton(getStickerCloseButton(activeSticker));
+        drawCloseButton(getStickerCloseButton(stickerArmedForDelete));
 
     }
 
@@ -365,7 +366,7 @@ function isIOSDevice(){
 downloadBtn.addEventListener("click", async () => {
 
     // Deselect so the close buttons aren't drawn into the output
-    activeSticker = null;
+    stickerArmedForDelete = null;
     activeText = null;
     drawTextOnTop();
 

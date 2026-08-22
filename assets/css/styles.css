@@ -9,6 +9,34 @@ html {
     color-scheme: light only;
 }
 
+/* Scrollbar Styles */
+/* Firefox */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: #8E81DA #cdbfec !important;
+}
+
+/* Chrome, Edge, Safari (WebKit) */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #cdbfec !important;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #8E81DA;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #6E5DD0;
+}
+
+
 input,
 textarea,
 select,
@@ -1250,11 +1278,11 @@ canvas {
 
     padding: 6px;
 
-    border: 2px solid #ccc;
+    border: 2px solid #b4a7b4;
 
     border-radius: 10px;
 
-    background: #fff;
+    background: #f4e6f4;
 
     cursor: pointer;
 

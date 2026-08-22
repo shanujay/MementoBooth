@@ -1557,3 +1557,34 @@ canvas {
     display: flex;
     flex-direction: column;
 }
+
+/* Stickers Instructions */
+.stickerInstructions {
+    margin-top: 12px;
+    padding: 0;
+    list-style: none;
+    font-size: 12px;
+    color: #494949;
+    text-align: center;
+}
+
+.stickerInstructions li {
+    margin-bottom: 4px;
+}
+
+/* Text Instructions */
+.textInstructions{
+    margin-top: 12px;
+    font-size: 12px;
+    color: #494949;
+    text-align: center;
+}
+
+.textInstructions ul {
+    padding: 0;
+    list-style: none;
+}
+
+.textInstructions li {
+    margin-bottom: 4px;
+}

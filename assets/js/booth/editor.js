@@ -45,6 +45,25 @@ async function loadStickers() {
             img.alt = `Sticker ${i + 1}`;
             panel.appendChild(img);
         });
+
+        // Add instructions below the loaded stickers
+        const instructions = document.createElement('ul');
+        instructions.className = 'stickerInstructions';
+
+        const instructionTexts = [
+            'Tap a sticker to add it.',
+            'Drag the sticker to place it on the strip.',
+            'Long-press a sticker on the canvas to delete it.'
+        ];
+
+        instructionTexts.forEach(text => {
+            const li = document.createElement('li');
+            li.textContent = text;
+            instructions.appendChild(li);
+        });
+
+        panel.appendChild(instructions);
+
     } catch (err) {
         console.error('Error loading stickers:', err);
     }

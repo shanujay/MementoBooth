@@ -1178,13 +1178,11 @@ canvas {
 
     border: 2px solid #fff;
 
-    border-radius: 50%;
+    border-radius: 0;
 
     cursor: pointer;
 
     background: none;
-
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 
 }
 
@@ -1615,4 +1613,73 @@ canvas {
 
 .textInstructions li {
     margin-bottom: 4px;
+}
+
+
+#textSizeContainer {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 999px;
+    padding: 12px 20px;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+#textSizeContainer label {
+    font-weight: 700;
+    font-size: 15px;
+    color: #1a1a1a;
+    white-space: nowrap;
+}
+
+#textSize {
+    width: 120px;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    border-radius: 4px;
+    background: #e5e5e5;
+    outline: none;
+    cursor: pointer;
+}
+
+/* Chrome, Edge, Safari */
+#textSize::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #f5a623;
+    cursor: pointer;
+    border: 3px solid #ffffff;
+    box-shadow: 0 0 0 1px #f5a623, 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Firefox */
+#textSize::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #f5a623;
+    cursor: pointer;
+    border: 3px solid #ffffff;
+    box-shadow: 0 0 0 1px #f5a623, 0 1px 3px rgba(0,0,0,0.2);
+}
+
+#textSize::-moz-range-track {
+    height: 4px;
+    border-radius: 4px;
+    background: #e5e5e5;
+}
+
+#textSizeValue {
+    font-weight: 700;
+    font-size: 14px;
+    color: #1a1a1a;
+    min-width: 34px;
+    text-align: right;
 }

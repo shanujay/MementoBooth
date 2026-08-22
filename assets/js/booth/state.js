@@ -68,10 +68,13 @@ const textField = document.getElementById("textField");
 const addTextBtn = document.getElementById("addText");
 const textColor = document.getElementById("textColor");
 const fontOptions = document.querySelectorAll(".fontOption");
+const textSize = document.getElementById("textSize");
+const textSizeValue = document.getElementById("textSizeValue");
 
 // Editor Canvas
 const editorCanvas = document.getElementById("editorCanvas");
 const editorCtx = editorCanvas.getContext("2d");
+
 
 let selectedTextPosition = "top";
 
@@ -119,6 +122,10 @@ const defaultTextColor = "#000000";
 // Default / currently selected Font
 const defaultTextFont = "Arial";
 let selectedFont = "Arial";
+
+// Default / currently selected Font Size
+const defaultTextSize = 40;
+let selectedTextSize = 40;
 
 // Text Drag and Drop State
 let selectedText = null;

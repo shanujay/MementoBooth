@@ -262,22 +262,29 @@ editorCanvas.addEventListener("pointerdown", (e)=>{
 
         const text = editorState.texts[i];
 
-        editorCtx.font = "40px " + (text.font || defaultTextFont);
+        editorCtx.font = (text.size || defaultTextSize) + "px " + (text.font || defaultTextFont);
 
         const textWidth = editorCtx.measureText(text.content).width;
 
         if(
             mouseX >= text.x - textWidth / 2 - pad &&
             mouseX <= text.x + textWidth / 2 + pad &&
-            mouseY >= text.y - 40 - pad &&
+            mouseY >= text.y - (text.size || defaultTextSize) - pad &&
             mouseY <= text.y + pad
         ){
 
             selectedText = text;
 
+            // Set the active text to this text
+            activeText = text;
+
             // Sync the color picker / font buttons to this text
             textColor.value = text.color || defaultTextColor;
             setActiveFontButton(text.font || defaultTextFont);
+
+            // Sync the size slider to this text's current size
+            textSize.value = text.size || defaultTextSize;
+            textSizeValue.textContent = (text.size || defaultTextSize) + "px";
 
             isDraggingText = true;
 
@@ -525,7 +532,9 @@ addTextBtn.addEventListener("click", () => {
 
         color: textColor.value,
 
-        font: selectedFont
+        font: selectedFont,
+
+        size: selectedTextSize
 
     };
 
@@ -601,6 +610,24 @@ fontOptions.forEach(btn=>{
         }
 
     });
+
+});
+
+// Change Font Size
+textSize.addEventListener("input", () => {
+
+    selectedTextSize = parseInt(textSize.value, 10);
+
+    textSizeValue.textContent = selectedTextSize + "px";
+
+    // If a text is currently selected, resize it live
+    if(activeText){
+
+        activeText.size = selectedTextSize;
+
+        drawTextOnTop();
+
+    }
 
 });
 

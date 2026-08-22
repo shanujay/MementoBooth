@@ -37,16 +37,12 @@ function drawTextOnTop(){
 
     editorState.texts.forEach(text=>{
 
-        editorCtx.font = "40px " + (text.font || defaultTextFont);
-
+        editorCtx.font = (text.size || defaultTextSize) + "px " + (text.font || defaultTextFont);
+    
         editorCtx.fillStyle = text.color || defaultTextColor;
-
-        editorCtx.fillText(
-            text.content,
-            text.x,
-            text.y
-        );
-
+    
+        editorCtx.fillText(text.content, text.x, text.y);
+    
     });
 
 
@@ -109,13 +105,13 @@ function getStickerCloseButton(sticker){
 // Returns the close button geometry for a text (top-right corner of its box)
 function getTextCloseButton(text){
 
-    editorCtx.font = "40px " + (text.font || defaultTextFont);
+    editorCtx.font = (text.size || defaultTextSize) + "px " + (text.font || defaultTextFont);
 
     const textWidth = editorCtx.measureText(text.content).width;
 
     return {
         cx: text.x + textWidth / 2,
-        cy: text.y - 40,
+        cy: text.y - (text.size || defaultTextSize),   
         r: textCloseRadius
     };
 

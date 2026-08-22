@@ -158,5 +158,13 @@ const stickerCloseRadius = 16;
 // Close button radius for text (in canvas native pixels)
 const textCloseRadius = 16;
 
+// Text currently armed for delete (shows delete icon after long-press)
+let textArmedForDelete = null;
+
+// Long-press state for text (separate from sticker's, since both could theoretically be mid-press)
+let textLongPressTimer = null;
+let textLongPressCandidate = null;
+let textLongPressStartPoint = null;
+
 // Loaded Frame Image
 let loadedFrameImage = null;

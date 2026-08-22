@@ -51,10 +51,10 @@ function drawTextOnTop(){
 
 
     // Draw the close (delete) button for the currently selected text
-    if(activeText){
+    if(textArmedForDelete){
 
-        drawCloseButton(getTextCloseButton(activeText));
-
+        drawCloseButton(getTextCloseButton(textArmedForDelete));
+    
     }
 
 
@@ -367,7 +367,7 @@ downloadBtn.addEventListener("click", async () => {
 
     // Deselect so the close buttons aren't drawn into the output
     stickerArmedForDelete = null;
-    activeText = null;
+    textArmedForDelete = null;
     drawTextOnTop();
 
     // Merge the base canvas (photos + frame) with the editor overlay (text + stickers)
